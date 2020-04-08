@@ -229,6 +229,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/128-Longest-Consecutive-Sequence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/08/128-Longest-Consecutive-Sequence/" itemprop="url">128. Longest Consecutive Sequence</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T20:59:18+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given an unsorted array of integers, find the length of the longest consecutive elements sequence.</p>
+<p>Your algorithm should run in <code>O(n)</code> complexity.</p>
+<p>Example:</p>
+<pre><code>Input: [100, 4, 200, 1, 3, 2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>1 对于给定的无序的一组整数，找出最长连续序列的最长长度。时间要求复杂度是o(n).</p>
+<p>2 一般要求了时间复杂度的，都会以空间换时间。<br>所以我们要想用啥数据结构来存一下这些数据 嘻嘻。<br>这个类似一个排序题，如果用排序算法，时间复杂度大于o(n);(如果是计数排序，不能确定最小值和最大值，可能会浪费大量空间)</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>1 可以用set或hash_set来存储整数值（去重）。</p>
+<p>2 然后对每个存在于数组中的整数，如果其存在set中，则对其左右进行扩散查找，得到他的连续序列长度；同时，从set中删除已经遍历过的整数值，避免重复查找。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 要求o(n)时间，肯定是用空间换时间了</span></span><br><span class="line">        <span class="comment">// 所以用啥数据结构存呢？用set存储</span></span><br><span class="line">        <span class="comment">// 然后对每个在set中的值，对其进行左右扩展（同时将值从set中删除，避免重复扩展）</span></span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> nums.<span class="built_in">size</span>();&#125;</span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">mset</span><span class="params">(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n : nums)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(n) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                mset.erase(n);</span><br><span class="line">                <span class="keyword">int</span> lp = n<span class="number">-1</span>, rp = n+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(lp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(lp);</span><br><span class="line">                    --lp;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(rp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(rp);</span><br><span class="line">                    ++rp;</span><br><span class="line">                &#125;</span><br><span class="line">                res = <span class="built_in">max</span>(res, rp-lp<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/06/125-Valid-Palindrome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1121,7 +1253,7 @@ Output:
       
         
           
-            <h2 id="新的开始-4-20"><a href="#新的开始-4-20" class="headerlink" title="新的开始 4-20"></a>新的开始 4-20</h2><hr>
+            <h2 id="新的开始-4-02"><a href="#新的开始-4-02" class="headerlink" title="新的开始 4-02"></a>新的开始 4-02</h2><hr>
 <p> 2020-4-2日下午三点半，开始个人博客之旅~<br> 记录个人生活感想和学习心得~<br> 坚持呀！</p>
 <hr>
 
@@ -1337,7 +1469,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1350,7 +1482,7 @@ Output:
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
