@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Hard,Set,Sequence," />
+  <meta name="keywords" content="Medium,LeetCode,O_N," />
 
 
 
@@ -79,20 +79,19 @@
 
 
 
-<meta name="description" content="题目 Given an unsorted array of integers, find the length of the longest consecutive elements sequence. Your algorithm should run in O(n) complexity. Example: Input: [100, 4, 200, 1, 3, 2] Output: 4 Exp">
+<meta name="description" content="题目 There are N gas stations along a circular route, where the amount of gas at station i is gas[i]. You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to it">
 <meta property="og:type" content="article">
-<meta property="og:title" content="128. Longest Consecutive Sequence">
-<meta property="og:url" content="http://yoursite.com/2020/04/08/128-Longest-Consecutive-Sequence/index.html">
+<meta property="og:title" content="134. Gas Station">
+<meta property="og:url" content="http://yoursite.com/2020/04/10/134-Gas-Station/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given an unsorted array of integers, find the length of the longest consecutive elements sequence. Your algorithm should run in O(n) complexity. Example: Input: [100, 4, 200, 1, 3, 2] Output: 4 Exp">
+<meta property="og:description" content="题目 There are N gas stations along a circular route, where the amount of gas at station i is gas[i]. You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to it">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-08T12:59:18.000Z">
-<meta property="article:modified_time" content="2020-04-08T13:22:44.228Z">
+<meta property="article:published_time" content="2020-04-10T14:46:18.000Z">
+<meta property="article:modified_time" content="2020-04-10T15:00:49.984Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Medium">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Hard">
-<meta property="article:tag" content="Set">
-<meta property="article:tag" content="Sequence">
+<meta property="article:tag" content="O_N">
 <meta name="twitter:card" content="summary">
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/08/128-Longest-Consecutive-Sequence/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/10/134-Gas-Station/"/>
 
 
 
 
 
-  <title>128. Longest Consecutive Sequence | Hexo</title>
+  <title>134. Gas Station | Hexo</title>
   
 
 
@@ -236,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/128-Longest-Consecutive-Sequence/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/10/134-Gas-Station/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -253,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">128. Longest Consecutive Sequence</h1>
+          <h1 class="post-title" itemprop="name headline">134. Gas Station</h1>
         
 
         <div class="post-meta">
@@ -265,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T20:59:18+08:00">
-                2020-04-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T22:46:18+08:00">
+                2020-04-10
               </time>
             
 
@@ -304,19 +303,35 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given an unsorted array of integers, find the length of the longest consecutive elements sequence.</p>
-<p>Your algorithm should run in <code>O(n)</code> complexity.</p>
-<p>Example:</p>
-<pre><code>Input: [100, 4, 200, 1, 3, 2]
-Output: 4
-Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>1 对于给定的无序的一组整数，找出最长连续序列的最长长度。时间要求复杂度是o(n).</p>
-<p>2 一般要求了时间复杂度的，都会以空间换时间。<br>所以我们要想用啥数据结构来存一下这些数据 嘻嘻。<br>这个类似一个排序题，如果用排序算法，时间复杂度大于o(n);(如果是计数排序，不能确定最小值和最大值，可能会浪费大量空间)</p>
+<p>There are N gas stations along a circular route, where the amount of gas at station i is gas[i].</p>
+<p>You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.</p>
+<p>Return the starting gas station’s index if you can travel around the circuit once in the clockwise direction, otherwise return -1.</p>
+<p>Note:</p>
+<pre><code>If there exists a solution, it is guaranteed to be unique.
+Both input arrays are non-empty and have the same length.
+Each element in the input arrays is a non-negative integer.</code></pre><p>Example 1:</p>
+<pre><code>Input: 
+gas  = [1,2,3,4,5]
+cost = [3,4,5,1,2]
+
+Output: 3
+
+Explanation:
+Start at station 3 (index 3) and fill up with 4 unit of gas. Your tank = 0 + 4 = 4
+Travel to station 4. Your tank = 4 - 1 + 5 = 8
+Travel to station 0. Your tank = 8 - 2 + 1 = 7
+Travel to station 1. Your tank = 7 - 3 + 2 = 6
+Travel to station 2. Your tank = 6 - 4 + 3 = 5
+Travel to station 3. The cost is 5. Your gas is just enough to travel back to station 3.
+Therefore, return 3 as the starting index.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定两个数组，gas和cost，gas[i]代表当前加油站的油量（全都给车加上），cost[i]表示从加油站i到i+1之间好消耗多少油量。问，能否从某个油站出发 走完所有加油站。</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<p>1 可以用set或hash_set来存储整数值（去重）。</p>
-<p>2 然后对每个存在于数组中的整数，如果其存在set中，则对其左右进行扩散查找，得到他的连续序列长度；同时，从set中删除已经遍历过的整数值，避免重复查找。</p>
+<ul>
+<li>很直观的一个想法是进行<code>双重遍历</code>。尝试从每个加油站出发，然后计算是否能遍历一遍。当前剩余油量(remainGas) = 前次剩余油量 + gas[i] - cost[i], 如果 remainGas &lt; 0， 则代表不能才能够这个加油站出发。</li>
+<li>第二种方法是：从头到尾只<code>遍历一次</code>，也记录 remainGas，如果 remainGas &lt; 0, 则表示要到达改点，还需 remainGas 这么多油量（欠下的 needGas += remainGas）。然后设 remainGas = 0， 从下一个点开始走起。 遍历完成后，看remainGas是否能补足之前 欠下的 油量 needGas。</li>
+</ul>
 <h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 要求o(n)时间，肯定是用空间换时间了</span></span><br><span class="line">        <span class="comment">// 所以用啥数据结构存呢？用set存储</span></span><br><span class="line">        <span class="comment">// 然后对每个在set中的值，对其进行左右扩展（同时将值从set中删除，避免重复扩展）</span></span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> nums.<span class="built_in">size</span>();&#125;</span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">mset</span><span class="params">(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n : nums)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(n) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                mset.erase(n);</span><br><span class="line">                <span class="keyword">int</span> lp = n<span class="number">-1</span>, rp = n+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(lp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(lp);</span><br><span class="line">                    --lp;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(rp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(rp);</span><br><span class="line">                    ++rp;</span><br><span class="line">                &#125;</span><br><span class="line">                res = <span class="built_in">max</span>(res, rp-lp<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canComp</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = gas.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> curidx = sidx;</span><br><span class="line">        <span class="keyword">int</span> remainGas = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; ++i)&#123;</span><br><span class="line">            curidx = (sidx+i)%<span class="built_in">size</span>;</span><br><span class="line">            remainGas = (remainGas + gas[curidx] - cost[curidx]);</span><br><span class="line">            <span class="keyword">if</span>(remainGas &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compCirDfor</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gas.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(canComp(gas, cost, i))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compCirOnce</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> curgas = <span class="number">0</span>, needgas = <span class="number">0</span>, residx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gas.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            curgas = curgas + gas[i] - cost[i];</span><br><span class="line">            <span class="keyword">if</span>(curgas &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//if(residx != -1)&#123; return -1;&#125;</span></span><br><span class="line">                needgas += curgas;</span><br><span class="line">                curgas = <span class="number">0</span>;</span><br><span class="line">                residx = i+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curgas + needgas &gt;= <span class="number">0</span> ? residx : <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//双重循环</span></span><br><span class="line">        <span class="keyword">return</span> compCirDfor(gas, cost);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//一次遍历：从头遍历，如果到中间某个位置，油量不够了，说明从头走到这儿就是极限了，如果继续往下走，则会欠一些流量。则我们可以从下一个点重新开始往后走，看后阶段走完后剩余的油量能否补足这个上一段路欠下的。</span></span><br><span class="line">        <span class="keyword">return</span> compCirOnce(gas, cost);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -333,13 +348,11 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
       
         <div class="post-tags">
           
+            <a href="/tags/Medium/" rel="tag"># Medium</a>
+          
             <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-            <a href="/tags/Hard/" rel="tag"># Hard</a>
-          
-            <a href="/tags/Set/" rel="tag"># Set</a>
-          
-            <a href="/tags/Sequence/" rel="tag"># Sequence</a>
+            <a href="/tags/O-N/" rel="tag"># O_N</a>
           
         </div>
       
@@ -352,8 +365,8 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/06/125-Valid-Palindrome/" rel="next" title="125. Valid Palindrome">
-                <i class="fa fa-chevron-left"></i> 125. Valid Palindrome
+              <a href="/2020/04/09/131-Palindrome-Partitioning/" rel="next" title="131. Palindrome Partitioning">
+                <i class="fa fa-chevron-left"></i> 131. Palindrome Partitioning
               </a>
             
           </div>
@@ -361,10 +374,6 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/09/131-Palindrome-Partitioning/" rel="prev" title="131. Palindrome Partitioning">
-                131. Palindrome Partitioning <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
