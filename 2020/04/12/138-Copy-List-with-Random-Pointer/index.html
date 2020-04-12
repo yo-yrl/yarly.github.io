@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy," />
+  <meta name="keywords" content="Medium,LeetCode,Link," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="题目 Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock">
+<meta name="description" content="题目 A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list. The Linked List is represented in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="121. Best Time to Buy and Sell Stock">
-<meta property="og:url" content="http://yoursite.com/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/index.html">
+<meta property="og:title" content="138. Copy List with Random Pointer">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock">
+<meta property="og:description" content="题目 A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list. The Linked List is represented in">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-04T07:19:07.000Z">
-<meta property="article:modified_time" content="2020-04-06T01:19:56.224Z">
+<meta property="article:published_time" content="2020-04-12T12:49:29.000Z">
+<meta property="article:modified_time" content="2020-04-12T13:06:34.939Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Medium">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Easy">
+<meta property="article:tag" content="Link">
 <meta name="twitter:card" content="summary">
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/"/>
 
 
 
 
 
-  <title>121. Best Time to Buy and Sell Stock | Hexo</title>
+  <title>138. Copy List with Random Pointer | Hexo</title>
   
 
 
@@ -234,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -251,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">121. Best Time to Buy and Sell Stock</h1>
+          <h1 class="post-title" itemprop="name headline">138. Copy List with Random Pointer</h1>
         
 
         <div class="post-meta">
@@ -263,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-04T15:19:07+08:00">
-                2020-04-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T20:49:29+08:00">
+                2020-04-12
               </time>
             
 
@@ -302,31 +303,23 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
-<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
-<p>Note that you cannot sell a stock before you buy one.</p>
-<p>Example 1:</p>
-<pre><code>Input: [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-            Not 7-1 = 6, as selling price needs to be larger than buying price.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给出一个数组，表示一段时间内该股票的价格，让我们求<strong>能挣到的最多钱</strong>（即差价）。如果给出的是递减数组，则返回0（没钱可挣，别买股票了）。</p>
+<p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+<p>The Linked List is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:</p>
+<ul>
+<li>val: an integer representing Node.val</li>
+<li>random_index: the index of the node (range from 0 to n-1) where random pointer points to, or null if it does not point to any node.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个链表，除了 next 指针，还有一个 random 指针，指向链表中其他节点或 nullptr 。我们要对这个链表进行深拷贝，并返回新链表。</p>
+<p>因为新旧链表的地址不一样，我们不能通过简单的 p == p1 寻找新链表节点的 random 指针。所以我们需要想办法去解决这个新旧节点地址不同的问题。</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ol>
-<li><p>暴力破解：$O(n^2)$</p>
 <ul>
-<li>双重循环，求每对价格的的差价，记录最大差价。</li>
+<li>用<code>map</code>进行新旧节点的映射。这样在寻找random指针时就很方便~ 遍历一遍链表，创建新链表并完成map映射，再进行一遍遍历，完成random指针的指向~ 【时间复杂度:O(n), 空间复杂度: O(n)】</li>
+<li>在原有链表上增加新节点：<code>old1 -&gt; new1 -&gt; old2 -&gt; new2</code>，然后 新节点的Random指针就是旧节点的random指针的next；最后，将链表拆开成新旧链表，返回新链表【时间复杂度：O(n), 空间复杂度：O(1)】</li>
 </ul>
-</li>
-<li><p>遍历一遍：$O(n)$</p>
-<ul>
-<li>目标是相求最大差价：对于第i天来说，其最大差价等于当前价格 减去 在他之前的最小价格~ </li>
-<li>可以用一个值来保存遍历过的数的最小值，然后对 最大差价 和 最小值进行更新</li>
-</ul>
-</li>
-</ol>
 <h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//一直维护一个最小值~，然后求最大值</span></span><br><span class="line">        <span class="keyword">if</span>(prices.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>], res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            res = <span class="built_in">max</span>(res, prices[i] - minPrice);</span><br><span class="line">            minPrice = <span class="built_in">min</span>(minPrice, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment">    Node* random;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    Node(int _val) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">        next = NULL;</span></span><br><span class="line"><span class="comment">        random = NULL;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">copyAndSplit</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//先复制一遍，然后奇偶属于不同的链，返回其中一条；</span></span><br><span class="line">        <span class="comment">//Node* retH = new Node(-1);</span></span><br><span class="line">        Node* ocur = head, *rcur =<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//复制链表</span></span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            Node* tmp = <span class="keyword">new</span> Node(ocur-&gt;val);</span><br><span class="line">            tmp-&gt;next = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = tmp;</span><br><span class="line">            ocur = tmp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//复制链表random</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ocur-&gt;<span class="built_in">random</span> != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                ocur-&gt;next-&gt;<span class="built_in">random</span> = ocur-&gt;<span class="built_in">random</span>-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//拆链</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        rcur = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(ocur)&#123;</span><br><span class="line">            Node* t = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = t-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(t-&gt;next)&#123;</span><br><span class="line">                t-&gt;next = t-&gt;next-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rcur;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Node* <span class="title">copyMap</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//用map来保存新节点和旧节点的对应关系</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> copyAndSplit(head);</span><br><span class="line">        <span class="comment">// return copyMap(head);</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -344,9 +337,11 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
       
         <div class="post-tags">
           
+            <a href="/tags/Medium/" rel="tag"># Medium</a>
+          
             <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-            <a href="/tags/Easy/" rel="tag"># Easy</a>
+            <a href="/tags/Link/" rel="tag"># Link</a>
           
         </div>
       
@@ -359,8 +354,8 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/03/118-Pascal-s-Triangle/" rel="next" title="118. Pascal's Triangle">
-                <i class="fa fa-chevron-left"></i> 118. Pascal's Triangle
+              <a href="/2020/04/11/136-Single-Number/" rel="next" title="136. Single Number">
+                <i class="fa fa-chevron-left"></i> 136. Single Number
               </a>
             
           </div>
@@ -368,10 +363,6 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/" rel="prev" title="124. Binary Tree Maximum Path Sum">
-                124. Binary Tree Maximum Path Sum <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

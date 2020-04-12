@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/12/138-Copy-List-with-Random-Pointer/" itemprop="url">138. Copy List with Random Pointer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T20:49:29+08:00">
+                2020-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+<p>The Linked List is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:</p>
+<ul>
+<li>val: an integer representing Node.val</li>
+<li>random_index: the index of the node (range from 0 to n-1) where random pointer points to, or null if it does not point to any node.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个链表，除了 next 指针，还有一个 random 指针，指向链表中其他节点或 nullptr 。我们要对这个链表进行深拷贝，并返回新链表。</p>
+<p>因为新旧链表的地址不一样，我们不能通过简单的 p == p1 寻找新链表节点的 random 指针。所以我们需要想办法去解决这个新旧节点地址不同的问题。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>用<code>map</code>进行新旧节点的映射。这样在寻找random指针时就很方便~ 遍历一遍链表，创建新链表并完成map映射，再进行一遍遍历，完成random指针的指向~ 【时间复杂度:O(n), 空间复杂度: O(n)】</li>
+<li>在原有链表上增加新节点：<code>old1 -&gt; new1 -&gt; old2 -&gt; new2</code>，然后 新节点的Random指针就是旧节点的random指针的next；最后，将链表拆开成新旧链表，返回新链表【时间复杂度：O(n), 空间复杂度：O(1)】</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment">    Node* random;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    Node(int _val) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">        next = NULL;</span></span><br><span class="line"><span class="comment">        random = NULL;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">copyAndSplit</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//先复制一遍，然后奇偶属于不同的链，返回其中一条；</span></span><br><span class="line">        <span class="comment">//Node* retH = new Node(-1);</span></span><br><span class="line">        Node* ocur = head, *rcur =<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//复制链表</span></span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            Node* tmp = <span class="keyword">new</span> Node(ocur-&gt;val);</span><br><span class="line">            tmp-&gt;next = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = tmp;</span><br><span class="line">            ocur = tmp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//复制链表random</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ocur-&gt;<span class="built_in">random</span> != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                ocur-&gt;next-&gt;<span class="built_in">random</span> = ocur-&gt;<span class="built_in">random</span>-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//拆链</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        rcur = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(ocur)&#123;</span><br><span class="line">            Node* t = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = t-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(t-&gt;next)&#123;</span><br><span class="line">                t-&gt;next = t-&gt;next-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rcur;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Node* <span class="title">copyMap</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//用map来保存新节点和旧节点的对应关系</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> copyAndSplit(head);</span><br><span class="line">        <span class="comment">// return copyMap(head);</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/11/136-Single-Number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1466,140 +1603,6 @@ Output:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/108-Convert-Sorted-Array-to-Binary-Search-Tree-%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/02/108-Convert-Sorted-Array-to-Binary-Search-Tree-%E9%A2%98%E8%A7%A3/" itemprop="url">108. Convert Sorted Array to Binary Search Tree 题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T16:19:39+08:00">
-                2020-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given an array where elements are sorted in ascending order, convert it to a height balanced BST.</p>
-<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.</p>
-<p>Example:</p>
-<p>Given the sorted array: [-10,-3,0,5,9],</p>
-<p>One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:</p>
-<pre><code> 0
-/ \</code></pre><p>   -3   9<br>   /   /<br> -10  5</p>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<pre><code>给我们一个排序的数组，让我们生成一个平衡二叉树（每棵子树高度相差不超过1）。
-思路是：为了使二叉树左右子树高度相差不超过1，则我们应该尽可能将中位数作为根节点，这样左右子树的节点个数相差不超过1。使用递归的方法，构造两棵左右子树~</code></pre><h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
-<pre><code>【递归求解】
-先求出中间位置，然后构造节点。然后递归构造左右子树~</code></pre><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
- <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildBST</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt; h)&#123; <span class="keyword">return</span> <span class="literal">nullptr</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(l == h)&#123; <span class="keyword">return</span> <span class="keyword">new</span> TreeNode(nums[l]);&#125;</span><br><span class="line">        <span class="keyword">int</span> mid = l + (h-l)/<span class="number">2</span>;</span><br><span class="line">        TreeNode* resNode = <span class="keyword">new</span> TreeNode(nums[mid]);</span><br><span class="line">        <span class="keyword">if</span>(l &lt; mid)&#123;</span><br><span class="line">            resNode-&gt;left = buildBST(nums, l, mid<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(mid &lt; h)&#123;</span><br><span class="line">            resNode-&gt;right = buildBST(nums, mid+<span class="number">1</span>, h);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> resNode;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">sortedArrayToBST</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty())&#123; <span class="keyword">return</span> <span class="literal">nullptr</span>;&#125;</span><br><span class="line">        <span class="comment">//每次分一半？</span></span><br><span class="line">        <span class="keyword">return</span> buildBST(nums,<span class="number">0</span>, nums.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1650,7 +1653,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1663,7 +1666,7 @@ Output:
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
