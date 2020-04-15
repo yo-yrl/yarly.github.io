@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy," />
+  <meta name="keywords" content="心情日记,读后感," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="题目 Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle. Example: Input: 5 Output: [     [1],     [1,1],     [1,2,1],     [1,3,3,1],     [1,4,6,4,1] ]题意分析 给我们一个数字numRo">
+<meta name="description" content="20-4-14 序 似  害怕自己弱小，妥协强者，不会拒绝，稳妥行事   改：  定下目标并努力实现。实现不了也没什么大不了。”跌倒并不可怕，可怕的是一蹶不振！“ 接受真实的自己    意识到自我存在自我价值的需求感  自尊心是什么 内心信念： 自我、价值与感受 当一个人处在自己完全不信任的环境中时，人是感觉不到自己较低的自尊心的。能感受的是它的衍生物，首先就是恐惧感和羞耻心。表现的生理症状有：发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="118. Pascal&#39;s Triangle">
-<meta property="og:url" content="http://yoursite.com/2020/04/03/118-Pascal-s-Triangle/index.html">
+<meta property="og:title" content="认同自己-阅后感">
+<meta property="og:url" content="http://yoursite.com/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle. Example: Input: 5 Output: [     [1],     [1,1],     [1,2,1],     [1,3,3,1],     [1,4,6,4,1] ]题意分析 给我们一个数字numRo">
+<meta property="og:description" content="20-4-14 序 似  害怕自己弱小，妥协强者，不会拒绝，稳妥行事   改：  定下目标并努力实现。实现不了也没什么大不了。”跌倒并不可怕，可怕的是一蹶不振！“ 接受真实的自己    意识到自我存在自我价值的需求感  自尊心是什么 内心信念： 自我、价值与感受 当一个人处在自己完全不信任的环境中时，人是感觉不到自己较低的自尊心的。能感受的是它的衍生物，首先就是恐惧感和羞耻心。表现的生理症状有：发">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-03T06:47:54.000Z">
-<meta property="article:modified_time" content="2020-04-06T01:20:01.566Z">
+<meta property="article:published_time" content="2020-04-14T15:01:05.000Z">
+<meta property="article:modified_time" content="2020-04-14T15:24:34.946Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Easy">
+<meta property="article:tag" content="心情日记">
+<meta property="article:tag" content="读后感">
 <meta name="twitter:card" content="summary">
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/03/118-Pascal-s-Triangle/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/14/认同自己-阅后感/"/>
 
 
 
 
 
-  <title>118. Pascal's Triangle | Hexo</title>
+  <title>认同自己-阅后感 | Hexo</title>
   
 
 
@@ -234,7 +234,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/118-Pascal-s-Triangle/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -251,7 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">118. Pascal's Triangle</h1>
+          <h1 class="post-title" itemprop="name headline">认同自己-阅后感</h1>
         
 
         <div class="post-meta">
@@ -263,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T14:47:54+08:00">
-                2020-04-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T23:01:05+08:00">
+                2020-04-14
               </time>
             
 
@@ -301,24 +301,31 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle.</p>
-<p>Example:</p>
-<pre><code>Input: 5
-Output:
-[
-    [1],
-    [1,1],
-    [1,2,1],
-    [1,3,3,1],
-    [1,4,6,4,1]
-]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给我们一个数字numRows, 生成对应个数的数组，每个数组长度和当前行数一样（1-numRows)。每个数组，首尾都是1，中间数字：curRow_(i) = lastRow_(i-1) + lastRow_(i)。</p>
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
-<p>喵叽，还能咋办嘞，循环求解~</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">generate</span><span class="params">(<span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(numRows == <span class="number">0</span>)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="comment">// if(numRows == 1)&#123; return &#123;1&#125;;&#125;</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        res.push_back(&#123;<span class="number">1</span>&#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= numRows; ++i)&#123;</span><br><span class="line">            <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">tmp</span><span class="params">(i, <span class="number">1</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idx = <span class="number">1</span>; idx &lt; i<span class="number">-1</span>; ++idx)&#123;</span><br><span class="line">                tmp[idx] = res[i<span class="number">-2</span>][idx<span class="number">-1</span>] + res[i<span class="number">-2</span>][idx];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+        <h1 id="20-4-14"><a href="#20-4-14" class="headerlink" title="20-4-14"></a>20-4-14</h1><hr>
+<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><ul>
+<li><p><code>似</code></p>
+<ul>
+<li>害怕自己弱小，妥协强者，不会拒绝，稳妥行事</li>
+</ul>
+</li>
+<li><p><code>改</code>：</p>
+<ul>
+<li>定下目标并努力实现。实现不了也没什么大不了。”跌倒并不可怕，可怕的是一蹶不振！“</li>
+<li>接受真实的自己</li>
+</ul>
+</li>
+</ul>
+<h2 id="意识到自我存在"><a href="#意识到自我存在" class="headerlink" title="意识到自我存在"></a>意识到自我存在</h2><h3 id="自我价值的需求感"><a href="#自我价值的需求感" class="headerlink" title="自我价值的需求感"></a>自我价值的需求感</h3><hr>
+<ul>
+<li>自尊心是什么<ul>
+<li>内心信念： 自我、价值与感受</li>
+<li>当一个人处在自己完全不信任的环境中时，人是感觉不到自己较低的自尊心的。能感受的是它的衍生物，首先就是<strong>恐惧感</strong>和<strong>羞耻心</strong>。表现的生理症状有：发麻、心跳加速、胃或胸腔发胀发闷、呼吸急促、战栗或下肢麻痹等。这些症状表明了我们当时不够信任环境，或者我们没有足够的价值感。</li>
+<li>内心的不完整，对否定的恐惧或者对丢脸的畏惧深入骨髓，我们不能通过简单的话语或好的建议消除（比如：“你可以”，“乐观点”）————道理我都懂，但我改变不了。这种状况可以归纳为 <strong>自尊心损害</strong>。</li>
+<li>拥有过低自尊心的人总夸大自己的感受，会<em>过高</em> 地估计了其他人的强项和弱点，<em>过低</em> 地估计了自己在别人眼中的强项和弱点。</li>
+<li><strong>自信的人接受自己的弱点</strong>，相反，不自信的人不接受自己的弱点，他 们把弱点看得很重，会掩盖自己的弱点，不让其他人知道。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -336,9 +343,9 @@ Output:
       
         <div class="post-tags">
           
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+            <a href="/tags/%E5%BF%83%E6%83%85%E6%97%A5%E8%AE%B0/" rel="tag"># 心情日记</a>
           
-            <a href="/tags/Easy/" rel="tag"># Easy</a>
+            <a href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag"># 读后感</a>
           
         </div>
       
@@ -351,8 +358,8 @@ Output:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/02/116-Populating-Next-Right-Pointers-in-Each-Node/" rel="next" title="116. Populating Next Right Pointers in Each Node">
-                <i class="fa fa-chevron-left"></i> 116. Populating Next Right Pointers in Each Node
+              <a href="/2020/04/14/139-Word-Break/" rel="next" title="139. Word Break">
+                <i class="fa fa-chevron-left"></i> 139. Word Break
               </a>
             
           </div>
@@ -361,8 +368,8 @@ Output:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/" rel="prev" title="121. Best Time to Buy and Sell Stock">
-                121. Best Time to Buy and Sell Stock <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/15/139-Word-Break-II/" rel="prev" title="139. Word Break II">
+                139. Word Break II <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -486,7 +493,7 @@ Output:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解思路"><span class="nav-number">3.</span> <span class="nav-text">求解思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#20-4-14"><span class="nav-number">1.</span> <span class="nav-text">20-4-14</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序"><span class="nav-number">1.1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#意识到自我存在"><span class="nav-number">1.2.</span> <span class="nav-text">意识到自我存在</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自我价值的需求感"><span class="nav-number">1.2.1.</span> <span class="nav-text">自我价值的需求感</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
