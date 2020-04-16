@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy,Palindrome," />
+  <meta name="keywords" content="LeetCode,Easy,Link," />
 
 
 
@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="题目 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. Note: For the purpose of this problem, we define empty string as valid palindrome. Exam">
+<meta name="description" content="题目 Given a linked list, determine if it has a cycle in it. To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail">
 <meta property="og:type" content="article">
-<meta property="og:title" content="125. Valid Palindrome">
-<meta property="og:url" content="http://yoursite.com/2020/04/06/125-Valid-Palindrome/index.html">
+<meta property="og:title" content="141. Linked List Cycle">
+<meta property="og:url" content="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. Note: For the purpose of this problem, we define empty string as valid palindrome. Exam">
+<meta property="og:description" content="题目 Given a linked list, determine if it has a cycle in it. To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-06T01:48:54.000Z">
-<meta property="article:modified_time" content="2020-04-06T02:12:40.034Z">
+<meta property="article:published_time" content="2020-04-16T01:46:50.000Z">
+<meta property="article:modified_time" content="2020-04-16T02:02:00.711Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Easy">
-<meta property="article:tag" content="Palindrome">
+<meta property="article:tag" content="Link">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/06/125-Valid-Palindrome/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/"/>
 
 
 
 
 
-  <title>125. Valid Palindrome | Hexo</title>
+  <title>141. Linked List Cycle | Hexo</title>
   
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/06/125-Valid-Palindrome/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">125. Valid Palindrome</h1>
+          <h1 class="post-title" itemprop="name headline">141. Linked List Cycle</h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-06T09:48:54+08:00">
-                2020-04-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T09:46:50+08:00">
+                2020-04-16
               </time>
             
 
@@ -303,17 +303,25 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a string, determine if it is a palindrome, considering <code>only</code> alphanumeric characters and ignoring cases.</p>
-<p><code>Note</code>: For the purpose of this problem, we define empty string as valid palindrome.</p>
+<p>Given a linked list, determine if it has a cycle in it.</p>
+<p>To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to. If pos is -1, then there is no cycle in the linked list.</p>
 <p>Example 1:</p>
-<pre><code>Input: &quot;A man, a plan, a canal: Panama&quot;
-Output: true</code></pre><p>Example 2:</p>
-<pre><code>Input: &quot;race a car&quot;
-Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个字符串，判断是否是一个回文串~<br>（只需要判断字符串里头的 字符和数字就好啦）</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<pre><code>双指针方法，双向遍历判断一遍就好啦</code></pre><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isChOrNum</span><span class="params">(<span class="keyword">char</span> ch)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((ch &gt;= <span class="string">'a'</span> &amp;&amp; ch &lt;= <span class="string">'z'</span>) || (ch &gt;= <span class="string">'A'</span> &amp;&amp; ch &lt;= <span class="string">'Z'</span>) || (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind2P</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, h = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; h)&#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[l])) &#123; ++l;&#125;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[h])) &#123; --h;&#125;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= h)&#123; <span class="keyword">break</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(s[l] != s[h])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++l;</span><br><span class="line">            --h;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是否是回文串，只包含字符和数字</span></span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="literal">true</span>;&#125;</span><br><span class="line">        transform(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), s.<span class="built_in">begin</span>(), ::<span class="built_in">tolower</span>);  </span><br><span class="line">        <span class="keyword">return</span> isPalind2P(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code>Input: head = [3,2,0,-4], pos = 1
+Output: true
+Explanation: There is a cycle in the linked list, where tail connects to the second node.</code></pre><p>Follow up:</p>
+<pre><code>Can you solve it using O(1) (i.e. constant) memory?</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个单向链表，判断是否有环。输入是一个数组，里头是节点的值，pos 是表示环开始的位置，如果没有环，则 pos = -1 .</p>
+<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
+<ul>
+<li><p>判断一个节点是否重复访问。如果有环，肯定存在重复访问同一个节点的情况。我们可以用 set 保存每个节点，然后遍历链表。时间：$O(n)$, 空间： $O(n)$。</p>
+</li>
+<li><p>快慢指针法。上述方法在链表很长的情况下会占用很多空间（ set ）。在一个单项链表中，存在两个指针对改链表进行遍历，一个指针每次走一步，另一个指针每次走两步，如果存在环，则慢指针 会 和 快指针 重合。如果不存在环，则会走到链表结尾（ nullptr ）。时间：$O(n)$， 空间：$O(1)$。<code>这个指针的代码写得是真的很心累啊呜呜呜一定要小心</code></p>
+</li>
+<li><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycSet</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(cur) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                mset.insert(cur);</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycTwoP</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* low = head;</span><br><span class="line">        ListNode* fast = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(low != <span class="literal">nullptr</span> &amp;&amp; fast != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(low == fast)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(fast == <span class="literal">nullptr</span> || fast-&gt;next == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            low = low-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是单向链表是否有环。</span></span><br><span class="line">        <span class="comment">//1 用set存储每个节点，如果出现访问两次的，则有环</span></span><br><span class="line">        <span class="comment">// return hasCycSet(head);</span></span><br><span class="line">        <span class="comment">//2 双指针（快慢）</span></span><br><span class="line">        <span class="keyword">return</span> hasCycTwoP(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -334,7 +342,7 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
           
             <a href="/tags/Easy/" rel="tag"># Easy</a>
           
-            <a href="/tags/Palindrome/" rel="tag"># Palindrome</a>
+            <a href="/tags/Link/" rel="tag"># Link</a>
           
         </div>
       
@@ -347,8 +355,8 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/" rel="next" title="124. Binary Tree Maximum Path Sum">
-                <i class="fa fa-chevron-left"></i> 124. Binary Tree Maximum Path Sum
+              <a href="/2020/04/15/139-Word-Break-II/" rel="next" title="139. Word Break II">
+                <i class="fa fa-chevron-left"></i> 139. Word Break II
               </a>
             
           </div>
@@ -356,10 +364,6 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/08/128-Longest-Consecutive-Sequence/" rel="prev" title="128. Longest Consecutive Sequence">
-                128. Longest Consecutive Sequence <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -482,7 +486,7 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解思路"><span class="nav-number">3.</span> <span class="nav-text">求解思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
             
 
           </div>
