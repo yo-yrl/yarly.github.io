@@ -229,6 +229,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/146-LRU-Cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/19/146-LRU-Cache/" itemprop="url">146. LRU Cache</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T10:09:15+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Design and implement a data structure for <code>Least Recently Used (LRU) cache</code>. It should support the following operations: get and put.</p>
+<p><code>get(key)</code> - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br><code>put(key, value)</code> - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<p>The cache is initialized with a positive capacity.</p>
+<p>Follow up:</p>
+<pre><code>Could you do both operations in O(1) time complexity?</code></pre><p>Example:</p>
+<pre><code>LRUCache cache = new LRUCache( 2 /* capacity */ );
+
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // returns 1
+cache.put(3, 3);    // evicts key 2
+cache.get(2);       // returns -1 (not found)
+cache.put(4, 4);    // evicts key 1
+cache.get(1);       // returns -1 (not found)
+cache.get(3);       // returns 3
+cache.get(4);       // returns 4</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<ul>
+<li>实现LRU（最近最少使用）缓存机制的两个操作: get(key) 和 put(key, value)，即访问操作和更新操作。</li>
+</ul>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li><p>对于访问操作，如果 key 存在，则返回 value , 否则返回 -1 。 由题可知，我们存入缓存中的数据是 key-value 数对，即key是唯一的。很容易由此联想到用map来存储这个数对，则 get(key)操作就是一次map.find()操作。</p>
+</li>
+<li><p>对于更新操作，我们需要记录每个数据的最新访问时间和访问次数，当 cache 空间不足时，根据访问时间最小且访问次数最少 进行 数据替换。为此，我们需要为每个数据对 维护一个时间戳 和 使用次数。每次进行访问或更新操作时，需要对所有数据的时间戳进行加1。更新的数据时间戳设为0, 使用次数为1. 【不过这种方法每次都要遍历一次所有数据，很耗时】</p>
+</li>
+<li><p>我们可以用链表（list）来存数据，进行访问或更新操作时，将相应数据放到链表头，则链表尾部存储的永远是可以替换出去的数据。</p>
+<ul>
+<li><code>Tips:</code>利用 <strong>list 的迭代器特性</strong>（删除或插入操作不会使迭代器失效！！！）， 我们可以再用一个map存储 key 及其 在链表中的位置，进行更新时就可以不用遍历链表了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; cache;<span class="comment">//存放key - value</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator&gt; pos;<span class="comment">// 存放key对应在list中的位置</span></span><br><span class="line">    <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; lru;<span class="comment">//只存key</span></span><br><span class="line">    <span class="keyword">int</span> maxCap = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> curIdx = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    LRUCache(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">        maxCap = capacity;</span><br><span class="line">        curIdx = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//访问数据</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 存在缓存中</span></span><br><span class="line">        <span class="keyword">if</span>(cache.<span class="built_in">find</span>(key) != cache.<span class="built_in">end</span>())&#123;</span><br><span class="line">            <span class="comment">//更新缓存</span></span><br><span class="line">            update(key);</span><br><span class="line">            <span class="keyword">return</span> cache[key];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//插入数据或更新</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        update(key);</span><br><span class="line">        cache[key] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//更新数据</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">        <span class="comment">//如果数据已经存在，则将其位置更新。如果不存在，则需要执行插入操作</span></span><br><span class="line">        <span class="keyword">if</span>(cache.<span class="built_in">find</span>(key) != cache.<span class="built_in">end</span>())&#123;</span><br><span class="line">            <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator positer = pos[key];</span><br><span class="line">            lru.erase(positer);</span><br><span class="line">            pos.erase(key);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//需要删掉最新的</span></span><br><span class="line">            <span class="keyword">if</span>(curIdx &gt;= maxCap)&#123;</span><br><span class="line">                <span class="keyword">int</span> lastValue = lru.back();</span><br><span class="line">                lru.pop_back();</span><br><span class="line">                cache.erase(lastValue);</span><br><span class="line">                pos.erase(lastValue);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                ++ curIdx;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        lru.push_front(key);</span><br><span class="line">        pos[key] = lru.<span class="built_in">begin</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your LRUCache object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * LRUCache* obj = new LRUCache(capacity);</span></span><br><span class="line"><span class="comment"> * int param_1 = obj-&gt;get(key);</span></span><br><span class="line"><span class="comment"> * obj-&gt;put(key,value);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1482,136 +1635,6 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/06/125-Valid-Palindrome/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/06/125-Valid-Palindrome/" itemprop="url">125. Valid Palindrome</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-06T09:48:54+08:00">
-                2020-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a string, determine if it is a palindrome, considering <code>only</code> alphanumeric characters and ignoring cases.</p>
-<p><code>Note</code>: For the purpose of this problem, we define empty string as valid palindrome.</p>
-<p>Example 1:</p>
-<pre><code>Input: &quot;A man, a plan, a canal: Panama&quot;
-Output: true</code></pre><p>Example 2:</p>
-<pre><code>Input: &quot;race a car&quot;
-Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个字符串，判断是否是一个回文串~<br>（只需要判断字符串里头的 字符和数字就好啦）</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<pre><code>双指针方法，双向遍历判断一遍就好啦</code></pre><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isChOrNum</span><span class="params">(<span class="keyword">char</span> ch)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((ch &gt;= <span class="string">'a'</span> &amp;&amp; ch &lt;= <span class="string">'z'</span>) || (ch &gt;= <span class="string">'A'</span> &amp;&amp; ch &lt;= <span class="string">'Z'</span>) || (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind2P</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, h = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; h)&#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[l])) &#123; ++l;&#125;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[h])) &#123; --h;&#125;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= h)&#123; <span class="keyword">break</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(s[l] != s[h])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++l;</span><br><span class="line">            --h;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是否是回文串，只包含字符和数字</span></span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="literal">true</span>;&#125;</span><br><span class="line">        transform(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), s.<span class="built_in">begin</span>(), ::<span class="built_in">tolower</span>);  </span><br><span class="line">        <span class="keyword">return</span> isPalind2P(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1662,7 +1685,7 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1675,7 +1698,7 @@ Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="h
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
