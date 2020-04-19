@@ -229,6 +229,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/19/160-Intersection-of-Two-Linked-Lists/" itemprop="url">160. Intersection of Two Linked Lists</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:06:58+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p>Example 1:</p>
+<pre><code>Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
+Output: Reference of the node with value = 8
+Input Explanation: The intersected node&apos;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</code></pre><p>Notes:</p>
+<ul>
+<li>If the two linked lists have no intersection at all, return null.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>You may assume there are no cycles anywhere in the entire linked structure.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<ul>
+<li>给定两个单向链表，返回他们汇聚的第一个节点，如果没有汇聚点，即单独的两个链表，则返回 <code>nullptr</code>.</li>
+<li>注意题目要求O(n)时间复杂度，O(1)的空间复杂度。<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2></li>
+</ul>
+<hr>
+<ul>
+<li>如果不限制时间或空间复杂度，可以采用暴力破解的方法，去逐个遍历两个链表中是否存在两个相同的节点(O(m*n), O(1))。或者分别遍历两个链表，用map存储每个节点，如果存在重复节点，则是第一个汇聚点（O(m+n), O(n)）。</li>
+<li>我们可以分别确定两个链表的长度，a , b; 假设 a &gt; b， 则链表a可先走(a-b)步，然后再同步遍历两个链表，则可以很方便找到汇聚点。a &lt; b 是同理。【O(n)时间复杂度，O(1)的空间复杂度】<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA == <span class="literal">nullptr</span> || headB == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//O(1)内存 O(n)时间复杂度</span></span><br><span class="line">        <span class="comment">//确定两条链表长度，然后长的先走多出来的步数，二者再一起遍历</span></span><br><span class="line">        <span class="keyword">int</span> lena = <span class="number">0</span>, lenb = <span class="number">0</span>;</span><br><span class="line">        ListNode* pa = headA, *pb = headB;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">nullptr</span>)&#123; ++ lena; pa = pa-&gt;next;&#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">nullptr</span>)&#123; ++ lenb; pb = pb-&gt;next;&#125;</span><br><span class="line">        </span><br><span class="line">        pa = headA, pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(lena &gt; lenb)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lena-lenb; ++i)&#123; pa = pa-&gt;next;&#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(lenb &gt; lena)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenb-lena; ++i)&#123; pb = pb-&gt;next;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(pa &amp;&amp; pb)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)&#123;</span><br><span class="line">                <span class="keyword">return</span> pa;</span><br><span class="line">            &#125;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/148-Sort-List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1492,151 +1635,6 @@ Therefore, return 3 as the starting index.</code></pre><h2 id="题意分析"><a 
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/09/131-Palindrome-Partitioning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/09/131-Palindrome-Partitioning/" itemprop="url">131. Palindrome Partitioning</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T16:08:03+08:00">
-                2020-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of s.</p>
-<p>Example:</p>
-<pre><code>Input: &quot;aab&quot;
-Output:
-[
-    [&quot;aa&quot;,&quot;b&quot;],
-    [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]
-]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<ul>
-<li>给定一个字符串，进行不同回文子串的分割，得到所有分割的组合</li>
-</ul>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li><p>我们需要一个判断字符串是否是回文串的函数</p>
-</li>
-<li><p>对于一个字符串“aab”,当前子串”a”是回文串，則可以以当前位置作为分割点，然后求剩下子串”ab”的组合。或者看另一个分割点，”aa”这是一个回文串，则这个也是一个分割点，求剩下子串“b”的组合。</p>
-</li>
-<li><p>这是一个递归过程：对于<code>当前子串</code>，我们需要得到以0位置为开头的回文串，然后分割，继续递归求所有组合。</p>
-</li>
-<li><p>我们可以记录一个start_idx记录当前子串的起始位置，递归结束条件是start_idx == input_string.size(),即代表求到当前分割方法的所有子串组合了。</p>
-</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//判断是否是回文串</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> sidx, <span class="keyword">int</span> eidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(sidx &lt; eidx)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[sidx] != s[eidx])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++sidx;</span><br><span class="line">            --eidx;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partDFS</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123; res.push_back(tmp); <span class="keyword">return</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx; i &lt; s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!isPalind(s, sidx, i))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            tmp.push_back(s.substr(sidx, i-sidx+<span class="number">1</span>));</span><br><span class="line">            <span class="comment">//如果sidx--i是个回文串，则可以从这里切割成两个字符串，然后分别求剩下的组合</span></span><br><span class="line">            partDFS(s, i+<span class="number">1</span>);</span><br><span class="line">            tmp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断每个子字符串是否是回文串，则需要有start表示子字符串的开始位置</span></span><br><span class="line">        <span class="keyword">if</span>(s.empty())&#123;<span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() == <span class="number">1</span>)&#123;res.push_back(&#123;s&#125;); <span class="keyword">return</span> res;&#125;</span><br><span class="line">        <span class="comment">//递归方法</span></span><br><span class="line">        partDFS(s, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1687,7 +1685,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

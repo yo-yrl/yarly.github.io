@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="心情日记," />
+  <meta name="keywords" content="LeetCode,Easy,O_N,List," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="新的开始 4-02  2020-4-2日下午三点半，开始个人博客之旅~ 记录个人生活感想和学习心得~ 坚持呀！">
+<meta name="description" content="题目 Write a program to find the node at which the intersection of two singly linked lists begins. Example 1: Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,0,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3 Ou">
 <meta property="og:type" content="article">
-<meta property="og:title" content="New Day, New Start!">
-<meta property="og:url" content="http://yoursite.com/2020/04/02/New-Day-New-Start/index.html">
+<meta property="og:title" content="160. Intersection of Two Linked Lists">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="新的开始 4-02  2020-4-2日下午三点半，开始个人博客之旅~ 记录个人生活感想和学习心得~ 坚持呀！">
+<meta property="og:description" content="题目 Write a program to find the node at which the intersection of two singly linked lists begins. Example 1: Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,0,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3 Ou">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-02T07:36:54.000Z">
-<meta property="article:modified_time" content="2020-04-06T02:15:00.478Z">
+<meta property="article:published_time" content="2020-04-19T05:06:58.000Z">
+<meta property="article:modified_time" content="2020-04-19T05:16:18.454Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="心情日记">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Easy">
+<meta property="article:tag" content="O_N">
+<meta property="article:tag" content="List">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/02/New-Day-New-Start/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/"/>
 
 
 
 
 
-  <title>New Day, New Start! | Hexo</title>
+  <title>160. Intersection of Two Linked Lists | Hexo</title>
   
 
 
@@ -233,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/New-Day-New-Start/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -250,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">New Day, New Start!</h1>
+          <h1 class="post-title" itemprop="name headline">160. Intersection of Two Linked Lists</h1>
         
 
         <div class="post-meta">
@@ -262,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T15:36:54+08:00">
-                2020-04-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:06:58+08:00">
+                2020-04-19
               </time>
             
 
@@ -300,9 +303,30 @@
       
 
       
-        <h2 id="新的开始-4-02"><a href="#新的开始-4-02" class="headerlink" title="新的开始 4-02"></a>新的开始 4-02</h2><hr>
-<p> 2020-4-2日下午三点半，开始个人博客之旅~<br> 记录个人生活感想和学习心得~<br> 坚持呀！</p>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p>Example 1:</p>
+<pre><code>Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
+Output: Reference of the node with value = 8
+Input Explanation: The intersected node&apos;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</code></pre><p>Notes:</p>
+<ul>
+<li>If the two linked lists have no intersection at all, return null.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>You may assume there are no cycles anywhere in the entire linked structure.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<ul>
+<li>给定两个单向链表，返回他们汇聚的第一个节点，如果没有汇聚点，即单独的两个链表，则返回 <code>nullptr</code>.</li>
+<li>注意题目要求O(n)时间复杂度，O(1)的空间复杂度。<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2></li>
+</ul>
 <hr>
+<ul>
+<li>如果不限制时间或空间复杂度，可以采用暴力破解的方法，去逐个遍历两个链表中是否存在两个相同的节点(O(m*n), O(1))。或者分别遍历两个链表，用map存储每个节点，如果存在重复节点，则是第一个汇聚点（O(m+n), O(n)）。</li>
+<li>我们可以分别确定两个链表的长度，a , b; 假设 a &gt; b， 则链表a可先走(a-b)步，然后再同步遍历两个链表，则可以很方便找到汇聚点。a &lt; b 是同理。【O(n)时间复杂度，O(1)的空间复杂度】<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA == <span class="literal">nullptr</span> || headB == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//O(1)内存 O(n)时间复杂度</span></span><br><span class="line">        <span class="comment">//确定两条链表长度，然后长的先走多出来的步数，二者再一起遍历</span></span><br><span class="line">        <span class="keyword">int</span> lena = <span class="number">0</span>, lenb = <span class="number">0</span>;</span><br><span class="line">        ListNode* pa = headA, *pb = headB;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">nullptr</span>)&#123; ++ lena; pa = pa-&gt;next;&#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">nullptr</span>)&#123; ++ lenb; pb = pb-&gt;next;&#125;</span><br><span class="line">        </span><br><span class="line">        pa = headA, pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(lena &gt; lenb)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lena-lenb; ++i)&#123; pa = pa-&gt;next;&#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(lenb &gt; lena)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenb-lena; ++i)&#123; pb = pb-&gt;next;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(pa &amp;&amp; pb)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)&#123;</span><br><span class="line">                <span class="keyword">return</span> pa;</span><br><span class="line">            &#125;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -320,7 +344,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E5%BF%83%E6%83%85%E6%97%A5%E8%AE%B0/" rel="tag"># 心情日记</a>
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+            <a href="/tags/Easy/" rel="tag"># Easy</a>
+          
+            <a href="/tags/O-N/" rel="tag"># O_N</a>
+          
+            <a href="/tags/List/" rel="tag"># List</a>
           
         </div>
       
@@ -333,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/02/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2020/04/19/148-Sort-List/" rel="next" title="148. Sort List">
+                <i class="fa fa-chevron-left"></i> 148. Sort List
               </a>
             
           </div>
@@ -342,10 +372,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/02/108-Convert-Sorted-Array-to-Binary-Search-Tree-%E9%A2%98%E8%A7%A3/" rel="prev" title="108. Convert Sorted Array to Binary Search Tree 题解">
-                108. Convert Sorted Array to Binary Search Tree 题解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -468,7 +494,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#新的开始-4-02"><span class="nav-number">1.</span> <span class="nav-text">新的开始 4-02</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
             
 
           </div>
