@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Medium,LeetCode,Palindrome," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="题目 Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s. Example: Input: &quot;aab&quot; Output: [     [&quot;aa&amp;q">
+<meta name="description" content="C++基础知识目前正在看blibli的清华大学c++语言程序设计，主讲老师是程莉教授。我准备结合该视频的款将，回顾并整理一波C++知识点。 本blog主要会记录一些零散的知识点，如果有错误或不足之处，请多指教呀~ 一、初识C++（1）导论 计算机语言和程序设计方法的发展  语言发展：机器语言（01二进制）—&gt;汇编语言(增加了助记符，比如add)—&gt;高级编程语言  印象较深一句话，大意是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="131. Palindrome Partitioning">
-<meta property="og:url" content="http://yoursite.com/2020/04/09/131-Palindrome-Partitioning/index.html">
+<meta property="og:title" content="C++基础知识">
+<meta property="og:url" content="http://yoursite.com/2020/04/21/C-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s. Example: Input: &quot;aab&quot; Output: [     [&quot;aa&amp;q">
+<meta property="og:description" content="C++基础知识目前正在看blibli的清华大学c++语言程序设计，主讲老师是程莉教授。我准备结合该视频的款将，回顾并整理一波C++知识点。 本blog主要会记录一些零散的知识点，如果有错误或不足之处，请多指教呀~ 一、初识C++（1）导论 计算机语言和程序设计方法的发展  语言发展：机器语言（01二进制）—&gt;汇编语言(增加了助记符，比如add)—&gt;高级编程语言  印象较深一句话，大意是">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-09T08:08:03.000Z">
-<meta property="article:modified_time" content="2020-04-09T08:40:46.229Z">
+<meta property="article:published_time" content="2020-04-21T09:55:26.000Z">
+<meta property="article:modified_time" content="2020-04-21T13:26:42.595Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Medium">
-<meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Palindrome">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/09/131-Palindrome-Partitioning/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/21/C-基础知识/"/>
 
 
 
 
 
-  <title>131. Palindrome Partitioning | Hexo</title>
+  <title>C++基础知识 | Hexo</title>
   
 
 
@@ -235,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/09/131-Palindrome-Partitioning/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/C-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -252,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">131. Palindrome Partitioning</h1>
+          <h1 class="post-title" itemprop="name headline">C++基础知识</h1>
         
 
         <div class="post-meta">
@@ -264,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T16:08:03+08:00">
-                2020-04-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-21T17:55:26+08:00">
+                2020-04-21
               </time>
             
 
@@ -302,32 +300,45 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of s.</p>
-<p>Example:</p>
-<pre><code>Input: &quot;aab&quot;
-Output:
-[
-    [&quot;aa&quot;,&quot;b&quot;],
-    [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]
-]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+        <h1 id="C-基础知识"><a href="#C-基础知识" class="headerlink" title="C++基础知识"></a>C++基础知识</h1><p>目前正在看blibli的清华大学c++语言程序设计，主讲老师是程莉教授。我准备结合该视频的款将，回顾并整理一波C++知识点。</p>
+<p>本blog主要会记录一些零散的知识点，如果有错误或不足之处，请多指教呀~</p>
+<h2 id="一、初识C"><a href="#一、初识C" class="headerlink" title="一、初识C++"></a>一、初识C++</h2><h3 id="（1）导论"><a href="#（1）导论" class="headerlink" title="（1）导论"></a>（1）导论</h3><ol>
+<li><p>计算机语言和程序设计方法的发展</p>
 <ul>
-<li>给定一个字符串，进行不同回文子串的分割，得到所有分割的组合</li>
-</ul>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<li><p><strong>语言发展</strong>：机器语言（01二进制）—&gt;汇编语言(增加了助记符，比如add)—&gt;高级编程语言</p>
+<p> 印象较深一句话，大意是： 当一件事存在不足或缺陷时，会促进变革和发展。机器语言人类难以看懂且进行编程，故而演进出汇编语言，其增加了很多助记符，比如add， sub等。但是汇编语言需要编程人员了解计算机结构（比如寄存器等）才能更好编程，入门门槛还是很高（抽象程度依然很高），故而出现高级编程语言，如C++，JAVA等，会屏蔽机器的细节。高级语言不需要我们了解计算机底层架构，会用人们熟悉的英文符号或单词来表示一些操作，比如c = a+b 表示加法。在汇编语言中我们或许要知道 两个加数所在寄存器,且想好和存放在那里才能正确书写。</p>
 <ul>
-<li><p>我们需要一个判断字符串是否是回文串的函数</p>
+<li><p><strong>程序设计</strong>：面向过程(机器语言、汇编、高级，把要解决一个问题的方法按照一定顺序告诉计算机) —&gt; 面向对象</p>
+<p>在大型应用中，比如游戏，存在很多人物，每个人物有自己的武功、特性等；面向过程很难实现这一点，面向对象会好容易一点，对每个人物进行分类和抽象，具体到每个玩家，就是具体类的对象。</p>
 </li>
-<li><p>对于一个字符串“aab”,当前子串”a”是回文串，則可以以当前位置作为分割点，然后求剩下子串”ab”的组合。或者看另一个分割点，”aa”这是一个回文串，则这个也是一个分割点，求剩下子串“b”的组合。</p>
+<li><p><strong>C++语言</strong>：高级语言，支持免息那个对象的观点和方法：将客观事物看做对象（比如我们属于学生这个大类的一个对象，具有年龄，学校班级等属性），对象之间可以通过消息传送进行沟通，支持分类和抽象。</p>
 </li>
-<li><p>这是一个递归过程：对于<code>当前子串</code>，我们需要得到以0位置为开头的回文串，然后分割，继续递归求所有组合。</p>
-</li>
-<li><p>我们可以记录一个start_idx记录当前子串的起始位置，递归结束条件是start_idx == input_string.size(),即代表求到当前分割方法的所有子串组合了。</p>
+<li><p><strong>面向对象</strong>基本概念：1.类：抽象出同一类对象（事物）的共同属性，比如老师，学生是一个类。 2. 对象：系统中用来描述客观事物的一个实体。（比如庄周本身是一个类，如果我选了庄周这个决策，则会具象出一个对象，然后我就对我自己这个对象操作，不会影响别人） 3. 封装： 比如对一个钟表，我们怎么使用，通过旋钮进行调整是吧，不可能是拆开手表进行调整，这就是一封装。封装的好处是：隐蔽对象的内部细节，保留有限的对外接口，最重要的是安全，内部细节不会被破坏。4. 继承：比如文化的传承，在已有的基础上进行扩展和改进，更方便。其意义在于 代码的复用，避免一切都从头设计。5. 多态：接口的重用性。同样的消息作用在不同的对象上会引起不同的行为。比如打篮球和打乒乓球，篮球和乒乓都是球的的对象，都有一个打的消息，但产生的行为不同（比如 人数要求，场地要求等）</p>
 </li>
 </ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//判断是否是回文串</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> sidx, <span class="keyword">int</span> eidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(sidx &lt; eidx)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[sidx] != s[eidx])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++sidx;</span><br><span class="line">            --eidx;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partDFS</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123; res.push_back(tmp); <span class="keyword">return</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx; i &lt; s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!isPalind(s, sidx, i))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            tmp.push_back(s.substr(sidx, i-sidx+<span class="number">1</span>));</span><br><span class="line">            <span class="comment">//如果sidx--i是个回文串，则可以从这里切割成两个字符串，然后分别求剩下的组合</span></span><br><span class="line">            partDFS(s, i+<span class="number">1</span>);</span><br><span class="line">            tmp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断每个子字符串是否是回文串，则需要有start表示子字符串的开始位置</span></span><br><span class="line">        <span class="keyword">if</span>(s.empty())&#123;<span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() == <span class="number">1</span>)&#123;res.push_back(&#123;s&#125;); <span class="keyword">return</span> res;&#125;</span><br><span class="line">        <span class="comment">//递归方法</span></span><br><span class="line">        partDFS(s, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>数字及编码方式 </p>
+<ul>
+<li><p><strong>常用数制</strong>：二进制、八进制、十进制、十六进制。机器语言是二进制形式（计算机能够稳定表示两种状态）。 八进制和十六进制作为 人 和计算机交互的一种中间进制，人不能一下子分辨出二进制，但是8进制和16进制倒是挺容易看出来的。</p>
+</li>
+<li><p><strong>进制之间的转换</strong>： </p>
+<p>   10进制整数 —&gt; R进制整数<br>   R作为模数，10进制数对其取模。（除以R取余）</p>
+<p>   10进制小数 —&gt; R进制小数（乘以R，直到小数位为0） 比如10–&gt;2进制;<br>   0。3125 * 2= <code>0</code>.625； 0.625 * 2 = <code>1</code>.25； 0.25 * 2 = <code>0</code>.5； 0.5*2 = <code>1</code>.0；则0.3125 –&gt; 0.0101</p>
+</li>
+</ul>
+</li>
+<li><p>编码表示问题</p>
+<ol>
+<li>负数如何表示呢？所以需要考虑用什么方法来表示数值 会方便计算机存储和表示、计算等。</li>
+<li><strong>原码</strong>：用最高位 0 1表示正负号。存储和表示都很方便，但计算不方便（符号位），且0有两种表示方法</li>
+<li><strong>补码</strong>：0的表示唯一，且符号位可以作为数值参加运算。！！了解模数和补数的概念———— 假设模数是12（钟表），则 8 + （-2） = 8 + （10） = 6， 则 -2 和 10 互为补数。 计算机是二进制，n位二进制整数的模数为2^n, n为小数的模数为2.</li>
+<li><strong>反码</strong>：作为中间码。保持原码的符号位不变，其他位取反。然后对反码+1，则变为补码。 补码变回原码也是一样，保持符号位，其他位取反，然后+1.</li>
+<li><strong>小数表示</strong>：定点（固定整数和小数部分各自所占的数位）、浮点（类似科学计数法）表示。</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -345,11 +356,7 @@ Output:
       
         <div class="post-tags">
           
-            <a href="/tags/Medium/" rel="tag"># Medium</a>
-          
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-          
-            <a href="/tags/Palindrome/" rel="tag"># Palindrome</a>
+            <a href="/tags/C/" rel="tag"># C++</a>
           
         </div>
       
@@ -362,8 +369,8 @@ Output:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/08/128-Longest-Consecutive-Sequence/" rel="next" title="128. Longest Consecutive Sequence">
-                <i class="fa fa-chevron-left"></i> 128. Longest Consecutive Sequence
+              <a href="/2020/04/21/162-Find-Peak-Element/" rel="next" title="162. Find Peak Element">
+                <i class="fa fa-chevron-left"></i> 162. Find Peak Element
               </a>
             
           </div>
@@ -372,8 +379,8 @@ Output:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/10/134-Gas-Station/" rel="prev" title="134. Gas Station">
-                134. Gas Station <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/22/166-Fraction-to-Recurring-Decimal/" rel="prev" title="166. Fraction to Recurring Decimal">
+                166. Fraction to Recurring Decimal <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -497,7 +504,7 @@ Output:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-基础知识"><span class="nav-number">1.</span> <span class="nav-text">C++基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、初识C"><span class="nav-number">1.1.</span> <span class="nav-text">一、初识C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）导论"><span class="nav-number">1.1.1.</span> <span class="nav-text">（1）导论</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
