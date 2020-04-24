@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy,Link," />
+  <meta name="keywords" content="LeetCode,Easy,Math," />
 
 
 
@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="题目 Given a linked list, determine if it has a cycle in it. To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail">
+<meta name="description" content="题目 Given a column title as appear in an Excel sheet, return its corresponding column number. For example: A -&gt; 1 B -&gt; 2 C -&gt; 3 ... Z -&gt; 26 AA -&gt; 27 AB -&gt; 28  ...Example 1: Input: &amp;qu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="141. Linked List Cycle">
-<meta property="og:url" content="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/index.html">
+<meta property="og:title" content="171. Excel Sheet Column Number">
+<meta property="og:url" content="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a linked list, determine if it has a cycle in it. To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail">
+<meta property="og:description" content="题目 Given a column title as appear in an Excel sheet, return its corresponding column number. For example: A -&gt; 1 B -&gt; 2 C -&gt; 3 ... Z -&gt; 26 AA -&gt; 27 AB -&gt; 28  ...Example 1: Input: &amp;qu">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-16T01:46:50.000Z">
-<meta property="article:modified_time" content="2020-04-16T02:02:00.711Z">
+<meta property="article:published_time" content="2020-04-24T16:03:51.000Z">
+<meta property="article:modified_time" content="2020-04-24T16:19:36.642Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Easy">
-<meta property="article:tag" content="Link">
+<meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/"/>
 
 
 
 
 
-  <title>141. Linked List Cycle | Hexo</title>
+  <title>171. Excel Sheet Column Number | Hexo</title>
   
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">141. Linked List Cycle</h1>
+          <h1 class="post-title" itemprop="name headline">171. Excel Sheet Column Number</h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T09:46:50+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:03:51+08:00">
+                2020-04-25
               </time>
             
 
@@ -303,24 +303,23 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a linked list, determine if it has a cycle in it.</p>
-<p>To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to. If pos is -1, then there is no cycle in the linked list.</p>
-<p>Example 1:</p>
-<pre><code>Input: head = [3,2,0,-4], pos = 1
-Output: true
-Explanation: There is a cycle in the linked list, where tail connects to the second node.</code></pre><p>Follow up:</p>
-<pre><code>Can you solve it using O(1) (i.e. constant) memory?</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个单向链表，判断是否有环。输入是一个数组，里头是节点的值，pos 是表示环开始的位置，如果没有环，则 pos = -1 .</p>
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
-<ul>
-<li><p>判断一个节点是否重复访问。如果有环，肯定存在重复访问同一个节点的情况。我们可以用 set 保存每个节点，然后遍历链表。时间：$O(n)$, 空间： $O(n)$。</p>
-</li>
-<li><p>快慢指针法。上述方法在链表很长的情况下会占用很多空间（ set ）。在一个单项链表中，存在两个指针对改链表进行遍历，一个指针每次走一步，另一个指针每次走两步，如果存在环，则慢指针 会 和 快指针 重合。如果不存在环，则会走到链表结尾（ nullptr ）。时间：$O(n)$， 空间：$O(1)$。<code>这个指针的代码写得是真的很心累啊呜呜呜一定要小心</code></p>
-</li>
-<li><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycSet</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(cur) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                mset.insert(cur);</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycTwoP</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* low = head;</span><br><span class="line">        ListNode* fast = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(low != <span class="literal">nullptr</span> &amp;&amp; fast != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(low == fast)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(fast == <span class="literal">nullptr</span> || fast-&gt;next == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            low = low-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是单向链表是否有环。</span></span><br><span class="line">        <span class="comment">//1 用set存储每个节点，如果出现访问两次的，则有环</span></span><br><span class="line">        <span class="comment">// return hasCycSet(head);</span></span><br><span class="line">        <span class="comment">//2 双指针（快慢）</span></span><br><span class="line">        <span class="keyword">return</span> hasCycTwoP(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Given a column title as appear in an Excel sheet, return its corresponding column number.</p>
+<p>For example:</p>
+<pre><code>A -&gt; 1
+B -&gt; 2
+C -&gt; 3
+...
+Z -&gt; 26
+AA -&gt; 27
+AB -&gt; 28 
+...</code></pre><p>Example 1:</p>
+<pre><code>Input: &quot;A&quot;
+Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>类似进制转换题，不过转换对象分别是 26个大写字母 – 1–26数值。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>确定基数（26），从左往右遍历字符串时，和乘上基数，再加上当前转换值，更新和。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, base = <span class="number">26</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : s)&#123;</span><br><span class="line">            n = (ch-<span class="string">'A'</span>)+<span class="number">1</span>;</span><br><span class="line">            sum = sum*base+n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -342,7 +341,7 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
           
             <a href="/tags/Easy/" rel="tag"># Easy</a>
           
-            <a href="/tags/Link/" rel="tag"># Link</a>
+            <a href="/tags/Math/" rel="tag"># Math</a>
           
         </div>
       
@@ -355,8 +354,8 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/15/139-Word-Break-II/" rel="next" title="139. Word Break II">
-                <i class="fa fa-chevron-left"></i> 139. Word Break II
+              <a href="/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="网络基础知识">
+                <i class="fa fa-chevron-left"></i> 网络基础知识
               </a>
             
           </div>
@@ -365,8 +364,8 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/19/146-LRU-Cache/" rel="prev" title="146. LRU Cache">
-                146. LRU Cache <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/25/169-Majority-Element/" rel="prev" title="169. Majority Element">
+                169. Majority Element <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -490,7 +489,7 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解思路"><span class="nav-number">3.</span> <span class="nav-text">求解思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意分析"><span class="nav-number">2.</span> <span class="nav-text">题意分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-number">4.</span> <span class="nav-text">实现代码</span></a></li></ol></div>
             
 
           </div>
