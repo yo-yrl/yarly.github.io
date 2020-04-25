@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy,O_N,List," />
+  <meta name="keywords" content="LeetCode,Easy,Rotate," />
 
 
 
@@ -79,20 +79,19 @@
 
 
 
-<meta name="description" content="题目 Write a program to find the node at which the intersection of two singly linked lists begins. Example 1: Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,0,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3 Ou">
+<meta name="description" content="题目 Given an array, rotate the array to the right by k steps, where k is non-negative. Example 1: Input: [1,2,3,4,5,6,7] and k &#x3D; 3 Output: [5,6,7,1,2,3,4] Explanation: rotate 1 steps to the right: [7,1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="160. Intersection of Two Linked Lists">
-<meta property="og:url" content="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/index.html">
+<meta property="og:title" content="189. Rotate Array">
+<meta property="og:url" content="http://yoursite.com/2020/04/25/189-Rotate-Array/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Write a program to find the node at which the intersection of two singly linked lists begins. Example 1: Input: intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,0,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3 Ou">
+<meta property="og:description" content="题目 Given an array, rotate the array to the right by k steps, where k is non-negative. Example 1: Input: [1,2,3,4,5,6,7] and k &#x3D; 3 Output: [5,6,7,1,2,3,4] Explanation: rotate 1 steps to the right: [7,1">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-19T05:06:58.000Z">
-<meta property="article:modified_time" content="2020-04-19T05:16:18.454Z">
+<meta property="article:published_time" content="2020-04-25T01:49:39.000Z">
+<meta property="article:modified_time" content="2020-04-25T02:24:29.074Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Easy">
-<meta property="article:tag" content="O_N">
-<meta property="article:tag" content="List">
+<meta property="article:tag" content="Rotate">
 <meta name="twitter:card" content="summary">
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/25/189-Rotate-Array/"/>
 
 
 
 
 
-  <title>160. Intersection of Two Linked Lists | Hexo</title>
+  <title>189. Rotate Array | Hexo</title>
   
 
 
@@ -236,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/189-Rotate-Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -253,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">160. Intersection of Two Linked Lists</h1>
+          <h1 class="post-title" itemprop="name headline">189. Rotate Array</h1>
         
 
         <div class="post-meta">
@@ -265,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:06:58+08:00">
-                2020-04-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T09:49:39+08:00">
+                2020-04-25
               </time>
             
 
@@ -304,29 +303,27 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p>Given an array, rotate the array to the right by k steps, where k is non-negative.</p>
 <p>Example 1:</p>
-<pre><code>Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
-Output: Reference of the node with value = 8
-Input Explanation: The intersected node&apos;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</code></pre><p>Notes:</p>
+<pre><code>Input: [1,2,3,4,5,6,7] and k = 3
+Output: [5,6,7,1,2,3,4]
+Explanation:
+rotate 1 steps to the right: [7,1,2,3,4,5,6]
+rotate 2 steps to the right: [6,7,1,2,3,4,5]
+rotate 3 steps to the right: [5,6,7,1,2,3,4]</code></pre><p><code>Note</code>:</p>
 <ul>
-<li>If the two linked lists have no intersection at all, return null.</li>
-<li>The linked lists must retain their original structure after the function returns.</li>
-<li>You may assume there are no cycles anywhere in the entire linked structure.</li>
-<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
-</ul>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<ul>
-<li>给定两个单向链表，返回他们汇聚的第一个节点，如果没有汇聚点，即单独的两个链表，则返回 <code>nullptr</code>.</li>
-<li>注意题目要求O(n)时间复杂度，O(1)的空间复杂度。<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2></li>
+<li>Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.</li>
+<li>Could you do it in-place with O(1) extra space?<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2></li>
 </ul>
 <hr>
+<p>旋转数组：给定一个数组和非负整数k，k表示从右边数有几位数旋转到数组前头来。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
 <ul>
-<li>如果不限制时间或空间复杂度，可以采用暴力破解的方法，去逐个遍历两个链表中是否存在两个相同的节点(O(m*n), O(1))。或者分别遍历两个链表，用map存储每个节点，如果存在重复节点，则是第一个汇聚点（O(m+n), O(n)）。</li>
-<li>我们可以分别确定两个链表的长度，a , b; 假设 a &gt; b， 则链表a可先走(a-b)步，然后再同步遍历两个链表，则可以很方便找到汇聚点。a &lt; b 是同理。【O(n)时间复杂度，O(1)的空间复杂度】<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+<li>一个一个进行旋转。每次保留第n个数，然后将前头n-1个数都往后挪一位，最后将第n个数放到第0位，如此循环k次。时间复杂度是$O(n*k)$,超时了。</li>
+<li>三次旋转。将数组进行倒序，然后针对前k个进行倒序，以及后n-k个数进行倒序。比如：123456, k = 2, 第一步：654321， 第二步：56 4321， 第三步：56 1234. 时间复杂度：$O(n)$<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
 </ul>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA == <span class="literal">nullptr</span> || headB == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//O(1)内存 O(n)时间复杂度</span></span><br><span class="line">        <span class="comment">//确定两条链表长度，然后长的先走多出来的步数，二者再一起遍历</span></span><br><span class="line">        <span class="keyword">int</span> lena = <span class="number">0</span>, lenb = <span class="number">0</span>;</span><br><span class="line">        ListNode* pa = headA, *pb = headB;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">nullptr</span>)&#123; ++ lena; pa = pa-&gt;next;&#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">nullptr</span>)&#123; ++ lenb; pb = pb-&gt;next;&#125;</span><br><span class="line">        </span><br><span class="line">        pa = headA, pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(lena &gt; lenb)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lena-lenb; ++i)&#123; pa = pa-&gt;next;&#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(lenb &gt; lena)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenb-lena; ++i)&#123; pb = pb-&gt;next;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(pa &amp;&amp; pb)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)&#123;</span><br><span class="line">                <span class="keyword">return</span> pa;</span><br><span class="line">            &#125;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate_move</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">const</span> <span class="keyword">int</span>&amp; k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lastidx = nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> v = nums[lastidx];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = lastidx; j &gt; <span class="number">0</span>; --j)&#123;</span><br><span class="line">                nums[j] = nums[j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            nums[<span class="number">0</span>] = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">myRotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> sidx, <span class="keyword">int</span> eidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(sidx &lt; eidx)&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = nums[sidx];</span><br><span class="line">            nums[sidx] = nums[eidx];</span><br><span class="line">            nums[eidx] = tmp;</span><br><span class="line">            ++sidx;</span><br><span class="line">            --eidx;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate_2times</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">const</span> <span class="keyword">int</span>&amp; k)</span></span>&#123;</span><br><span class="line">        myRotate(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">        myRotate(nums, <span class="number">0</span>, k<span class="number">-1</span>);</span><br><span class="line">        myRotate(nums, k, nums.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k == nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        k = k%(nums.<span class="built_in">size</span>());</span><br><span class="line">        <span class="comment">//1 保存最后一个值，一个一个往后挪一个位置，然后将最后一个值放到0位置上 (O(n*k)) 超时</span></span><br><span class="line">        <span class="comment">// rotate_move(nums, k);</span></span><br><span class="line">        <span class="comment">// 2 两次旋转</span></span><br><span class="line">        rotate_2times(nums, k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -348,9 +345,7 @@ Input Explanation: The intersected node&apos;s value is 8 (note that this must n
           
             <a href="/tags/Easy/" rel="tag"># Easy</a>
           
-            <a href="/tags/O-N/" rel="tag"># O_N</a>
-          
-            <a href="/tags/List/" rel="tag"># List</a>
+            <a href="/tags/Rotate/" rel="tag"># Rotate</a>
           
         </div>
       
@@ -363,8 +358,8 @@ Input Explanation: The intersected node&apos;s value is 8 (note that this must n
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/19/148-Sort-List/" rel="next" title="148. Sort List">
-                <i class="fa fa-chevron-left"></i> 148. Sort List
+              <a href="/2020/04/25/169-Majority-Element/" rel="next" title="169. Majority Element">
+                <i class="fa fa-chevron-left"></i> 169. Majority Element
               </a>
             
           </div>
@@ -373,8 +368,8 @@ Input Explanation: The intersected node&apos;s value is 8 (note that this must n
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/20/152-Maximum-Product-Subarray/" rel="prev" title="152. Maximum Product Subarray">
-                152. Maximum Product Subarray <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/25/179-Largest-Number/" rel="prev" title="179. Largest Number">
+                179. Largest Number <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
