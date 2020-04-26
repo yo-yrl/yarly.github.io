@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="面试考点汇总本章主要对网络课程的面试知识点进行整理。如果有错误或不足，请多指教~ 一、网络协议层（7层）  物理层: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45   物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。  数据链路层: 将比特组装成帧和">
+<meta name="description" content="本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~ 一、网络协议层（7层）  物理层: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45   物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。  数据链路层: 将比特组装成帧和点到点的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络基础知识">
 <meta property="og:url" content="http://yoursite.com/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="面试考点汇总本章主要对网络课程的面试知识点进行整理。如果有错误或不足，请多指教~ 一、网络协议层（7层）  物理层: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45   物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。  数据链路层: 将比特组装成帧和">
+<meta property="og:description" content="本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~ 一、网络协议层（7层）  物理层: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45   物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。  数据链路层: 将比特组装成帧和点到点的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-22T13:39:23.000Z">
-<meta property="article:modified_time" content="2020-04-22T16:11:21.305Z">
+<meta property="article:modified_time" content="2020-04-25T08:19:25.950Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary">
@@ -300,17 +300,17 @@
       
 
       
-        <h1 id="面试考点汇总"><a href="#面试考点汇总" class="headerlink" title="面试考点汇总"></a>面试考点汇总</h1><p>本章主要对网络课程的面试知识点进行整理。如果有错误或不足，请多指教~</p>
+        <p>本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~</p>
 <h1 id="一、网络协议层（7层）"><a href="#一、网络协议层（7层）" class="headerlink" title="一、网络协议层（7层）"></a>一、网络协议层（7层）</h1><hr>
 <ul>
 <li><p><code>物理层</code>: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45</p>
 <p>  物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。</p>
 </li>
-<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为帧,主要包括的协议为MAC VLAN PPP</p>
-<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。</p>
+<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为 帧 ,主要包括的协议为MAC VLAN PPP</p>
+<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：<strong>物理地址寻址</strong>（ARP）、数据的成帧、<strong>流量控制</strong>?、数据的检错、重发等。</p>
 </li>
 <li><p><code>网络层</code>：负责数据包从源到宿的传递和网际互连，传输单位为包,主要包括的协议为IP ARP ICMP</p>
-<p>  网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
+<p>  网络层负责对子网间的数据包进行<strong>路由选择</strong>。此外，网络层还可以实现<strong>拥塞控制</strong>、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
 </li>
 <li><p><code>传输层</code>：提供端到端的可靠报文传递和错误恢复，传输单位为报文,主要包括的协议为TCP UDP</p>
 <p>  传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。</p>
@@ -328,27 +328,54 @@
 <h2 id="1-http、https"><a href="#1-http、https" class="headerlink" title="1. http、https"></a>1. http、https</h2><hr>
 <hr>
 <h2 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h2><hr>
-<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。</p>
-<p>IP(v4)地址有32位，不方便记忆，故而出现url，比如 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 总比 14.215.177.39 容易记住吧。所以，<code>IP地址是面向主机的，url是面向用户的</code>。</p>
-<p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
+<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。比如：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>  –&gt; 119.75.217.109 .</p>
+<p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
+<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
+<p><strong>DNS 可以使用<code>UDP 或者 TCP</code>进行传输</strong>，使用的端口号都为 <code>53</code>。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
+<p>在两种情况下会使用 TCP 进行传输：</p>
+<ul>
+<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据？？？）。</li>
+<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据，辅助DNS服务器定时（通常3h）向主DNS服务器询问是否有新数据，如果有，则通过区域传送方式获得新数据。</li>
+</ul>
+<p>应用程序通过名字解析器将一个主机名转换为一个IP地址，也可以将一个IP地址转换为对应的主机名。(逆向解析)</p>
+<p>IP(v4)地址有32位，不方便记忆，故而出现url，<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 比 119.75.217.109 更容易记住，所以，我们可以这样理解：<code>IP地址是面向主机的，url是面向用户的</code>。</p>
+<h3 id="2）域名结构和域名服务器"><a href="#2）域名结构和域名服务器" class="headerlink" title="2）域名结构和域名服务器"></a>2）域名结构和域名服务器</h3><p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
 <p>首先简单了解一下域名结构和域名系统。</p>
-<p>1.1 域名结构<br></p>
-<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。
+<p>1.1 域名结构</p>
+<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。其中，com为顶级域名，baidu为二级域名，tieba为三级域名。注意域名不分区大小写。</code></pre><p>1.2 域名服务器</p>
+<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。
 
-它由三个标号组成， com即为顶级域名，baidu为二级域名，tieba即为三级域名。且域名不分区大小写。</code></pre><p>1.2 域名服务器<br></p>
-<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。</code></pre><p>(1) <code>根域名服务器</code>是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。</p>
-<p>(2)<code>顶级域名服务器</code>管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）</p>
-<p>(3)<code>权限域名服务器</code>可以理解为二级域名下 负责一个区的域名服务器。</p>
-<p>(4)本地域名服务器<br>本地域名服务器并不属于3.1域名服务器图中的层级结构，但对域名系统非常重要。但一台主机发出DNS请求时就是发给本地域名服务器。<br>每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</p>
-<h3 id="2-DNS查询过程"><a href="#2-DNS查询过程" class="headerlink" title="2) DNS查询过程"></a>2) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己本地的hosts文件（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己本地的hosts文件（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
-<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
-<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它本地DNS服务器，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
+(1) `根域名服务器`是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。
+
+(2)`顶级域名服务器`管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）
+
+(3)`权限域名服务器`可以理解为二级域名下 负责一个区的域名服务器。
+
+(4)`本地域名服务器`不属于域名服务器图中的层级结构，但对域名系统非常重要。当一台主机发出DNS请求时就是发给本地域名服务器进行查询，如果查询失败，再以递归或迭代方式向上查询。
+
+每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</code></pre><h3 id="3-DNS查询方式"><a href="#3-DNS查询方式" class="headerlink" title="3) DNS查询方式"></a>3) DNS查询方式</h3><p>DNS查询方式主要分为两种，一种是递归查询，另一种是迭代查询。</p>
+<ul>
+<li><p>递归查询：</p>
+<p>主机向本地服务器发起DNS请求一定是递归查询。</p>
+<p>递归查询就是：如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其它根域名服务器继续发出查询请求报文(即替主机继续查询)，而不是让主机自己进行下一步查询。</p>
+<p>因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</p>
+<p>请求过程：主机—&gt; 本地服务器 —-&gt; 二级域名服务器（no result）–&gt; 一级(get) –&gt; 二级 —&gt; 本地 –&gt;主机</p>
+</li>
+<li><p>迭代查询。主机 –&gt; 本地服务器 —&gt; 二级(no result) –&gt; 本地 –&gt; 一级(get) –&gt; 本地–&gt;主机</p>
+</li>
+</ul>
+<h3 id="4-DNS查询过程"><a href="#4-DNS查询过程" class="headerlink" title="4) DNS查询过程"></a>4) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
+<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器<strong>缓存</strong>，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
+<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它<strong>本地DNS服务器</strong>，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
 <p>4.如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</p>
-<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，<br>如果未用转发模式，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。<br>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
-<p>6.如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。<br>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
+<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，</p>
+<p>如果未用转发模式(即<code>迭代方式</code>)，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。 </p>
+<p>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
+<p>6.如果用的是转发模式（即<code>递归方式</code>），此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。</p>
+<p>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
 <hr>
 <h2 id="3-url请求过程"><a href="#3-url请求过程" class="headerlink" title="3. url请求过程"></a>3. url请求过程</h2><hr>
-<p>浏览器中输入URL,到页面显示，经过哪些步骤。</p>
+<p>Q: 浏览器中输入URL,到页面显示，经过哪些步骤。</p>
 <p>1 域名解析 url–&gt;ip(DNS)</p>
 <p>2 发起请求 ip–&gt;mac(ARP)，ip–&gt;ip(路由)</p>
 <p>3 收到，然后显示</p>
@@ -365,7 +392,7 @@
 <p>4、数据链路层<br>当发送数据时，数据链路层的任务是将在网络层交下来的IP数据报组装成帧，在两个相邻结点间的链路上传送以帧为单位的数据。每一帧包括数据和必要的控制信息（如同步信息、地址信息、差错控制、以及流量控制信息等）。控制信息使接收端能够知道—个帧从哪个比特开始和到哪个比特结束。控制信息还使接收端能够检测到所收到的帧中有无差错。</p>
 <p>5、物理层<br>物理层的任务就是透明地传送比特流。在物理层上所传数据的单位是比特。传递信息所利用的一些物理媒体，如双绞线、同轴电缆、光缆等，并不在物理层之内而是在物理层的下面。因此也有人把物理媒体当做第0层。</p>
 <h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><hr>
-<h2 id="1-tcp、upd协议"><a href="#1-tcp、upd协议" class="headerlink" title="1. tcp、upd协议"></a>1. tcp、upd协议</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
+<h2 id="1-tcp、upd协议简介"><a href="#1-tcp、upd协议简介" class="headerlink" title="1. tcp、upd协议简介"></a>1. tcp、upd协议简介</h2><h2 id="2-tcp"><a href="#2-tcp" class="headerlink" title="2. tcp"></a>2. tcp</h2><h2 id="3-udp"><a href="#3-udp" class="headerlink" title="3. udp"></a>3. udp</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
 <h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><hr>
 <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><hr>
 
@@ -487,7 +514,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -533,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面试考点汇总"><span class="nav-number">1.</span> <span class="nav-text">面试考点汇总</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、网络协议层（7层）"><span class="nav-number">2.</span> <span class="nav-text">一、网络协议层（7层）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层"><span class="nav-number">3.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-http、https"><span class="nav-number">3.1.</span> <span class="nav-text">1. http、https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-DNS"><span class="nav-number">3.2.</span> <span class="nav-text">2. DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-DNS协议简介"><span class="nav-number">3.2.1.</span> <span class="nav-text">1) DNS协议简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-DNS查询过程"><span class="nav-number">3.2.2.</span> <span class="nav-text">2) DNS查询过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-url请求过程"><span class="nav-number">3.3.</span> <span class="nav-text">3. url请求过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输层"><span class="nav-number">4.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-tcp、upd协议"><span class="nav-number">4.1.</span> <span class="nav-text">1. tcp、upd协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层"><span class="nav-number">5.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据链路层"><span class="nav-number">6.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#物理层"><span class="nav-number">7.</span> <span class="nav-text">物理层</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、网络协议层（7层）"><span class="nav-number">1.</span> <span class="nav-text">一、网络协议层（7层）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-http、https"><span class="nav-number">2.1.</span> <span class="nav-text">1. http、https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-DNS"><span class="nav-number">2.2.</span> <span class="nav-text">2. DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-DNS协议简介"><span class="nav-number">2.2.1.</span> <span class="nav-text">1) DNS协议简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）域名结构和域名服务器"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）域名结构和域名服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-DNS查询方式"><span class="nav-number">2.2.3.</span> <span class="nav-text">3) DNS查询方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-DNS查询过程"><span class="nav-number">2.2.4.</span> <span class="nav-text">4) DNS查询过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-url请求过程"><span class="nav-number">2.3.</span> <span class="nav-text">3. url请求过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输层"><span class="nav-number">3.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-tcp、upd协议简介"><span class="nav-number">3.1.</span> <span class="nav-text">1. tcp、upd协议简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-tcp"><span class="nav-number">3.2.</span> <span class="nav-text">2. tcp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-udp"><span class="nav-number">3.3.</span> <span class="nav-text">3. udp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层"><span class="nav-number">4.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据链路层"><span class="nav-number">5.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#物理层"><span class="nav-number">6.</span> <span class="nav-text">物理层</span></a></li></ol></div>
             
 
           </div>

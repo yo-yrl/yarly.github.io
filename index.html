@@ -229,6 +229,400 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/198-House-Robber/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/26/198-House-Robber/" itemprop="url">198. House Robber</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-26T11:34:29+08:00">
+                2020-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
+<p>Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.</p>
+<p>Example 1:</p>
+<pre><code>Input: [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+         Total amount you can rob = 1 + 3 = 4.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>有一个盗贼，想要入屋盗窃。现小区内有一排房子，房子都装有报警器，如果偷了两家相邻的房子，则会自动报警。假设小偷知道每家每户的可盗取金额，问小偷最多能偷多少钱。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>动态规划方法。 对于当前i房子，他可以选择偷或不偷，如果偷， 他不能偷 i-1家的，下一次得从i-2家投起；如果不偷，则可以再从i-1家偷起。所以可以退出一个递推式子： $dp[i] = max(dp[i-2]+money[i], dp[i-1])$.</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_2</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="built_in">size</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = nums[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i<span class="number">-1</span>; ++j)</span><br><span class="line">                dp[i] = <span class="built_in">max</span>(<span class="built_in">max</span>(nums[i]+dp[j], dp[i<span class="number">-1</span>]), dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">size</span><span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_1</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="built_in">size</span>+<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">1</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="built_in">size</span>+<span class="number">1</span>; ++i)&#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(nums[i<span class="number">-1</span>]+dp[i<span class="number">-2</span>], dp[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">size</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_11</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> pre1 = nums[<span class="number">0</span>], pre2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">size</span>; ++i)&#123;</span><br><span class="line">            tmp = <span class="built_in">max</span>(nums[i]+pre2, pre1);</span><br><span class="line">            pre2 = pre1;</span><br><span class="line">            pre1 = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123; <span class="keyword">return</span> nums[<span class="number">0</span>];&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">2</span>)&#123; <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);&#125;</span><br><span class="line">        <span class="comment">//动态规划--双重循环</span></span><br><span class="line">        <span class="comment">// return robDP_2(nums);</span></span><br><span class="line">        <span class="comment">// 单重循环</span></span><br><span class="line">        <span class="comment">// return robDP_1(nums);</span></span><br><span class="line">        <span class="comment">//减少空间</span></span><br><span class="line">        <span class="keyword">return</span> robDP_11(nums);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/190-Reverse-Bits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/26/190-Reverse-Bits/" itemprop="url">190. Reverse Bits</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-26T11:34:14+08:00">
+                2020-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Reverse bits of a given 32 bits unsigned integer.</p>
+<p>Example 1:</p>
+<pre><code>Input: 00000010100101000001111010011100
+Output: 00111001011110000010100101000000
+Explanation: The input binary string 00000010100101000001111010011100 represents the unsigned integer 43261596, so return 964176192 which its binary representation is 00111001011110000010100101000000.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个无符号32位整数，将其bit进行翻转。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>从右往左将n的每一bit位存入队列（和0x1进行与操作，判断最后一位是否为0 或 1，然后右移一位）。求取结果。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">uint32_t</span> <span class="title">reverseBits</span><span class="params">(<span class="keyword">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//将bit反转</span></span><br><span class="line">        <span class="keyword">uint32_t</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)&#123;</span><br><span class="line">            res = res &lt;&lt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(n &amp; <span class="number">0x1</span>)&#123;</span><br><span class="line">                res += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            n = n &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/191-Number-of-1-Bits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/26/191-Number-of-1-Bits/" itemprop="url">191. Number of 1 Bits</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-26T11:34:04+08:00">
+                2020-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Write a function that takes an unsigned integer and return the number of ‘1’ bits it has (also known as the Hamming weight).</p>
+<p>Example 1:</p>
+<pre><code>Input: 00000000000000000000000000001011
+Output: 3
+Explanation: The input binary string 00000000000000000000000000001011 has a total of three &apos;1&apos; bits.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个无符号32位整数，求取其bit位中1的个数。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>确定是32位无符号整数了，我们可以逐一判断每一位。将输入n和0x1进行与操作判断最后一位是0还是1，然后将n右移一位。或者。对0x1进行向左移位，n不变。</li>
+<li>存在一个技巧：$n &amp; n-1$会去掉n的最后一个为1的比特位。<br>比如 4： 10000100， 3为： 00000011，则4&amp;3 = 10000000。</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hammingLoop</span><span class="params">(<span class="keyword">uint32_t</span> n)</span></span>&#123;</span><br><span class="line">        <span class="comment">//求bit位为1的状态</span></span><br><span class="line">        <span class="keyword">uint32_t</span> flag = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(n &amp; flag)&#123;</span><br><span class="line">                ++ count;</span><br><span class="line">            &#125;</span><br><span class="line">            flag &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hammingTrick</span><span class="params">(<span class="keyword">uint32_t</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            ++ count;</span><br><span class="line">            n = n&amp;(n<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//循环求解</span></span><br><span class="line">        <span class="comment">// return hammingLoop(n);</span></span><br><span class="line">        <span class="comment">// n &amp; (n-1)会去掉n的最后一位1</span></span><br><span class="line">        <span class="keyword">return</span> hammingTrick(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/179-Largest-Number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -845,17 +1239,17 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
       
         
           
-            <h1 id="面试考点汇总"><a href="#面试考点汇总" class="headerlink" title="面试考点汇总"></a>面试考点汇总</h1><p>本章主要对网络课程的面试知识点进行整理。如果有错误或不足，请多指教~</p>
+            <p>本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~</p>
 <h1 id="一、网络协议层（7层）"><a href="#一、网络协议层（7层）" class="headerlink" title="一、网络协议层（7层）"></a>一、网络协议层（7层）</h1><hr>
 <ul>
 <li><p><code>物理层</code>: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45</p>
 <p>  物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。</p>
 </li>
-<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为帧,主要包括的协议为MAC VLAN PPP</p>
-<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。</p>
+<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为 帧 ,主要包括的协议为MAC VLAN PPP</p>
+<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：<strong>物理地址寻址</strong>（ARP）、数据的成帧、<strong>流量控制</strong>?、数据的检错、重发等。</p>
 </li>
 <li><p><code>网络层</code>：负责数据包从源到宿的传递和网际互连，传输单位为包,主要包括的协议为IP ARP ICMP</p>
-<p>  网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
+<p>  网络层负责对子网间的数据包进行<strong>路由选择</strong>。此外，网络层还可以实现<strong>拥塞控制</strong>、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
 </li>
 <li><p><code>传输层</code>：提供端到端的可靠报文传递和错误恢复，传输单位为报文,主要包括的协议为TCP UDP</p>
 <p>  传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。</p>
@@ -873,27 +1267,54 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 <h2 id="1-http、https"><a href="#1-http、https" class="headerlink" title="1. http、https"></a>1. http、https</h2><hr>
 <hr>
 <h2 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h2><hr>
-<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。</p>
-<p>IP(v4)地址有32位，不方便记忆，故而出现url，比如 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 总比 14.215.177.39 容易记住吧。所以，<code>IP地址是面向主机的，url是面向用户的</code>。</p>
-<p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
+<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。比如：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>  –&gt; 119.75.217.109 .</p>
+<p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
+<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
+<p><strong>DNS 可以使用<code>UDP 或者 TCP</code>进行传输</strong>，使用的端口号都为 <code>53</code>。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
+<p>在两种情况下会使用 TCP 进行传输：</p>
+<ul>
+<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据？？？）。</li>
+<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据，辅助DNS服务器定时（通常3h）向主DNS服务器询问是否有新数据，如果有，则通过区域传送方式获得新数据。</li>
+</ul>
+<p>应用程序通过名字解析器将一个主机名转换为一个IP地址，也可以将一个IP地址转换为对应的主机名。(逆向解析)</p>
+<p>IP(v4)地址有32位，不方便记忆，故而出现url，<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 比 119.75.217.109 更容易记住，所以，我们可以这样理解：<code>IP地址是面向主机的，url是面向用户的</code>。</p>
+<h3 id="2）域名结构和域名服务器"><a href="#2）域名结构和域名服务器" class="headerlink" title="2）域名结构和域名服务器"></a>2）域名结构和域名服务器</h3><p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
 <p>首先简单了解一下域名结构和域名系统。</p>
-<p>1.1 域名结构<br></p>
-<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。
+<p>1.1 域名结构</p>
+<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。其中，com为顶级域名，baidu为二级域名，tieba为三级域名。注意域名不分区大小写。</code></pre><p>1.2 域名服务器</p>
+<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。
 
-它由三个标号组成， com即为顶级域名，baidu为二级域名，tieba即为三级域名。且域名不分区大小写。</code></pre><p>1.2 域名服务器<br></p>
-<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。</code></pre><p>(1) <code>根域名服务器</code>是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。</p>
-<p>(2)<code>顶级域名服务器</code>管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）</p>
-<p>(3)<code>权限域名服务器</code>可以理解为二级域名下 负责一个区的域名服务器。</p>
-<p>(4)本地域名服务器<br>本地域名服务器并不属于3.1域名服务器图中的层级结构，但对域名系统非常重要。但一台主机发出DNS请求时就是发给本地域名服务器。<br>每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</p>
-<h3 id="2-DNS查询过程"><a href="#2-DNS查询过程" class="headerlink" title="2) DNS查询过程"></a>2) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己本地的hosts文件（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己本地的hosts文件（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
-<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
-<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它本地DNS服务器，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
+(1) `根域名服务器`是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。
+
+(2)`顶级域名服务器`管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）
+
+(3)`权限域名服务器`可以理解为二级域名下 负责一个区的域名服务器。
+
+(4)`本地域名服务器`不属于域名服务器图中的层级结构，但对域名系统非常重要。当一台主机发出DNS请求时就是发给本地域名服务器进行查询，如果查询失败，再以递归或迭代方式向上查询。
+
+每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</code></pre><h3 id="3-DNS查询方式"><a href="#3-DNS查询方式" class="headerlink" title="3) DNS查询方式"></a>3) DNS查询方式</h3><p>DNS查询方式主要分为两种，一种是递归查询，另一种是迭代查询。</p>
+<ul>
+<li><p>递归查询：</p>
+<p>主机向本地服务器发起DNS请求一定是递归查询。</p>
+<p>递归查询就是：如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其它根域名服务器继续发出查询请求报文(即替主机继续查询)，而不是让主机自己进行下一步查询。</p>
+<p>因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</p>
+<p>请求过程：主机—&gt; 本地服务器 —-&gt; 二级域名服务器（no result）–&gt; 一级(get) –&gt; 二级 —&gt; 本地 –&gt;主机</p>
+</li>
+<li><p>迭代查询。主机 –&gt; 本地服务器 —&gt; 二级(no result) –&gt; 本地 –&gt; 一级(get) –&gt; 本地–&gt;主机</p>
+</li>
+</ul>
+<h3 id="4-DNS查询过程"><a href="#4-DNS查询过程" class="headerlink" title="4) DNS查询过程"></a>4) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
+<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器<strong>缓存</strong>，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
+<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它<strong>本地DNS服务器</strong>，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
 <p>4.如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</p>
-<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，<br>如果未用转发模式，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。<br>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
-<p>6.如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。<br>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
+<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，</p>
+<p>如果未用转发模式(即<code>迭代方式</code>)，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。 </p>
+<p>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
+<p>6.如果用的是转发模式（即<code>递归方式</code>），此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。</p>
+<p>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
 <hr>
 <h2 id="3-url请求过程"><a href="#3-url请求过程" class="headerlink" title="3. url请求过程"></a>3. url请求过程</h2><hr>
-<p>浏览器中输入URL,到页面显示，经过哪些步骤。</p>
+<p>Q: 浏览器中输入URL,到页面显示，经过哪些步骤。</p>
 <p>1 域名解析 url–&gt;ip(DNS)</p>
 <p>2 发起请求 ip–&gt;mac(ARP)，ip–&gt;ip(路由)</p>
 <p>3 收到，然后显示</p>
@@ -910,7 +1331,7 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 <p>4、数据链路层<br>当发送数据时，数据链路层的任务是将在网络层交下来的IP数据报组装成帧，在两个相邻结点间的链路上传送以帧为单位的数据。每一帧包括数据和必要的控制信息（如同步信息、地址信息、差错控制、以及流量控制信息等）。控制信息使接收端能够知道—个帧从哪个比特开始和到哪个比特结束。控制信息还使接收端能够检测到所收到的帧中有无差错。</p>
 <p>5、物理层<br>物理层的任务就是透明地传送比特流。在物理层上所传数据的单位是比特。传递信息所利用的一些物理媒体，如双绞线、同轴电缆、光缆等，并不在物理层之内而是在物理层的下面。因此也有人把物理媒体当做第0层。</p>
 <h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><hr>
-<h2 id="1-tcp、upd协议"><a href="#1-tcp、upd协议" class="headerlink" title="1. tcp、upd协议"></a>1. tcp、upd协议</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
+<h2 id="1-tcp、upd协议简介"><a href="#1-tcp、upd协议简介" class="headerlink" title="1. tcp、upd协议简介"></a>1. tcp、upd协议简介</h2><h2 id="2-tcp"><a href="#2-tcp" class="headerlink" title="2. tcp"></a>2. tcp</h2><h2 id="3-udp"><a href="#3-udp" class="headerlink" title="3. udp"></a>3. udp</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
 <h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><hr>
 <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><hr>
 
@@ -1245,430 +1666,11 @@ Output: &quot;0.(6)&quot;</code></pre><h2 id="题意分析"><a href="#题意分�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/162-Find-Peak-Element/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/21/162-Find-Peak-Element/" itemprop="url">162. Find Peak Element</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-21T09:59:46+08:00">
-                2020-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>A peak element is an element that is greater than its neighbors.</p>
-<p>Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.</p>
-<p>The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.</p>
-<p>You may imagine that nums[-1] = nums[n] = -∞.</p>
-<p>Example 1:</p>
-<pre><code>Input: nums = [1,2,3,1]
-Output: 2
-Explanation: 3 is a peak element and your function should return the index number 2.</code></pre><p><code>Note</code>:</p>
-<pre><code>Your solution should be in logarithmic complexity.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个数组，求 峰值元素的索引。峰值定义： $nums[i] &gt; nums[i-1] &amp;&amp; nums[i] &gt; nums[i+1]$. 设定 nums[-1] = nums[n] = -∞。</p>
-<p>要求 log(n)的复杂度。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>顺序比较$O(n)$时间复杂度。遍历一遍数组，对每个数组进行比较，返回对应索引。</li>
-<li>二分查找$O(log(n))$时间复杂度。题目是一个搜索问题，又要求 $log(n)$的复杂度，所以很直接能想到二分查找。重要的是确定二分查找的条件。由峰值条件为：$nums[i] &gt; nums[i-1] &amp;&amp; nums[i] &gt; nums[i+1]$， 我们可知，如果 $nums[i] &gt; nums[i-1] &amp;&amp; nums[i] &lt; nums[i+1]$, 此处呈现一种递增状态，则在i的右边存在峰值；反之，如果是递减状态，则再i的左边存在峰值。由此我们可以确定二分的条件。</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeakSeq</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> curv = nums[<span class="number">0</span>]; <span class="keyword">if</span>(curv &gt; nums[<span class="number">1</span>])&#123;<span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;i &lt; nums.<span class="built_in">size</span>()<span class="number">-1</span>; ++i)&#123;</span><br><span class="line">            curv = nums[i];</span><br><span class="line">            <span class="keyword">if</span>(curv &gt; nums[i<span class="number">-1</span>] &amp;&amp; curv &gt; nums[i+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        curv = nums[i];</span><br><span class="line">        <span class="keyword">if</span>(curv &gt; nums[i<span class="number">-1</span>])&#123; <span class="keyword">return</span> i;&#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeakBin</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> mid = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">            mid = l + (r-l)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] &gt; nums[mid+<span class="number">1</span>])&#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                l = mid+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">-1</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">//顺序比较, 遍历到i， 则和i-1 ， i+1比较.O(n)</span></span><br><span class="line">        <span class="comment">// return findPeakSeq(nums);</span></span><br><span class="line">        <span class="comment">//log时间复杂度，二分查找，可是什么是二分的条件呢</span></span><br><span class="line">        <span class="keyword">return</span> findPeakBin(nums);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/152-Maximum-Product-Subarray/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/20/152-Maximum-Product-Subarray/" itemprop="url">152. Maximum Product Subarray</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-20T22:13:11+08:00">
-                2020-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.</p>
-<p>Example 1:</p>
-<pre><code>Input: [2,3,-2,4]
-Output: 6
-Explanation: [2,3] has the largest product 6.</code></pre><p>Example 2:</p>
-<pre><code>Input: [-2,0,-1]
-Output: 0
-Explanation: The result cannot be 2, because [-2,-1] is not a subarray.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<ul>
-<li>求一个连续子序列，且改序列的所有值乘积最大。【啊，一开始看成求最大和，哈哈哈哈product有乘积的意思(ﾉ”◑ ◑)ﾉ”(｡•́︿•̀｡)</li>
-</ul>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>和求最大和的连续子序列不同，在本体中会出现 负数 和 0 ， 负数会使得 当前子序列的值变成最小或最大，0则会变成0，当数列中存在偶数个负数时，乘上当前负数是对的选择，如果是奇数个，则需要额外的判断。</li>
-<li>暴力破解法。求所有的子序列，然后比较谁的乘积最大。肯定超时的写法。$O(n^2)$时间复杂度。</li>
-<li>动态规划。空间换时间。其实最大的难点是遇到负数时，我们不知道该不该要这个负数，因为此时它可能使得子序列乘积最小，但是，如果后头再遇到负数，则会得到乘积最大。 所以，我们可以用数组维护两个值，一个是当前子序列的最小值 minv[i]（出现0，或负数情况的记录） ，另一个是当前子序列的最大值 maxv[i], （0—i的子序列），且 res[i] = max( max[i-1]*nums[i], min[i-1] * nums[i] , nums[i])。</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//求成加法了</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProADD</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ressum = nums[<span class="number">0</span>], tmpsum = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tmpsum + nums[i] &lt;= nums[i])&#123;</span><br><span class="line">                ressum = <span class="built_in">max</span>(ressum, tmpsum);</span><br><span class="line">                tmpsum = nums[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tmpsum += nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ressum = <span class="built_in">max</span>(ressum, tmpsum);</span><br><span class="line">        <span class="comment">//更简易版本：</span></span><br><span class="line">        ressum = INT_MIN, tmpsum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            tmpsum = <span class="built_in">max</span>(tmpsum+nums[i], nums[i]);</span><br><span class="line">            ressum = <span class="built_in">max</span>(tmpsum, ressum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ressum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProForce</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> res = INT_MIN;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; nums.<span class="built_in">size</span>(); ++j)&#123;</span><br><span class="line">                <span class="comment">// int tmp = nums[i];</span></span><br><span class="line">                <span class="comment">// for(int k = i+1; k &lt;= j; ++k)&#123; tmp *= nums[k];&#125;</span></span><br><span class="line">                <span class="comment">// res = max(res, tmp);</span></span><br><span class="line">                <span class="comment">//上述三行改进</span></span><br><span class="line">                tmp *= nums[j];</span><br><span class="line">                res = <span class="built_in">max</span>(res, tmp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProDP</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="comment">//维护一个数组，a[i] 表示 0--i中包含i的最大值</span></span><br><span class="line">        <span class="comment">//             b[i] 表示0--i中包含i 的最小值(如果 0--i中有单个数的负数，则其会一直是最小值，知道遇到一个负数，变成一个最大值！)</span></span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;int&gt; maxv(size, 0), minv(size, 0);</span><br><span class="line">        maxv[<span class="number">0</span>] = nums[<span class="number">0</span>], minv[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">size</span>; ++i)&#123;</span><br><span class="line">            maxv[i] = <span class="built_in">max</span>(maxv[i<span class="number">-1</span>]*nums[i], <span class="built_in">max</span>(minv[i<span class="number">-1</span>]*nums[i], nums[i]));</span><br><span class="line">            minv[i] = <span class="built_in">min</span>(maxv[i<span class="number">-1</span>]*nums[i], <span class="built_in">min</span>(minv[i<span class="number">-1</span>]*nums[i], nums[i]));</span><br><span class="line">            res = <span class="built_in">max</span>(res, maxv[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//求乘积哈哈哈太难了</span></span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123; <span class="keyword">return</span> nums[<span class="number">0</span>];&#125;</span><br><span class="line">        <span class="comment">//暴力破解---超时</span></span><br><span class="line">        <span class="keyword">return</span> maxProForce(nums);</span><br><span class="line">        <span class="comment">// DP 解法</span></span><br><span class="line">        <span class="comment">// return maxProDP(nums);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/160-Intersection-of-Two-Linked-Lists/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/19/160-Intersection-of-Two-Linked-Lists/" itemprop="url">160. Intersection of Two Linked Lists</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:06:58+08:00">
-                2020-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
-<p>Example 1:</p>
-<pre><code>Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
-Output: Reference of the node with value = 8
-Input Explanation: The intersected node&apos;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</code></pre><p>Notes:</p>
-<ul>
-<li>If the two linked lists have no intersection at all, return null.</li>
-<li>The linked lists must retain their original structure after the function returns.</li>
-<li>You may assume there are no cycles anywhere in the entire linked structure.</li>
-<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
-</ul>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<ul>
-<li>给定两个单向链表，返回他们汇聚的第一个节点，如果没有汇聚点，即单独的两个链表，则返回 <code>nullptr</code>.</li>
-<li>注意题目要求O(n)时间复杂度，O(1)的空间复杂度。<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2></li>
-</ul>
-<hr>
-<ul>
-<li>如果不限制时间或空间复杂度，可以采用暴力破解的方法，去逐个遍历两个链表中是否存在两个相同的节点(O(m*n), O(1))。或者分别遍历两个链表，用map存储每个节点，如果存在重复节点，则是第一个汇聚点（O(m+n), O(n)）。</li>
-<li>我们可以分别确定两个链表的长度，a , b; 假设 a &gt; b， 则链表a可先走(a-b)步，然后再同步遍历两个链表，则可以很方便找到汇聚点。a &lt; b 是同理。【O(n)时间复杂度，O(1)的空间复杂度】<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA == <span class="literal">nullptr</span> || headB == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//O(1)内存 O(n)时间复杂度</span></span><br><span class="line">        <span class="comment">//确定两条链表长度，然后长的先走多出来的步数，二者再一起遍历</span></span><br><span class="line">        <span class="keyword">int</span> lena = <span class="number">0</span>, lenb = <span class="number">0</span>;</span><br><span class="line">        ListNode* pa = headA, *pb = headB;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">nullptr</span>)&#123; ++ lena; pa = pa-&gt;next;&#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">nullptr</span>)&#123; ++ lenb; pb = pb-&gt;next;&#125;</span><br><span class="line">        </span><br><span class="line">        pa = headA, pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(lena &gt; lenb)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lena-lenb; ++i)&#123; pa = pa-&gt;next;&#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(lenb &gt; lena)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenb-lena; ++i)&#123; pb = pb-&gt;next;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(pa &amp;&amp; pb)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)&#123;</span><br><span class="line">                <span class="keyword">return</span> pa;</span><br><span class="line">            &#125;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1714,7 +1716,7 @@ Input Explanation: The intersected node&apos;s value is 8 (note that this must n
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
