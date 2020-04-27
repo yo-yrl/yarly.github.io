@@ -229,6 +229,409 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/206-Reverse-Linked-List/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/206-Reverse-Linked-List/" itemprop="url">206. Reverse Linked List</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T22:23:42+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Reverse a singly linked list.</p>
+<p>Example:</p>
+<pre><code>Input: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
+Output: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</code></pre><p>Follow up:</p>
+<pre><code>A linked list can be reversed either iteratively or recursively. Could you implement both?</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个链表，实现链表翻转功能。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>用<code>栈</code>存储节点信息。遍历链表，用栈存储每个节点的值。再遍历一遍，将链表的值替换成栈顶的值，并出栈。</li>
+<li><code>三指针</code>方法。用三个指针 *pre, *cur, *next 分别记录当前遍历节点，及其前后两个节点，便于将指针翻转过来。翻转过程： 比如 1-&gt;2-&gt;3; pre = 1, cur = 2, next = 3; cur-&gt;next = pre; 1&lt;-2-&gt;3; 然后使得pre = cur = 2; cur = next = 3, next = nullptr; 以此循环。</li>
+<li><code>递归</code>方法。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverse3P</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span> <span class="keyword">or</span> head-&gt;next == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> head;&#125;</span><br><span class="line">        ListNode* pre = <span class="literal">nullptr</span>, *cur = head, *next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            next = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseRec</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span> <span class="keyword">or</span> head-&gt;next == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> head;&#125;</span><br><span class="line">        ListNode* p = reverseRec(head-&gt;next);</span><br><span class="line">        <span class="comment">//剩下两个节点的情况</span></span><br><span class="line">        head-&gt;next-&gt;next = head;</span><br><span class="line">        head-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1 用栈保存节点数值，然后重新对链表赋值</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2 三指针法</span></span><br><span class="line">        <span class="comment">// return reverse3P(head);</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 3 递归解法</span></span><br><span class="line">        <span class="keyword">return</span> reverseRec(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/204-Count-Primes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/204-Count-Primes/" itemprop="url">204. Count Primes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T22:23:30+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Count the number of prime numbers <code>less than</code> a non-negative number, n.</p>
+<p>Example:</p>
+<pre><code>Input: 10
+Output: 4
+Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个数，找出这个数范围的 质数 的个数。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>对于质数来说，是 只能对1或其本身除尽。</li>
+<li>可以对每个数进行判断是否是质数，然后进行统计。</li>
+<li>对于每个质数（2，3，5，等），我们可以排除他的倍数不是质数。比如 2 可以排除 4,6,8,10等，则3是质数，又可以排除 6,9,12等；接下来4不是质数，5是，以此循环。</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countMen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; n)</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">mem</span><span class="params">(n, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mem[i] == <span class="literal">true</span>)&#123; <span class="keyword">continue</span>;&#125;</span><br><span class="line">            ++count;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">2</span>; i*j &lt; n; ++j)&#123;</span><br><span class="line">                mem[i*j] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">2</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">//将不是质数的先排除，比如2是质数，可以排除 4 6 8 10 等。。</span></span><br><span class="line">        <span class="keyword">return</span> countMen(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/202-Happy-Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/202-Happy-Number/" itemprop="url">202. Happy Number</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T22:23:18+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Write an algorithm to determine if a number n is “happy”.</p>
+<p>A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.</p>
+<p>Return True if n is a happy number, and False if not.</p>
+<p>Example: </p>
+<pre><code>Input: 19
+Output: true
+Explanation: 
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给出了happy number的定义。给定一个数，判断他是否是“开心数”。<br>注意其有一个特点：如果该数不是开心数，在判断过程当中一定会陷入某种循环。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>只能老老实实判断了。用set记录曾经遇到过得中间值，如果出现相同，即陷入循环。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSquare</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> sum = <span class="number">0</span>, tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            tmp = n%<span class="number">10</span>;</span><br><span class="line">            sum += tmp*tmp;</span><br><span class="line">            n /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用set保存是否用过这个数字</span></span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; mset;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> val = numSquare(n);</span><br><span class="line">            <span class="keyword">if</span>(val == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(mset.<span class="built_in">find</span>(n) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mset.insert(n);</span><br><span class="line">                n = val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/200-Number-of-Islands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1153,496 +1556,6 @@ Output: 2</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/25/171-Excel-Sheet-Column-Number/" itemprop="url">171. Excel Sheet Column Number</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:03:51+08:00">
-                2020-04-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a column title as appear in an Excel sheet, return its corresponding column number.</p>
-<p>For example:</p>
-<pre><code>A -&gt; 1
-B -&gt; 2
-C -&gt; 3
-...
-Z -&gt; 26
-AA -&gt; 27
-AB -&gt; 28 
-...</code></pre><p>Example 1:</p>
-<pre><code>Input: &quot;A&quot;
-Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>类似进制转换题，不过转换对象分别是 26个大写字母 – 1–26数值。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<p>确定基数（26），从左往右遍历字符串时，和乘上基数，再加上当前转换值，更新和。</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, base = <span class="number">26</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : s)&#123;</span><br><span class="line">            n = (ch-<span class="string">'A'</span>)+<span class="number">1</span>;</span><br><span class="line">            sum = sum*base+n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url">网络基础知识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T21:39:23+08:00">
-                2020-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~</p>
-<h1 id="一、网络协议层（7层）"><a href="#一、网络协议层（7层）" class="headerlink" title="一、网络协议层（7层）"></a>一、网络协议层（7层）</h1><hr>
-<ul>
-<li><p><code>物理层</code>: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45</p>
-<p>  物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。</p>
-</li>
-<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为 帧 ,主要包括的协议为MAC VLAN PPP</p>
-<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：<strong>物理地址寻址</strong>（ARP）、数据的成帧、<strong>流量控制</strong>?、数据的检错、重发等。</p>
-</li>
-<li><p><code>网络层</code>：负责数据包从源到宿的传递和网际互连，传输单位为包,主要包括的协议为IP ARP ICMP</p>
-<p>  网络层负责对子网间的数据包进行<strong>路由选择</strong>。此外，网络层还可以实现<strong>拥塞控制</strong>、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
-</li>
-<li><p><code>传输层</code>：提供端到端的可靠报文传递和错误恢复，传输单位为报文,主要包括的协议为TCP UDP</p>
-<p>  传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。</p>
-</li>
-<li><p><code>会话层</code>：建立、管理和终止会话，传输单位为SPDU，主要包括的协议为RPC NFS</p>
-<p>  会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
-</li>
-<li><p><code>表示层</code>: 对数据进行翻译、加密和压缩,传输单位为PPDU，主要包括的协议为ASCII、ASN.1、JPEG、MPEG。</p>
-<p>  表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
-</li>
-<li><p><code>应用层</code>: 允许访问OSI环境的手段,传输单位为APDU，主要包括的协议为FTP HTTP DNS SMTP POP3 QUIC</p>
-</li>
-</ul>
-<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><hr>
-<h2 id="1-http、https"><a href="#1-http、https" class="headerlink" title="1. http、https"></a>1. http、https</h2><hr>
-<hr>
-<h2 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h2><hr>
-<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。比如：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>  –&gt; 119.75.217.109 .</p>
-<p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
-<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
-<p><strong>DNS 可以使用<code>UDP 或者 TCP</code>进行传输</strong>，使用的端口号都为 <code>53</code>。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
-<p>在两种情况下会使用 TCP 进行传输：</p>
-<ul>
-<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据？？？）。</li>
-<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据，辅助DNS服务器定时（通常3h）向主DNS服务器询问是否有新数据，如果有，则通过区域传送方式获得新数据。</li>
-</ul>
-<p>应用程序通过名字解析器将一个主机名转换为一个IP地址，也可以将一个IP地址转换为对应的主机名。(逆向解析)</p>
-<p>IP(v4)地址有32位，不方便记忆，故而出现url，<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 比 119.75.217.109 更容易记住，所以，我们可以这样理解：<code>IP地址是面向主机的，url是面向用户的</code>。</p>
-<h3 id="2）域名结构和域名服务器"><a href="#2）域名结构和域名服务器" class="headerlink" title="2）域名结构和域名服务器"></a>2）域名结构和域名服务器</h3><p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
-<p>首先简单了解一下域名结构和域名系统。</p>
-<p>1.1 域名结构</p>
-<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。其中，com为顶级域名，baidu为二级域名，tieba为三级域名。注意域名不分区大小写。</code></pre><p>1.2 域名服务器</p>
-<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。
-
-(1) `根域名服务器`是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。
-
-(2)`顶级域名服务器`管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）
-
-(3)`权限域名服务器`可以理解为二级域名下 负责一个区的域名服务器。
-
-(4)`本地域名服务器`不属于域名服务器图中的层级结构，但对域名系统非常重要。当一台主机发出DNS请求时就是发给本地域名服务器进行查询，如果查询失败，再以递归或迭代方式向上查询。
-
-每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</code></pre><h3 id="3-DNS查询方式"><a href="#3-DNS查询方式" class="headerlink" title="3) DNS查询方式"></a>3) DNS查询方式</h3><p>DNS查询方式主要分为两种，一种是递归查询，另一种是迭代查询。</p>
-<ul>
-<li><p>递归查询：</p>
-<p>主机向本地服务器发起DNS请求一定是递归查询。</p>
-<p>递归查询就是：如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其它根域名服务器继续发出查询请求报文(即替主机继续查询)，而不是让主机自己进行下一步查询。</p>
-<p>因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</p>
-<p>请求过程：主机—&gt; 本地服务器 —-&gt; 二级域名服务器（no result）–&gt; 一级(get) –&gt; 二级 —&gt; 本地 –&gt;主机</p>
-</li>
-<li><p>迭代查询。主机 –&gt; 本地服务器 —&gt; 二级(no result) –&gt; 本地 –&gt; 一级(get) –&gt; 本地–&gt;主机</p>
-</li>
-</ul>
-<h3 id="4-DNS查询过程"><a href="#4-DNS查询过程" class="headerlink" title="4) DNS查询过程"></a>4) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
-<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器<strong>缓存</strong>，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
-<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它<strong>本地DNS服务器</strong>，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
-<p>4.如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</p>
-<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，</p>
-<p>如果未用转发模式(即<code>迭代方式</code>)，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。 </p>
-<p>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
-<p>6.如果用的是转发模式（即<code>递归方式</code>），此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。</p>
-<p>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
-<hr>
-<h2 id="3-url请求过程"><a href="#3-url请求过程" class="headerlink" title="3. url请求过程"></a>3. url请求过程</h2><hr>
-<p>Q: 浏览器中输入URL,到页面显示，经过哪些步骤。</p>
-<p>1 域名解析 url–&gt;ip(DNS)</p>
-<p>2 发起请求 ip–&gt;mac(ARP)，ip–&gt;ip(路由)</p>
-<p>3 收到，然后显示</p>
-<ul>
-<li><p>浏览器要将URL解析为IP地址，解析域名就要用到DNS协议，首先主机会查询DNS的缓存，如果没有就给本地DNS发送查询请求。DNS查询分为两种方式，一种是递归查询，一种是迭代查询。如果是迭代查询，本地的DNS服务器，向根域名服务器发送查询请求，根域名服务器告知该域名的一级域名服务器，然后本地服务器给该一级域名服务器发送查询请求，然后依次类推直到查询到该域名的IP地址。DNS服务器是基于UDP的，因此会用到UDP协议。</p>
-</li>
-<li><p>得到IP地址后，浏览器就要与服务器建立一个http连接。因此要用到http协议，http协议报文格式上面已经提到。http生成一个get请求报文，将该报文传给TCP层处理，所以还会用到TCP协议。如果采用https还会使用https协议先对http数据进行加密。TCP层如果有需要先将HTTP数据包分片，分片依据路径MTU和MSS？？应该是IP层进行分片吧。TCP的数据包然后会发送给IP层，用到IP协议。IP层通过路由选路，一跳一跳发送到目的地址。当然在一个网段内的寻址是通过以太网协议实现(也可以是其他物理层协议，比如PPP，SLIP)，以太网协议需要直到目的IP地址的物理地址，有需要ARP协议。</p>
-</li>
-</ul>
-<p><code>其中</code>：</p>
-<p>1、DNS协议，http协议，https协议属于应用层<br>应用层是体系结构中的最高层。应用层确定进程之间通信的性质以满足用户的需要。这里的进程就是指正在运行的程序。应用层不仅要提供应用进程所需要的信息交换和远地操作，而且还要作为互相作用的应用进程的用户代理，来完成一些为进行语义上有意义的信息交换所必须的功能。应用层直接为用户的应用进程提供服务。</p>
-<p>2、TCP/UDP属于传输层<br>传输层的任务就是负责主机中两个进程之间的通信。因特网的传输层可使用两种不同协议：即面向连接的传输控制协议TCP，和无连接的用户数据报协议UDP。面向连接的服务能够提供可靠的交付，但无连接服务则不保证提供可靠的交付，它只是“尽最大努力交付”。这两种服务方式都很有用，备有其优缺点。在分组交换网内的各个交换结点机都没有传输层。</p>
-<p>3、IP协议，ARP协议属于网络层<br>网络层负责为分组交换网上的不同主机提供通信。在发送数据时，网络层将运输层产生的报文段或用户数据报封装成分组或包进行传送。在TCP/IP体系中，分组也叫作IP数据报，或简称为数据报。网络层的另一个任务就是要选择合适的路由，使源主机运输层所传下来的分组能够交付到目的主机。</p>
-<p>4、数据链路层<br>当发送数据时，数据链路层的任务是将在网络层交下来的IP数据报组装成帧，在两个相邻结点间的链路上传送以帧为单位的数据。每一帧包括数据和必要的控制信息（如同步信息、地址信息、差错控制、以及流量控制信息等）。控制信息使接收端能够知道—个帧从哪个比特开始和到哪个比特结束。控制信息还使接收端能够检测到所收到的帧中有无差错。</p>
-<p>5、物理层<br>物理层的任务就是透明地传送比特流。在物理层上所传数据的单位是比特。传递信息所利用的一些物理媒体，如双绞线、同轴电缆、光缆等，并不在物理层之内而是在物理层的下面。因此也有人把物理媒体当做第0层。</p>
-<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><hr>
-<h2 id="1-tcp、upd协议简介"><a href="#1-tcp、upd协议简介" class="headerlink" title="1. tcp、upd协议简介"></a>1. tcp、upd协议简介</h2><h2 id="2-tcp"><a href="#2-tcp" class="headerlink" title="2. tcp"></a>2. tcp</h2><h2 id="3-udp"><a href="#3-udp" class="headerlink" title="3. udp"></a>3. udp</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
-<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><hr>
-<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/166-Fraction-to-Recurring-Decimal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/22/166-Fraction-to-Recurring-Decimal/" itemprop="url">166. Fraction to Recurring Decimal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T14:32:39+08:00">
-                2020-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.</p>
-<p>If the fractional part is repeating, enclose the repeating part in parentheses.</p>
-<p>Example 1:</p>
-<pre><code>Input: numerator = 1, denominator = 2
-Output: &quot;0.5&quot;</code></pre><p>Example 2:</p>
-<pre><code>Input: numerator = 2, denominator = 1
-Output: &quot;2&quot;</code></pre><p>Example 3:</p>
-<pre><code>Input: numerator = 2, denominator = 3
-Output: &quot;0.(6)&quot;</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个除数和一个被除数（分子和分母），求二者的商，返回商的字符串形式。如果商的余数有重复部分，则将该部分用()括起来表示。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>一开始看到题有点蒙，不知道这个商怎么求。QwQ 傻了都。</li>
-<li>就是我们小学学习的如何求商的计算过程：如果当前被除数无法整除，则将余数补0，继续除。在这个过程中，当余数为0，则结束求解；当余数出现与之前一样的时，则也结束求解，然后重复部分的值用括号括起来。</li>
-<li>数据结构：整数变量存储整数部分，数组存储余数部分，map存储余数及其出现位置，用来查询是否出现重复余数。</li>
-<li>特殊情况：分母（除数）为0， 负数：(-INT_MIN / -1)会出现大数，我们应该将数值转变成long int类型。</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">fractionToDecimal</span><span class="params">(<span class="keyword">int</span> numerator, <span class="keyword">int</span> denominator)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//给定分子， 分母，返回商。如果小数部分是重复的，则用(*)来表示</span></span><br><span class="line">        <span class="comment">//回顾如何求商，分子除以分母，得到整数部分，然后余数部分补0继续除以除数，知道余数为0或者出现重复余数</span></span><br><span class="line">        <span class="comment">//特殊情况：除数为0， 出现负数，则需要将int转为long，然后 全都转为整数来进行</span></span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">int</span> nume = numerator, deno = denominator;</span><br><span class="line">        <span class="keyword">if</span>(deno == <span class="number">0</span>)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nume == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="string">"0"</span>;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">bool</span> isneg = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>( (nume &lt; <span class="number">0</span>) ^ (deno &lt; <span class="number">0</span>))&#123;</span><br><span class="line">            isneg = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        nume = <span class="built_in">abs</span>(nume), deno = <span class="built_in">abs</span>(deno);</span><br><span class="line">        <span class="keyword">if</span>(deno == <span class="number">1</span>)&#123; </span><br><span class="line">            <span class="keyword">if</span>(isneg) <span class="keyword">return</span> <span class="string">"-"</span>+to_string(nume); </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> to_string(nume);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">int</span> divnum = <span class="number">0</span>, modnum = <span class="number">0</span>, tmpdiv = <span class="number">0</span>, mod_idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> dupMod = <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">int</span>&gt; modnums;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">long</span> <span class="keyword">int</span>, <span class="keyword">long</span> <span class="keyword">int</span>&gt; mmap;<span class="comment">// 余数 --- 出现位置</span></span><br><span class="line">        divnum = <span class="keyword">long</span> <span class="keyword">int</span>(nume/deno);</span><br><span class="line">        modnum = nume - deno*divnum;</span><br><span class="line">        mmap[modnum] = mod_idx ++;</span><br><span class="line">        <span class="keyword">while</span>(modnum)&#123;</span><br><span class="line">            <span class="comment">//补0操作</span></span><br><span class="line">            modnum *= <span class="number">10</span>;</span><br><span class="line">            tmpdiv = <span class="keyword">int</span>(modnum/deno);</span><br><span class="line">            modnum = modnum - deno*tmpdiv;</span><br><span class="line">            modnums.push_back(tmpdiv);<span class="comment">//压入小数部分</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(mmap.<span class="built_in">find</span>(modnum) != mmap.<span class="built_in">end</span>())&#123;</span><br><span class="line">                dupMod = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//出现重复余数</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                mmap[modnum] = mod_idx++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span>(isneg)&#123;</span><br><span class="line">            res += <span class="string">"-"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res += to_string(divnum);</span><br><span class="line">        <span class="keyword">if</span>(modnums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> res;&#125;</span><br><span class="line">        res += <span class="string">"."</span>;</span><br><span class="line">        <span class="keyword">if</span>(dupMod)&#123;</span><br><span class="line">            <span class="keyword">int</span> dupidx = mmap[modnum];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; modnums.<span class="built_in">size</span>() &amp;&amp; i &lt; dupidx; ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res += <span class="string">"("</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = dupidx; i &lt; modnums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res += <span class="string">")"</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; modnums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1693,7 +1606,7 @@ Output: &quot;0.(6)&quot;</code></pre><h2 id="题意分析"><a href="#题意分�
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

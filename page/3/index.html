@@ -229,6 +229,434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/15/139-Word-Break-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/15/139-Word-Break-II/" itemprop="url">139. Word Break II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-15T12:41:18+08:00">
+                2020-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences.</p>
+<p><code>Note</code>:</p>
+<p>The same word in the dictionary may be reused multiple times in the segmentation.<br>You may assume the dictionary does not contain duplicate words.</p>
+<p>Example 1:</p>
+<pre><code>Input:
+s = &quot;catsanddog&quot;
+wordDict = [&quot;cat&quot;, &quot;cats&quot;, &quot;and&quot;, &quot;sand&quot;, &quot;dog&quot;]
+Output:
+[
+&quot;cats and dog&quot;,
+&quot;cat sand dog&quot;
+]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>是139题的延伸，题目给定一个非空字符串，和一个字符串数组，求 字符串根据数组内的小字符串进行分割 而得到的所有组合。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>求组合排列一般采用深搜（回溯）法。用 vector 保存每次切割的子字符串，对于字符串s，从i位置切割，如果 s(0-i) 在数组内，则 存入vector中，问题变成球子串 s(i-end) 的组合。存在多种组合，在对于下个位置的分割前，我们需要将上次 s(0-i) 的子串弹出，即从同一个起始位置开始 的 分割位置发生改变。<code>实现代码为wordDFS()函数</code>，遇到<br>“aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa”<br>[“a”,”aa”,”aaa”,”aaaa”,”aaaaa”,”aaaaaa”,”aaaaaaa”,”aaaaaaaa”,”aaaaaaaaa”,”aaaaaaaaaa”]<br>输入会超时。因为aaa—aaa存在太多种组合了，耗时。</li>
+<li>使用空间，记录当前位置i是否可以进行分割，避免重复计算以及大量不必要的递归。参考139题的动态规划方法，得到 dp[] 数组。然后在 DFS 函数中根据dp判断，则可ac，不过时间还是很慢QwQ.<code>实现代码为wordDFSDP()</code>。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; sent;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wordDFSDP</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; dp, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="built_in">string</span> str = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sent.<span class="built_in">size</span>() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">                str += (sent[i] + <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!sent.empty())&#123;</span><br><span class="line">                str += sent[sent.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(dp[i] &amp;&amp; mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                sent.push_back(tmp);</span><br><span class="line">                wordDFSDP(s, mset,dp, i);</span><br><span class="line">                sent.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wordDFS</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="built_in">string</span> str = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sent.<span class="built_in">size</span>() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">                str += (sent[i] + <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!sent.empty())&#123;</span><br><span class="line">                str += sent[sent.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                sent.push_back(tmp);</span><br><span class="line">                wordDFS(s, mset, i);</span><br><span class="line">                sent.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordDFSYes</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">if</span>(wordDFSYes(s, mset, i))&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mset</span><span class="params">(wordDict.<span class="built_in">begin</span>(), wordDict.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="comment">//切割词，用递归的方法</span></span><br><span class="line">        <span class="comment">// if(wordDFSYes(s,mset,0))&#123;</span></span><br><span class="line">        <span class="comment">//     wordDFS(s, mset, 0);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// wordDFS(s,mset,0); //--------超时</span></span><br><span class="line">        <span class="comment">//先用dp判断是否能分割单词</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">dp</span><span class="params">(s.<span class="built_in">size</span>()+<span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; dp.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[j] &amp;&amp; mset.<span class="built_in">find</span>(s.substr(j, i-j)) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    dp[i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[s.<span class="built_in">size</span>()] == <span class="literal">true</span>)&#123;</span><br><span class="line">            wordDFSDP(s,mset,dp,<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/" itemprop="url">认同自己-阅后感</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T23:01:05+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="20-4-14"><a href="#20-4-14" class="headerlink" title="20-4-14"></a>20-4-14</h1><hr>
+<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><ul>
+<li><p><code>似</code></p>
+<ul>
+<li>害怕自己弱小，妥协强者，不会拒绝，稳妥行事</li>
+</ul>
+</li>
+<li><p><code>改</code>：</p>
+<ul>
+<li>定下目标并努力实现。实现不了也没什么大不了。”跌倒并不可怕，可怕的是一蹶不振！“</li>
+<li>接受真实的自己</li>
+</ul>
+</li>
+</ul>
+<h2 id="意识到自我存在"><a href="#意识到自我存在" class="headerlink" title="意识到自我存在"></a>意识到自我存在</h2><h3 id="自我价值的需求感"><a href="#自我价值的需求感" class="headerlink" title="自我价值的需求感"></a>自我价值的需求感</h3><hr>
+<ul>
+<li>自尊心是什么<ul>
+<li>内心信念： 自我、价值与感受</li>
+<li>当一个人处在自己完全不信任的环境中时，人是感觉不到自己较低的自尊心的。能感受的是它的衍生物，首先就是<strong>恐惧感</strong>和<strong>羞耻心</strong>。表现的生理症状有：发麻、心跳加速、胃或胸腔发胀发闷、呼吸急促、战栗或下肢麻痹等。这些症状表明了我们当时不够信任环境，或者我们没有足够的价值感。</li>
+<li>内心的不完整，对否定的恐惧或者对丢脸的畏惧深入骨髓，我们不能通过简单的话语或好的建议消除（比如：“你可以”，“乐观点”）————道理我都懂，但我改变不了。这种状况可以归纳为 <strong>自尊心损害</strong>。</li>
+<li>拥有过低自尊心的人总夸大自己的感受，会<em>过高</em> 地估计了其他人的强项和弱点，<em>过低</em> 地估计了自己在别人眼中的强项和弱点。</li>
+<li><strong>自信的人接受自己的弱点</strong>，相反，不自信的人不接受自己的弱点，他 们把弱点看得很重，会掩盖自己的弱点，不让其他人知道。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/139-Word-Break/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/139-Word-Break/" itemprop="url">139. Word Break</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T22:13:34+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.</p>
+<p><code>Note</code>:<br>The same word in the dictionary may be reused multiple times in the segmentation.<br>You may assume the dictionary does not contain duplicate words.</p>
+<p>Example 1:</p>
+<pre><code>Input: s = &quot;leetcode&quot;, wordDict = [&quot;leet&quot;, &quot;code&quot;]
+Output: true
+Explanation: Return true because &quot;leetcode&quot; can be segmented as &quot;leet code&quot;.</code></pre><p>Example 2:</p>
+<pre><code>Input: s = &quot;applepenapple&quot;, wordDict = [&quot;apple&quot;, &quot;pen&quot;]
+Output: true
+Explanation: Return true because &quot;applepenapple&quot; can be segmented as &quot;apple pen apple&quot;. *Note that* you are allowed to reuse a dictionary word.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<ul>
+<li>题目给定一个非空字符串，和一个字符串数组，问字符串是否能根据数组内的小字符串进行分割~</li>
+<li>对于一个字符串s, 从 i = 0 位置开始，如果 s(i, j) 这个子串在数组内，则问题可以看做判断子串 s(j, end) 是否能进行分割的一个问题，我们可以考虑用深搜的方法进行求解<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2></li>
+</ul>
+<hr>
+<ul>
+<li>用 set 记录数组内的小字符串，便于查找</li>
+<li><code>深搜求解</code>，记录一个字符串的当前起始位置 sidx ，然后遍历 sidx – s.size()的位置 j , 当子串s.substr(sidx, j-sidx+1) 在 set 内， 则可以 对子问题进行求解。如果子问题返回 true ， 代表该字符串可以求解。</li>
+<li>深搜求法会出现很多重复计算的步骤，则我们可以一个数组来记录 <code>当前开始位置为 sidx</code> 的子字符串是否可以进行分割。</li>
+<li><code>动态规划方法</code>。对于结束位置为i的字符串，dp[i]判断其是否可以分割————遍历0–i-1 位置 j , 如果 dp[j] == true （即可以分割）且 s.substr(j, i-j) 在 set 内， 则代表该字符串可以分割 –&gt; dp[i] = true;</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBct</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123; <span class="keyword">return</span> <span class="literal">true</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmps = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmps) != mset.<span class="built_in">end</span>() &amp;&amp; wordBct(s, mset, i))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBctMem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; subOk, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123; <span class="keyword">return</span> <span class="literal">true</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(subOk[sidx] != <span class="number">-1</span>)&#123; <span class="keyword">return</span> subOk[sidx];&#125;<span class="comment">//已经计算过,返回0 或 1， 即 true 或 false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmps = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmps) != mset.<span class="built_in">end</span>() &amp;&amp; wordBct(s, mset, i))&#123;</span><br><span class="line">                ;</span><br><span class="line">                <span class="keyword">return</span> subOk[sidx] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ;</span><br><span class="line">        <span class="keyword">return</span> subOk[sidx] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordDP</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset)</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">dp</span><span class="params">(s.<span class="built_in">size</span>()+<span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)&#123;</span><br><span class="line">                <span class="built_in">string</span> tmps = s.substr(j, i-j);</span><br><span class="line">                <span class="keyword">if</span>(dp[j] &amp;&amp; mset.<span class="built_in">find</span>(tmps) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    dp[i] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.<span class="built_in">size</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//递归 --- 超时 太多重复计算，可以保存已经计算过的中间状态</span></span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mset</span><span class="params">(wordDict.<span class="built_in">begin</span>(), wordDict.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="comment">// return wordBct(s, mset, 0);</span></span><br><span class="line">        <span class="comment">// 保存中间状态 重复计算的是什么呢，是 i位置之后的子串 之后的 -- 这个也超时</span></span><br><span class="line">        <span class="comment">// vector&lt;int&gt; subOk(s.size(), -1);</span></span><br><span class="line">        <span class="comment">// return wordBctMem(s, mset, subOk, 0);</span></span><br><span class="line">        <span class="comment">// 动态规划？</span></span><br><span class="line">        <span class="keyword">return</span> wordDP(s, mset);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1182,427 +1610,6 @@ Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/" itemprop="url">121. Best Time to Buy and Sell Stock</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-04T15:19:07+08:00">
-                2020-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
-<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
-<p>Note that you cannot sell a stock before you buy one.</p>
-<p>Example 1:</p>
-<pre><code>Input: [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-            Not 7-1 = 6, as selling price needs to be larger than buying price.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给出一个数组，表示一段时间内该股票的价格，让我们求<strong>能挣到的最多钱</strong>（即差价）。如果给出的是递减数组，则返回0（没钱可挣，别买股票了）。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ol>
-<li><p>暴力破解：$O(n^2)$</p>
-<ul>
-<li>双重循环，求每对价格的的差价，记录最大差价。</li>
-</ul>
-</li>
-<li><p>遍历一遍：$O(n)$</p>
-<ul>
-<li>目标是相求最大差价：对于第i天来说，其最大差价等于当前价格 减去 在他之前的最小价格~ </li>
-<li>可以用一个值来保存遍历过的数的最小值，然后对 最大差价 和 最小值进行更新</li>
-</ul>
-</li>
-</ol>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//一直维护一个最小值~，然后求最大值</span></span><br><span class="line">        <span class="keyword">if</span>(prices.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>], res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            res = <span class="built_in">max</span>(res, prices[i] - minPrice);</span><br><span class="line">            minPrice = <span class="built_in">min</span>(minPrice, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/118-Pascal-s-Triangle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/118-Pascal-s-Triangle/" itemprop="url">118. Pascal's Triangle</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T14:47:54+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle.</p>
-<p>Example:</p>
-<pre><code>Input: 5
-Output:
-[
-    [1],
-    [1,1],
-    [1,2,1],
-    [1,3,3,1],
-    [1,4,6,4,1]
-]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给我们一个数字numRows, 生成对应个数的数组，每个数组长度和当前行数一样（1-numRows)。每个数组，首尾都是1，中间数字：curRow_(i) = lastRow_(i-1) + lastRow_(i)。</p>
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
-<p>喵叽，还能咋办嘞，循环求解~</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">generate</span><span class="params">(<span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(numRows == <span class="number">0</span>)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="comment">// if(numRows == 1)&#123; return &#123;1&#125;;&#125;</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        res.push_back(&#123;<span class="number">1</span>&#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= numRows; ++i)&#123;</span><br><span class="line">            <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">tmp</span><span class="params">(i, <span class="number">1</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idx = <span class="number">1</span>; idx &lt; i<span class="number">-1</span>; ++idx)&#123;</span><br><span class="line">                tmp[idx] = res[i<span class="number">-2</span>][idx<span class="number">-1</span>] + res[i<span class="number">-2</span>][idx];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/116-Populating-Next-Right-Pointers-in-Each-Node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/02/116-Populating-Next-Right-Pointers-in-Each-Node/" itemprop="url">116. Populating Next Right Pointers in Each Node</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T20:25:17+08:00">
-                2020-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> val;</span><br><span class="line">  Node *left;</span><br><span class="line">  Node *right;</span><br><span class="line">  Node *next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to <code>NULL</code>.</p>
-<p>Initially, all next pointers are set to <code>NULL</code>.</p>
-<p><code>Follow up</code>:</p>
-<p>You may only use constant extra space.<br>Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.</p>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个完美二叉树，我们使用next指针，将每层的节点进行连接~<br>如果是最右边的子节点，则指向<code>NULL</code>。</p>
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><pre><code>思路：【层次遍历】
-使用队列保存每层节点~</code></pre><h2 id="实现代码【迭代】"><a href="#实现代码【迭代】" class="headerlink" title="实现代码【迭代】"></a>实现代码【迭代】</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* left;</span></span><br><span class="line"><span class="comment">    Node* right;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment">    //....省略构造函数</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connQ</span><span class="params">(Node* root)</span></span>&#123;</span><br><span class="line">        Node* cur = root;</span><br><span class="line">        <span class="built_in">queue</span>&lt;Node*&gt; mq;</span><br><span class="line">        mq.push(cur);</span><br><span class="line">        <span class="keyword">while</span>(mq.<span class="built_in">size</span>() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> qsize = mq.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; qsize; ++i)&#123;</span><br><span class="line">                Node* tmp = mq.front();</span><br><span class="line">                mq.pop();</span><br><span class="line">                <span class="keyword">if</span>(i &lt; qsize <span class="number">-1</span>)&#123;</span><br><span class="line">                    tmp-&gt;next = mq.front();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left != <span class="literal">NULL</span>)&#123; mq.push(tmp-&gt;left);&#125;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right != <span class="literal">NULL</span>)&#123; mq.push(tmp-&gt;right);&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span> || (root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//类似于层次打印，用队列保存~</span></span><br><span class="line">        <span class="keyword">return</span> connQ(root);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="实现代码【递归】"><a href="#实现代码【递归】" class="headerlink" title="实现代码【递归】"></a>实现代码【递归】</h2><pre><code>对于二叉树的遍历，肯定存在递归和迭代两种方法~</code></pre><ol>
-<li><p>首先给出层次遍历的递归代码：</p>
-<p> 层次遍历的递归思路：需要保存一个当前是几层的变量，然后再对应层添加当前的val</p>
- <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        levelorder(root, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">levelorder</span><span class="params">(TreeNode* node, <span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!node) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(res.<span class="built_in">size</span>() == level) res.push_back(&#123;&#125;);<span class="comment">//第一次进入新层次，添加一个空的vector</span></span><br><span class="line">        res[level].push_back(node-&gt;val);<span class="comment">//当层节点的vector添加元素</span></span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left != <span class="literal">nullptr</span>) levelorder(node-&gt;left, level + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;right != <span class="literal">nullptr</span>) levelorder(node-&gt;right, level + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>接下来是该题的递归实现代码：<br> 在遍历过程中，当前节点的左孩子的next指向其右孩子，右孩子的next指向下一个（如果根节点的next不为NULL，则是root-&gt;next-&gt;left; 否则为空）</p>
- <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function">Node* <span class="title">connRec</span><span class="params">(Node* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span> || (root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    root-&gt;left-&gt;next = root-&gt;right;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        root-&gt;right-&gt;next = root-&gt;next-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    connRec(root-&gt;left);</span><br><span class="line">    connRec(root-&gt;right);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span> || (root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//类似于层次打印，用队列保存~</span></span><br><span class="line">    <span class="comment">// return connQ(root);</span></span><br><span class="line">    <span class="comment">//递归实现</span></span><br><span class="line">    <span class="keyword">return</span> connRec(root);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1653,7 +1660,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
