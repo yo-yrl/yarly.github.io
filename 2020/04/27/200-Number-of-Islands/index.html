@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,Easy,Math," />
+  <meta name="keywords" content="Medium,LeetCode,DFS," />
 
 
 
@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="题目 Given a column title as appear in an Excel sheet, return its corresponding column number. For example: A -&gt; 1 B -&gt; 2 C -&gt; 3 ... Z -&gt; 26 AA -&gt; 27 AB -&gt; 28  ...Example 1: Input: &amp;qu">
+<meta name="description" content="题目 Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may ass">
 <meta property="og:type" content="article">
-<meta property="og:title" content="171. Excel Sheet Column Number">
-<meta property="og:url" content="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/index.html">
+<meta property="og:title" content="200. Number of Islands">
+<meta property="og:url" content="http://yoursite.com/2020/04/27/200-Number-of-Islands/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a column title as appear in an Excel sheet, return its corresponding column number. For example: A -&gt; 1 B -&gt; 2 C -&gt; 3 ... Z -&gt; 26 AA -&gt; 27 AB -&gt; 28  ...Example 1: Input: &amp;qu">
+<meta property="og:description" content="题目 Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may ass">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-24T16:03:51.000Z">
-<meta property="article:modified_time" content="2020-04-24T16:19:36.642Z">
+<meta property="article:published_time" content="2020-04-27T12:02:11.000Z">
+<meta property="article:modified_time" content="2020-04-27T12:12:16.969Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Medium">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Easy">
-<meta property="article:tag" content="Math">
+<meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/27/200-Number-of-Islands/"/>
 
 
 
 
 
-  <title>171. Excel Sheet Column Number | Hexo</title>
+  <title>200. Number of Islands | Hexo</title>
   
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/200-Number-of-Islands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">171. Excel Sheet Column Number</h1>
+          <h1 class="post-title" itemprop="name headline">200. Number of Islands</h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:03:51+08:00">
-                2020-04-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T20:02:11+08:00">
+                2020-04-27
               </time>
             
 
@@ -303,24 +303,22 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a column title as appear in an Excel sheet, return its corresponding column number.</p>
-<p>For example:</p>
-<pre><code>A -&gt; 1
-B -&gt; 2
-C -&gt; 3
-...
-Z -&gt; 26
-AA -&gt; 27
-AB -&gt; 28 
-...</code></pre><p>Example 1:</p>
-<pre><code>Input: &quot;A&quot;
-Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>类似进制转换题，不过转换对象分别是 26个大写字母 – 1–26数值。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<p>确定基数（26），从左往右遍历字符串时，和乘上基数，再加上当前转换值，更新和。</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, base = <span class="number">26</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : s)&#123;</span><br><span class="line">            n = (ch-<span class="string">'A'</span>)+<span class="number">1</span>;</span><br><span class="line">            sum = sum*base+n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
+<p>Example 1:</p>
+<pre><code>Input:
+11110
+11010
+11000
+00000
 
+Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个由字符 ‘0’ 和 ‘1’组成的二维数组，0代表水，1代表陆地，求给定数组里头小岛有几个。小岛的定义是：四面被水包围的陆地，设边界处都是水。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li><code>深搜</code>思路。遍历数组，当遇到一块陆地（字符’1’）时，则将该小岛标记起来（遍历每一个相邻的’1’），表示已经访问过该小岛。然后再继续寻找下一个小岛。时间：$O(n)$<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> rows = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> cols = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">num_DFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid, <span class="keyword">int</span> r, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(r &lt; <span class="number">0</span> || c &lt; <span class="number">0</span> || r &gt;= rows || c &gt;= cols || grid[r][c] == <span class="string">'0'</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid[r][c] = <span class="string">'0'</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">            num_DFS(grid, r+dx[i], c+dy[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        rows = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(rows == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        cols = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//深搜</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'1'</span>)&#123;</span><br><span class="line">                    ++ count;</span><br><span class="line">                    num_DFS(grid, i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -337,11 +335,11 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
       
         <div class="post-tags">
           
+            <a href="/tags/Medium/" rel="tag"># Medium</a>
+          
             <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-            <a href="/tags/Easy/" rel="tag"># Easy</a>
-          
-            <a href="/tags/Math/" rel="tag"># Math</a>
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
           
         </div>
       
@@ -354,8 +352,8 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="网络基础知识">
-                <i class="fa fa-chevron-left"></i> 网络基础知识
+              <a href="/2020/04/26/198-House-Robber/" rel="next" title="198. House Robber">
+                <i class="fa fa-chevron-left"></i> 198. House Robber
               </a>
             
           </div>
@@ -363,10 +361,6 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/25/169-Majority-Element/" rel="prev" title="169. Majority Element">
-                169. Majority Element <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

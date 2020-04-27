@@ -229,6 +229,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/C-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/21/C-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url">C++基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-21T17:55:26+08:00">
+                2020-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C-基础知识"><a href="#C-基础知识" class="headerlink" title="C++基础知识"></a>C++基础知识</h1><p>目前正在看blibli的清华大学c++语言程序设计，主讲老师是程莉教授。我准备结合该视频的款将，回顾并整理一波C++知识点。</p>
+<p>本blog主要会记录一些零散的知识点，如果有错误或不足之处，请多指教呀~</p>
+<h2 id="一、初识C"><a href="#一、初识C" class="headerlink" title="一、初识C++"></a>一、初识C++</h2><h3 id="（1）导论"><a href="#（1）导论" class="headerlink" title="（1）导论"></a>（1）导论</h3><ol>
+<li><p>计算机语言和程序设计方法的发展</p>
+<ul>
+<li><p><strong>语言发展</strong>：机器语言（01二进制）—&gt;汇编语言(增加了助记符，比如add)—&gt;高级编程语言</p>
+<p> 印象较深一句话，大意是： 当一件事存在不足或缺陷时，会促进变革和发展。机器语言人类难以看懂且进行编程，故而演进出汇编语言，其增加了很多助记符，比如add， sub等。但是汇编语言需要编程人员了解计算机结构（比如寄存器等）才能更好编程，入门门槛还是很高（抽象程度依然很高），故而出现高级编程语言，如C++，JAVA等，会屏蔽机器的细节。高级语言不需要我们了解计算机底层架构，会用人们熟悉的英文符号或单词来表示一些操作，比如c = a+b 表示加法。在汇编语言中我们或许要知道 两个加数所在寄存器,且想好和存放在那里才能正确书写。</p>
+<ul>
+<li><p><strong>程序设计</strong>：面向过程(机器语言、汇编、高级，把要解决一个问题的方法按照一定顺序告诉计算机) —&gt; 面向对象</p>
+<p>在大型应用中，比如游戏，存在很多人物，每个人物有自己的武功、特性等；面向过程很难实现这一点，面向对象会好容易一点，对每个人物进行分类和抽象，具体到每个玩家，就是具体类的对象。</p>
+</li>
+<li><p><strong>C++语言</strong>：高级语言，支持免息那个对象的观点和方法：将客观事物看做对象（比如我们属于学生这个大类的一个对象，具有年龄，学校班级等属性），对象之间可以通过消息传送进行沟通，支持分类和抽象。</p>
+</li>
+<li><p><strong>面向对象</strong>基本概念：1.类：抽象出同一类对象（事物）的共同属性，比如老师，学生是一个类。 2. 对象：系统中用来描述客观事物的一个实体。（比如庄周本身是一个类，如果我选了庄周这个决策，则会具象出一个对象，然后我就对我自己这个对象操作，不会影响别人） 3. 封装： 比如对一个钟表，我们怎么使用，通过旋钮进行调整是吧，不可能是拆开手表进行调整，这就是一封装。封装的好处是：隐蔽对象的内部细节，保留有限的对外接口，最重要的是安全，内部细节不会被破坏。4. 继承：比如文化的传承，在已有的基础上进行扩展和改进，更方便。其意义在于 代码的复用，避免一切都从头设计。5. 多态：接口的重用性。同样的消息作用在不同的对象上会引起不同的行为。比如打篮球和打乒乓球，篮球和乒乓都是球的的对象，都有一个打的消息，但产生的行为不同（比如 人数要求，场地要求等）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数字及编码方式 </p>
+<ul>
+<li><p><strong>常用数制</strong>：二进制、八进制、十进制、十六进制。机器语言是二进制形式（计算机能够稳定表示两种状态）。 八进制和十六进制作为 人 和计算机交互的一种中间进制，人不能一下子分辨出二进制，但是8进制和16进制倒是挺容易看出来的。</p>
+</li>
+<li><p><strong>进制之间的转换</strong>： </p>
+<p>   10进制整数 —&gt; R进制整数<br>   R作为模数，10进制数对其取模。（除以R取余）</p>
+<p>   10进制小数 —&gt; R进制小数（乘以R，直到小数位为0） 比如10–&gt;2进制;<br>   0。3125 * 2= <code>0</code>.625； 0.625 * 2 = <code>1</code>.25； 0.25 * 2 = <code>0</code>.5； 0.5*2 = <code>1</code>.0；则0.3125 –&gt; 0.0101</p>
+</li>
+</ul>
+</li>
+<li><p>编码表示问题</p>
+<ol>
+<li>负数如何表示呢？所以需要考虑用什么方法来表示数值 会方便计算机存储和表示、计算等。</li>
+<li><strong>原码</strong>：用最高位 0 1表示正负号。存储和表示都很方便，但计算不方便（符号位），且0有两种表示方法</li>
+<li><strong>补码</strong>：0的表示唯一，且符号位可以作为数值参加运算。！！了解模数和补数的概念———— 假设模数是12（钟表），则 8 + （-2） = 8 + （10） = 6， 则 -2 和 10 互为补数。 计算机是二进制，n位二进制整数的模数为2^n, n为小数的模数为2.</li>
+<li><strong>反码</strong>：作为中间码。保持原码的符号位不变，其他位取反。然后对反码+1，则变为补码。 补码变回原码也是一样，保持符号位，其他位取反，然后+1.</li>
+<li><strong>小数表示</strong>：定点（固定整数和小数部分各自所占的数位）、浮点（类似科学计数法）表示。</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/21/162-Find-Peak-Element/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1488,143 +1646,6 @@ Explanation: Return true because &quot;applepenapple&quot; can be segmented as &
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/138-Copy-List-with-Random-Pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/12/138-Copy-List-with-Random-Pointer/" itemprop="url">138. Copy List with Random Pointer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T20:49:29+08:00">
-                2020-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
-<p>Return a deep copy of the list.</p>
-<p>The Linked List is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:</p>
-<ul>
-<li>val: an integer representing Node.val</li>
-<li>random_index: the index of the node (range from 0 to n-1) where random pointer points to, or null if it does not point to any node.</li>
-</ul>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个链表，除了 next 指针，还有一个 random 指针，指向链表中其他节点或 nullptr 。我们要对这个链表进行深拷贝，并返回新链表。</p>
-<p>因为新旧链表的地址不一样，我们不能通过简单的 p == p1 寻找新链表节点的 random 指针。所以我们需要想办法去解决这个新旧节点地址不同的问题。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>用<code>map</code>进行新旧节点的映射。这样在寻找random指针时就很方便~ 遍历一遍链表，创建新链表并完成map映射，再进行一遍遍历，完成random指针的指向~ 【时间复杂度:O(n), 空间复杂度: O(n)】</li>
-<li>在原有链表上增加新节点：<code>old1 -&gt; new1 -&gt; old2 -&gt; new2</code>，然后 新节点的Random指针就是旧节点的random指针的next；最后，将链表拆开成新旧链表，返回新链表【时间复杂度：O(n), 空间复杂度：O(1)】</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment">    Node* random;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    Node(int _val) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">        next = NULL;</span></span><br><span class="line"><span class="comment">        random = NULL;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">copyAndSplit</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//先复制一遍，然后奇偶属于不同的链，返回其中一条；</span></span><br><span class="line">        <span class="comment">//Node* retH = new Node(-1);</span></span><br><span class="line">        Node* ocur = head, *rcur =<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//复制链表</span></span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            Node* tmp = <span class="keyword">new</span> Node(ocur-&gt;val);</span><br><span class="line">            tmp-&gt;next = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = tmp;</span><br><span class="line">            ocur = tmp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//复制链表random</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        <span class="keyword">while</span>(ocur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ocur-&gt;<span class="built_in">random</span> != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                ocur-&gt;next-&gt;<span class="built_in">random</span> = ocur-&gt;<span class="built_in">random</span>-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//拆链</span></span><br><span class="line">        ocur = head;</span><br><span class="line">        rcur = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(ocur)&#123;</span><br><span class="line">            Node* t = ocur-&gt;next;</span><br><span class="line">            ocur-&gt;next = t-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(t-&gt;next)&#123;</span><br><span class="line">                t-&gt;next = t-&gt;next-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            ocur = ocur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rcur;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Node* <span class="title">copyMap</span><span class="params">(Node* head)</span></span>&#123;</span><br><span class="line">        <span class="comment">//用map来保存新节点和旧节点的对应关系</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> copyAndSplit(head);</span><br><span class="line">        <span class="comment">// return copyMap(head);</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1675,7 +1696,7 @@ Explanation: Return true because &quot;applepenapple&quot; can be segmented as &
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
