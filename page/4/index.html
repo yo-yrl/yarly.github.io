@@ -229,6 +229,549 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/09/131-Palindrome-Partitioning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/09/131-Palindrome-Partitioning/" itemprop="url">131. Palindrome Partitioning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T16:08:03+08:00">
+                2020-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of s.</p>
+<p>Example:</p>
+<pre><code>Input: &quot;aab&quot;
+Output:
+[
+    [&quot;aa&quot;,&quot;b&quot;],
+    [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]
+]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<ul>
+<li>给定一个字符串，进行不同回文子串的分割，得到所有分割的组合</li>
+</ul>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li><p>我们需要一个判断字符串是否是回文串的函数</p>
+</li>
+<li><p>对于一个字符串“aab”,当前子串”a”是回文串，則可以以当前位置作为分割点，然后求剩下子串”ab”的组合。或者看另一个分割点，”aa”这是一个回文串，则这个也是一个分割点，求剩下子串“b”的组合。</p>
+</li>
+<li><p>这是一个递归过程：对于<code>当前子串</code>，我们需要得到以0位置为开头的回文串，然后分割，继续递归求所有组合。</p>
+</li>
+<li><p>我们可以记录一个start_idx记录当前子串的起始位置，递归结束条件是start_idx == input_string.size(),即代表求到当前分割方法的所有子串组合了。</p>
+</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//判断是否是回文串</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> sidx, <span class="keyword">int</span> eidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(sidx &lt; eidx)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[sidx] != s[eidx])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++sidx;</span><br><span class="line">            --eidx;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partDFS</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123; res.push_back(tmp); <span class="keyword">return</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx; i &lt; s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!isPalind(s, sidx, i))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            tmp.push_back(s.substr(sidx, i-sidx+<span class="number">1</span>));</span><br><span class="line">            <span class="comment">//如果sidx--i是个回文串，则可以从这里切割成两个字符串，然后分别求剩下的组合</span></span><br><span class="line">            partDFS(s, i+<span class="number">1</span>);</span><br><span class="line">            tmp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断每个子字符串是否是回文串，则需要有start表示子字符串的开始位置</span></span><br><span class="line">        <span class="keyword">if</span>(s.empty())&#123;<span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() == <span class="number">1</span>)&#123;res.push_back(&#123;s&#125;); <span class="keyword">return</span> res;&#125;</span><br><span class="line">        <span class="comment">//递归方法</span></span><br><span class="line">        partDFS(s, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/128-Longest-Consecutive-Sequence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/08/128-Longest-Consecutive-Sequence/" itemprop="url">128. Longest Consecutive Sequence</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T20:59:18+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given an unsorted array of integers, find the length of the longest consecutive elements sequence.</p>
+<p>Your algorithm should run in <code>O(n)</code> complexity.</p>
+<p>Example:</p>
+<pre><code>Input: [100, 4, 200, 1, 3, 2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>1 对于给定的无序的一组整数，找出最长连续序列的最长长度。时间要求复杂度是o(n).</p>
+<p>2 一般要求了时间复杂度的，都会以空间换时间。<br>所以我们要想用啥数据结构来存一下这些数据 嘻嘻。<br>这个类似一个排序题，如果用排序算法，时间复杂度大于o(n);(如果是计数排序，不能确定最小值和最大值，可能会浪费大量空间)</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>1 可以用set或hash_set来存储整数值（去重）。</p>
+<p>2 然后对每个存在于数组中的整数，如果其存在set中，则对其左右进行扩散查找，得到他的连续序列长度；同时，从set中删除已经遍历过的整数值，避免重复查找。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 要求o(n)时间，肯定是用空间换时间了</span></span><br><span class="line">        <span class="comment">// 所以用啥数据结构存呢？用set存储</span></span><br><span class="line">        <span class="comment">// 然后对每个在set中的值，对其进行左右扩展（同时将值从set中删除，避免重复扩展）</span></span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> nums.<span class="built_in">size</span>();&#125;</span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">mset</span><span class="params">(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n : nums)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(n) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                mset.erase(n);</span><br><span class="line">                <span class="keyword">int</span> lp = n<span class="number">-1</span>, rp = n+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(lp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(lp);</span><br><span class="line">                    --lp;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span>(mset.<span class="built_in">find</span>(rp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    mset.erase(rp);</span><br><span class="line">                    ++rp;</span><br><span class="line">                &#125;</span><br><span class="line">                res = <span class="built_in">max</span>(res, rp-lp<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/06/125-Valid-Palindrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/06/125-Valid-Palindrome/" itemprop="url">125. Valid Palindrome</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-06T09:48:54+08:00">
+                2020-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a string, determine if it is a palindrome, considering <code>only</code> alphanumeric characters and ignoring cases.</p>
+<p><code>Note</code>: For the purpose of this problem, we define empty string as valid palindrome.</p>
+<p>Example 1:</p>
+<pre><code>Input: &quot;A man, a plan, a canal: Panama&quot;
+Output: true</code></pre><p>Example 2:</p>
+<pre><code>Input: &quot;race a car&quot;
+Output: false</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个字符串，判断是否是一个回文串~<br>（只需要判断字符串里头的 字符和数字就好啦）</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<pre><code>双指针方法，双向遍历判断一遍就好啦</code></pre><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isChOrNum</span><span class="params">(<span class="keyword">char</span> ch)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((ch &gt;= <span class="string">'a'</span> &amp;&amp; ch &lt;= <span class="string">'z'</span>) || (ch &gt;= <span class="string">'A'</span> &amp;&amp; ch &lt;= <span class="string">'Z'</span>) || (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalind2P</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, h = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; h)&#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[l])) &#123; ++l;&#125;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; h &amp;&amp; !isChOrNum(s[h])) &#123; --h;&#125;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= h)&#123; <span class="keyword">break</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(s[l] != s[h])&#123; <span class="keyword">return</span> <span class="literal">false</span>;&#125;</span><br><span class="line">            ++l;</span><br><span class="line">            --h;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是否是回文串，只包含字符和数字</span></span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123; <span class="keyword">return</span> <span class="literal">true</span>;&#125;</span><br><span class="line">        transform(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), s.<span class="built_in">begin</span>(), ::<span class="built_in">tolower</span>);  </span><br><span class="line">        <span class="keyword">return</span> isPalind2P(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/" itemprop="url">124. Binary Tree Maximum Path Sum</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-05T22:26:18+08:00">
+                2020-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a non-empty binary tree, find the maximum path sum.</p>
+<p>For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.</p>
+<p>Example 1:</p>
+<pre><code>Input: [1,2,3]
+
+   1
+  / \
+ 2   3
+
+Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>题目要求我们找出一条路径，从任意某个点开始到任意一个点结束的一条路径，使得这条路径上值的和最大。比如上述例子，是2-1-3这条路径（或者反过来）。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>一般遇到二叉树-求路径的题都会考虑遍历（递归形式），然后基于某种遍历方式，添加要额外的功能，比如该题的求一条路径的上的和。</p>
+<p>因为要求的是和最大的路径，则对于某个点(val)来说，他当前的最大路径和等于 val+left_val+right_val的值，他返回给上一层几点的值为val + max(left_val, right_val)。</p>
+<p>考虑后序遍历形式（从叶节点向上遍历，这样只需遍历一次就可以求得最大路径）。我们可以求得当前节点（val）的左右子树的路径最大值, 分别为left_val, right_val（如果为nullptr或值&lt;0，则为0）。然后更新路径最大和，res = max(res, val+left_val+right_val)，返回 val + max(left, right)——返回和最大的路径。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> res = INT_MIN;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTrav</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> val = root-&gt;val;</span><br><span class="line">        <span class="keyword">int</span> left = INT_MIN, right = INT_MIN;</span><br><span class="line">        left =  <span class="built_in">max</span>(<span class="number">0</span>, maxTrav(root-&gt;left));</span><br><span class="line">        right = <span class="built_in">max</span>(<span class="number">0</span>, maxTrav(root-&gt;right));</span><br><span class="line">        <span class="keyword">int</span> sum  = <span class="number">0</span>;</span><br><span class="line">        sum = val + left + right;</span><br><span class="line">        <span class="comment">// if(left &gt; 0)&#123; sum += left;&#125;</span></span><br><span class="line">        <span class="comment">// if(right &gt; 0)&#123; sum += right;&#125;</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, sum);</span><br><span class="line">        <span class="keyword">return</span> val+<span class="built_in">max</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">//遍历</span></span><br><span class="line">        maxTrav(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1075,7 +1618,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1088,7 +1631,7 @@ Output:
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
