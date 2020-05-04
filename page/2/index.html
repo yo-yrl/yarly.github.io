@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/202-Happy-Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/202-Happy-Number/" itemprop="url">202. Happy Number</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T22:23:18+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Write an algorithm to determine if a number n is “happy”.</p>
+<p>A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.</p>
+<p>Return True if n is a happy number, and False if not.</p>
+<p>Example: </p>
+<pre><code>Input: 19
+Output: true
+Explanation: 
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给出了happy number的定义。给定一个数，判断他是否是“开心数”。<br>注意其有一个特点：如果该数不是开心数，在判断过程当中一定会陷入某种循环。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>只能老老实实判断了。用set记录曾经遇到过得中间值，如果出现相同，即陷入循环。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSquare</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> sum = <span class="number">0</span>, tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            tmp = n%<span class="number">10</span>;</span><br><span class="line">            sum += tmp*tmp;</span><br><span class="line">            n /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用set保存是否用过这个数字</span></span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; mset;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> val = numSquare(n);</span><br><span class="line">            <span class="keyword">if</span>(val == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(mset.<span class="built_in">find</span>(n) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mset.insert(n);</span><br><span class="line">                n = val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/200-Number-of-Islands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1534,145 +1671,6 @@ Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/166-Fraction-to-Recurring-Decimal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/22/166-Fraction-to-Recurring-Decimal/" itemprop="url">166. Fraction to Recurring Decimal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T14:32:39+08:00">
-                2020-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.</p>
-<p>If the fractional part is repeating, enclose the repeating part in parentheses.</p>
-<p>Example 1:</p>
-<pre><code>Input: numerator = 1, denominator = 2
-Output: &quot;0.5&quot;</code></pre><p>Example 2:</p>
-<pre><code>Input: numerator = 2, denominator = 1
-Output: &quot;2&quot;</code></pre><p>Example 3:</p>
-<pre><code>Input: numerator = 2, denominator = 3
-Output: &quot;0.(6)&quot;</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个除数和一个被除数（分子和分母），求二者的商，返回商的字符串形式。如果商的余数有重复部分，则将该部分用()括起来表示。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>一开始看到题有点蒙，不知道这个商怎么求。QwQ 傻了都。</li>
-<li>就是我们小学学习的如何求商的计算过程：如果当前被除数无法整除，则将余数补0，继续除。在这个过程中，当余数为0，则结束求解；当余数出现与之前一样的时，则也结束求解，然后重复部分的值用括号括起来。</li>
-<li>数据结构：整数变量存储整数部分，数组存储余数部分，map存储余数及其出现位置，用来查询是否出现重复余数。</li>
-<li>特殊情况：分母（除数）为0， 负数：(-INT_MIN / -1)会出现大数，我们应该将数值转变成long int类型。</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">fractionToDecimal</span><span class="params">(<span class="keyword">int</span> numerator, <span class="keyword">int</span> denominator)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//给定分子， 分母，返回商。如果小数部分是重复的，则用(*)来表示</span></span><br><span class="line">        <span class="comment">//回顾如何求商，分子除以分母，得到整数部分，然后余数部分补0继续除以除数，知道余数为0或者出现重复余数</span></span><br><span class="line">        <span class="comment">//特殊情况：除数为0， 出现负数，则需要将int转为long，然后 全都转为整数来进行</span></span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">int</span> nume = numerator, deno = denominator;</span><br><span class="line">        <span class="keyword">if</span>(deno == <span class="number">0</span>)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nume == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="string">"0"</span>;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">bool</span> isneg = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>( (nume &lt; <span class="number">0</span>) ^ (deno &lt; <span class="number">0</span>))&#123;</span><br><span class="line">            isneg = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        nume = <span class="built_in">abs</span>(nume), deno = <span class="built_in">abs</span>(deno);</span><br><span class="line">        <span class="keyword">if</span>(deno == <span class="number">1</span>)&#123; </span><br><span class="line">            <span class="keyword">if</span>(isneg) <span class="keyword">return</span> <span class="string">"-"</span>+to_string(nume); </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> to_string(nume);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">int</span> divnum = <span class="number">0</span>, modnum = <span class="number">0</span>, tmpdiv = <span class="number">0</span>, mod_idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> dupMod = <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">int</span>&gt; modnums;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">long</span> <span class="keyword">int</span>, <span class="keyword">long</span> <span class="keyword">int</span>&gt; mmap;<span class="comment">// 余数 --- 出现位置</span></span><br><span class="line">        divnum = <span class="keyword">long</span> <span class="keyword">int</span>(nume/deno);</span><br><span class="line">        modnum = nume - deno*divnum;</span><br><span class="line">        mmap[modnum] = mod_idx ++;</span><br><span class="line">        <span class="keyword">while</span>(modnum)&#123;</span><br><span class="line">            <span class="comment">//补0操作</span></span><br><span class="line">            modnum *= <span class="number">10</span>;</span><br><span class="line">            tmpdiv = <span class="keyword">int</span>(modnum/deno);</span><br><span class="line">            modnum = modnum - deno*tmpdiv;</span><br><span class="line">            modnums.push_back(tmpdiv);<span class="comment">//压入小数部分</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(mmap.<span class="built_in">find</span>(modnum) != mmap.<span class="built_in">end</span>())&#123;</span><br><span class="line">                dupMod = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//出现重复余数</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                mmap[modnum] = mod_idx++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span>(isneg)&#123;</span><br><span class="line">            res += <span class="string">"-"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res += to_string(divnum);</span><br><span class="line">        <span class="keyword">if</span>(modnums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> res;&#125;</span><br><span class="line">        res += <span class="string">"."</span>;</span><br><span class="line">        <span class="keyword">if</span>(dupMod)&#123;</span><br><span class="line">            <span class="keyword">int</span> dupidx = mmap[modnum];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; modnums.<span class="built_in">size</span>() &amp;&amp; i &lt; dupidx; ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res += <span class="string">"("</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = dupidx; i &lt; modnums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res += <span class="string">")"</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; modnums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">                res += to_string(modnums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1723,7 +1721,7 @@ Output: &quot;0.(6)&quot;</code></pre><h2 id="题意分析"><a href="#题意分�
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
