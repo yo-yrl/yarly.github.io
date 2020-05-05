@@ -229,6 +229,521 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/169-Majority-Element/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/25/169-Majority-Element/" itemprop="url">169. Majority Element</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:04:13+08:00">
+                2020-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.</p>
+<p>You may assume that the array is non-empty and the majority element <code>always exis</code>t in the array.</p>
+<p>Example 1:</p>
+<pre><code>Input: [3,2,3]
+Output: 3</code></pre><p>Example 2:</p>
+<pre><code>Input: [2,2,1,1,1,2,2]
+Output: 2</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>寻找中位数的变形——寻找出现次数超过数组长度一半的数。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>用map存储 value 和 出现次数 的映射，返回出现此处超过一半的值。$空间：O(n), 时间：O(n log(n))$ —每次map查找是log(n)</li>
+<li>由于该数值出现次数超过一半，故而他的出现次数比其他数值出现次数的总和都多。如果我们记录当前一个值及其次数，若遇到与其不一样的，次数减一。如果次数为0，则更新值及其次数。最后存储的值一定是出现次数最多的值，即返回结果。$时间：O(n), 空间：O(1)$<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorMap</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mmap;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mmap.<span class="built_in">find</span>(n) == mmap.<span class="built_in">end</span>())&#123;</span><br><span class="line">                mmap[n] = <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                ++ mmap[n];</span><br><span class="line">                <span class="keyword">if</span>(mmap[n] &gt; nums.<span class="built_in">size</span>()/<span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> n;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorCount</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> curv = nums[<span class="number">0</span>], count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(curv != nums[i])&#123;</span><br><span class="line">                --count;</span><br><span class="line">                <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">                    curv = nums[i];</span><br><span class="line">                    count = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                ++count;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curv;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt;= <span class="number">2</span>)&#123; <span class="keyword">return</span> nums[<span class="number">0</span>];&#125;</span><br><span class="line">        <span class="comment">//1 通过map进行个数查找</span></span><br><span class="line">        <span class="comment">// return majorMap(nums);</span></span><br><span class="line">        <span class="comment">//因为res出现的次数 比其他数值出现次数的总和都多，则 存在curv,及其出现次数，如果次数 》0 且遇到不同的数，则-1；到最后剩下的curv肯定是res。</span></span><br><span class="line">        <span class="keyword">return</span> majorCount(nums);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/171-Excel-Sheet-Column-Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/25/171-Excel-Sheet-Column-Number/" itemprop="url">171. Excel Sheet Column Number</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:03:51+08:00">
+                2020-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a column title as appear in an Excel sheet, return its corresponding column number.</p>
+<p>For example:</p>
+<pre><code>A -&gt; 1
+B -&gt; 2
+C -&gt; 3
+...
+Z -&gt; 26
+AA -&gt; 27
+AB -&gt; 28 
+...</code></pre><p>Example 1:</p>
+<pre><code>Input: &quot;A&quot;
+Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>类似进制转换题，不过转换对象分别是 26个大写字母 – 1–26数值。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<p>确定基数（26），从左往右遍历字符串时，和乘上基数，再加上当前转换值，更新和。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, base = <span class="number">26</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : s)&#123;</span><br><span class="line">            n = (ch-<span class="string">'A'</span>)+<span class="number">1</span>;</span><br><span class="line">            sum = sum*base+n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url">网络基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T21:39:23+08:00">
+                2020-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本章主要对网络方面的面试知识点进行整理归纳。如果有错误或不足，请多指教~</p>
+<h1 id="一、网络协议层（7层）"><a href="#一、网络协议层（7层）" class="headerlink" title="一、网络协议层（7层）"></a>一、网络协议层（7层）</h1><hr>
+<ul>
+<li><p><code>物理层</code>: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEEE802.3 CLOCK RJ45</p>
+<p>  物理层规定了激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的物理媒体。</p>
+</li>
+<li><p><code>数据链路层</code>: 将比特组装成帧和点到点的传递,传输单位为 帧 ,主要包括的协议为MAC VLAN PPP</p>
+<p>  数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：<strong>物理地址寻址</strong>（ARP）、数据的成帧、<strong>流量控制</strong>?、数据的检错、重发等。</p>
+</li>
+<li><p><code>网络层</code>：负责数据包从源到宿的传递和网际互连，传输单位为包,主要包括的协议为IP ARP ICMP</p>
+<p>  网络层负责对子网间的数据包进行<strong>路由选择</strong>。此外，网络层还可以实现<strong>拥塞控制</strong>、网际互连等功能。在这一层，数据的单位称为数据包（packet）</p>
+</li>
+<li><p><code>传输层</code>：提供端到端的可靠报文传递和错误恢复，传输单位为报文,主要包括的协议为TCP UDP</p>
+<p>  传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。</p>
+</li>
+<li><p><code>会话层</code>：建立、管理和终止会话，传输单位为SPDU，主要包括的协议为RPC NFS</p>
+<p>  会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+</li>
+<li><p><code>表示层</code>: 对数据进行翻译、加密和压缩,传输单位为PPDU，主要包括的协议为ASCII、ASN.1、JPEG、MPEG。</p>
+<p>  表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+</li>
+<li><p><code>应用层</code>: 允许访问OSI环境的手段,传输单位为APDU，主要包括的协议为FTP HTTP DNS SMTP POP3 QUIC</p>
+</li>
+</ul>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><hr>
+<h2 id="1-http、https"><a href="#1-http、https" class="headerlink" title="1. http、https"></a>1. http、https</h2><hr>
+<hr>
+<h2 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h2><hr>
+<h3 id="1-DNS协议简介"><a href="#1-DNS协议简介" class="headerlink" title="1) DNS协议简介"></a>1) DNS协议简介</h3><p><code>DNS协议</code>：将域名转换为IP地址。比如：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>  –&gt; 119.75.217.109 .</p>
+<p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
+<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
+<p><strong>DNS 可以使用<code>UDP 或者 TCP</code>进行传输</strong>，使用的端口号都为 <code>53</code>。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
+<p>在两种情况下会使用 TCP 进行传输：</p>
+<ul>
+<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据？？？）。</li>
+<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据，辅助DNS服务器定时（通常3h）向主DNS服务器询问是否有新数据，如果有，则通过区域传送方式获得新数据。</li>
+</ul>
+<p>应用程序通过名字解析器将一个主机名转换为一个IP地址，也可以将一个IP地址转换为对应的主机名。(逆向解析)</p>
+<p>IP(v4)地址有32位，不方便记忆，故而出现url，<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 比 119.75.217.109 更容易记住，所以，我们可以这样理解：<code>IP地址是面向主机的，url是面向用户的</code>。</p>
+<h3 id="2）域名结构和域名服务器"><a href="#2）域名结构和域名服务器" class="headerlink" title="2）域名结构和域名服务器"></a>2）域名结构和域名服务器</h3><p><font color = grey|red>早期，域名和IP的对应关系保存在一个叫<code>hosts</code>文件中。<br><font color = black>最初，通过互联网信息中心来管理这个文件，如果有一个新的计算机想接入网络，或者某个计算IP变更都需要到信息中心申请变更 hosts 文件。其他计算机也需要定期更新，才能上网。但是这样太麻烦了，就出现了<strong>域名解析系统</strong>。现在我们主机上也有一个hosts文件，可通过添加 host–ip 作为科学上网的一个途径。</p>
+<p>首先简单了解一下域名结构和域名系统。</p>
+<p>1.1 域名结构</p>
+<pre><code>域名采用层次树状结构命名方法。从右向左分为顶级域名、二级域名、三级域名等，用点隔开。如：tieba.baidu.com。其中，com为顶级域名，baidu为二级域名，tieba为三级域名。注意域名不分区大小写。</code></pre><p>1.2 域名服务器</p>
+<pre><code>域名服务器同样具有层次结构，分布式存储域名和ip地址的对应关系。
+
+(1) `根域名服务器`是最高层次的域名服务器，所有的根域名服务器都知道所有顶级域名服务器的域名和ip。根域名服务器一版情况下不会把待查询的域名直接转换IP，而是告诉本地域名服务器下一步应该找哪一个顶级域名服务器进行查询。
+
+(2)`顶级域名服务器`管理在该顶级域名服务器注册的所有二级域名，但受到DNS查询就会有相应应答。（可能是给出最后的结果或下一步一应当找的域名服务器ip）
+
+(3)`权限域名服务器`可以理解为二级域名下 负责一个区的域名服务器。
+
+(4)`本地域名服务器`不属于域名服务器图中的层级结构，但对域名系统非常重要。当一台主机发出DNS请求时就是发给本地域名服务器进行查询，如果查询失败，再以递归或迭代方式向上查询。
+
+每一个因特网服务提供ISP(电信联通移动)，或一个大学都可以拥有一个本地域名服务器。这种服务器有时也被称为默认域名服务器。本地域名服务器一般离用户较近，一般不超过几个路由的距离。如果要查询的IP同属一个本地ISP时即可直接返回结果地址ip。</code></pre><h3 id="3-DNS查询方式"><a href="#3-DNS查询方式" class="headerlink" title="3) DNS查询方式"></a>3) DNS查询方式</h3><p>DNS查询方式主要分为两种，一种是递归查询，另一种是迭代查询。</p>
+<ul>
+<li><p>递归查询：</p>
+<p>主机向本地服务器发起DNS请求一定是递归查询。</p>
+<p>递归查询就是：如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其它根域名服务器继续发出查询请求报文(即替主机继续查询)，而不是让主机自己进行下一步查询。</p>
+<p>因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</p>
+<p>请求过程：主机—&gt; 本地服务器 —-&gt; 二级域名服务器（no result）–&gt; 一级(get) –&gt; 二级 —&gt; 本地 –&gt;主机</p>
+</li>
+<li><p>迭代查询。主机 –&gt; 本地服务器 —&gt; 二级(no result) –&gt; 本地 –&gt; 一级(get) –&gt; 本地–&gt;主机</p>
+</li>
+</ul>
+<h3 id="4-DNS查询过程"><a href="#4-DNS查询过程" class="headerlink" title="4) DNS查询过程"></a>4) DNS查询过程</h3><p>1.在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己**本地的hosts文件**（主机）是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a></p>
+<p>2.如果hosts里没有这个域名的映射，则查找本地DNS解析器<strong>缓存</strong>，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</p>
+<p>3.如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/IP参数中设置的首选DNS服务器，在此我们叫它<strong>本地DNS服务器</strong>，<br>此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</p>
+<p>4.如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</p>
+<p>5.如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，</p>
+<p>如果未用转发模式(即<code>迭代方式</code>)，本地DNS就把请求发至 “根DNS服务器”，“根DNS服务器”收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。 </p>
+<p>本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a></p>
+<p>6.如果用的是转发模式（即<code>递归方式</code>），此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。</p>
+<p>不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
+<hr>
+<h2 id="3-url请求过程"><a href="#3-url请求过程" class="headerlink" title="3. url请求过程"></a>3. url请求过程</h2><hr>
+<pre><code>Q: 浏览器中输入URL,到页面显示，经过哪些步骤。
+
+1 域名解析 url--&gt;ip(DNS)
+
+2 发起请求 ip--&gt;mac(ARP)，ip--&gt;ip(路由)
+
+3 收到，然后显示</code></pre><h3 id="1-主机已经联网"><a href="#1-主机已经联网" class="headerlink" title="1-主机已经联网"></a>1-主机已经联网</h3><ul>
+<li><p>浏览器要将URL解析为IP地址，解析域名就要用到DNS协议，首先主机会查询DNS的缓存，如果没有就给本地DNS发送查询请求。DNS查询分为两种方式，一种是递归查询，一种是迭代查询。如果是迭代查询，本地的DNS服务器，向根域名服务器发送查询请求，根域名服务器告知该域名的一级域名服务器，然后本地服务器给该一级域名服务器发送查询请求，然后依次类推直到查询到该域名的IP地址。DNS服务器是基于UDP的，因此会用到UDP协议。</p>
+</li>
+<li><p>得到IP地址后，浏览器就要与服务器建立一个http连接。因此要用到http协议，http协议报文格式上面已经提到。http生成一个get请求报文，将该报文传给TCP层处理，所以还会用到TCP协议。如果采用https还会使用https协议先对http数据进行加密。TCP层如果有需要先将HTTP数据包分片，分片依据路径MTU和MSS？？应该是IP层进行分片吧。TCP的数据包然后会发送给IP层，用到IP协议。IP层通过路由选路，一跳一跳发送到目的地址。当然在一个网段内的寻址是通过以太网协议实现(也可以是其他物理层协议，比如PPP，SLIP)，以太网协议需要直到目的IP地址的物理地址，有需要ARP协议。</p>
+</li>
+</ul>
+<h3 id="2-主机尚未联网，从头开始"><a href="#2-主机尚未联网，从头开始" class="headerlink" title="2-主机尚未联网，从头开始"></a>2-主机尚未联网，从头开始</h3><pre><code>1 DHCP配置主机信息（获取IP 地址、DNS 服务器的 IP 地址、默认网关路由器的 IP 地址和子网掩码）
+
+2 ARP获取默认网关路由器地址，由默认网关转发DNS查询报文
+
+3 DNS查询
+
+4 HTTP请求页面</code></pre><ul>
+<li><p>1) <strong>DHCP 配置主机信息(UDP)</strong></p>
+<p>  假设主机最开始没有 IP 地址以及其它信息，那么就需要先使用 DHCP 来获取。</p>
+<p>  主机生成一个 DHCP 请求报文，并将这个报文放入具有目的端口 67 和源端口 68 的 UDP 报文段中。</p>
+<p>  该报文段则被放入在一个具有广播 IP 目的地址(255.255.255.255) 和源 IP 地址（0.0.0.0）的 IP 数据报中。</p>
+<p>  该数据报则被放置在 MAC 帧中，该帧具有目的地址 FF:FF:FF:FF:FF:FF，将广播到与交换机连接的所有设备。</p>
+<p>  连接在交换机的 DHCP 服务器收到广播帧之后，不断地向上分解得到 IP 数据报、UDP 报文段、DHCP 请求报文，之后生成 DHCP ACK 报文，该报文包含以下信息：<strong><font color = blue|black|red>IP 地址、DNS 服务器的 IP 地址、默认网关路由器的 IP 地址和子网掩码</strong>。<font color = black>该报文被放入 UDP 报文段中，UDP 报文段有被放入 IP 数据报中，最后放入 MAC 帧中。</p>
+<p>  该帧的目的地址是请求主机的 MAC 地址，因为交换机具有自学习能力，之前主机发送了广播帧之后就记录了 MAC 地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。<br>  主机收到该帧后，不断分解得到 DHCP 报文。之后就配置它的 IP 地址、子网掩码和 DNS 服务器的 IP 地址，并在其 IP 转发表中安装默认网关。</p>
+</li>
+<li><p>2) <strong>ARP 解析 MAC 地址(TCP)</strong></p>
+<p> 主机通过浏览器生成一个 TCP 套接字，套接字向 HTTP 服务器发送 HTTP 请求。为了生成该套接字，主机需要知道网站的域名对应的 IP 地址。<br> 主机生成一个 DNS 查询报文，该报文具有 53 号端口，因为 DNS 服务器的端口号是 53。该 DNS 查询报文被放入目的地址为 DNS 服务器 IP 地址的 IP 数据报中。</p>
+<p> 该 IP 数据报被放入一个以太网帧中，该帧将发送到网关路由器。</p>
+<p> DHCP 过程只知道网关路由器的 IP 地址，为了获取网关路由器的 MAC 地址，需要使用 ARP 协议。</p>
+<p> 主机生成一个包含目的地址为网关路由器 IP 地址的 ARP 查询报文，将该 ARP 查询报文放入一个具有广播目的地址（FF:FF:FF:FF:FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧转发给所有的连接设备，包括网关路由器。</p>
+<p> 网关路由器接收到该帧后，不断向上分解得到 ARP 报文，发现其中的 IP 地址与其接口的 IP 地址匹配，因此就发送一个 ARP 回答报文，包含了它的 MAC 地址，发回给主机。</p>
+</li>
+<li><p>3) <strong>DNS 解析域名(TCP/UDP)</strong></p>
+<p> 知道了网关路由器的 MAC 地址之后，就可以继续 DNS 的解析过程了。<br> 网关路由器接收到包含 DNS 查询报文的以太网帧后，抽取出 IP 数据报，并根据转发表决定该 IP 数据报应该转发的路由器。<br> 因为路由器具有内部网关协议（RIP、OSPF）和外部网关协议（BGP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达 DNS 服务器的路由表项。</p>
+<p> 到达 DNS 服务器之后，DNS 服务器抽取出 DNS 查询报文，并在 DNS 数据库中查找待解析的域名。</p>
+<p> 找到 DNS 记录之后，发送 DNS 回答报文，将该回答报文放入 UDP 报文段中，然后放入 IP 数据报中，通过路由器反向转发回网关路由器，并经过以太网交换机到达主机。</p>
+</li>
+<li><p>4) <strong>HTTP 请求页面</strong></p>
+<p>  有了 HTTP 服务器的 IP 地址之后，主机就能够生成 TCP 套接字，该套接字将用于向 Web 服务器发送 HTTP GET 报文。</p>
+<p>  在生成 TCP 套接字之前，必须先与 HTTP 服务器进行三次握手来建立连接。生成一个具有目的端口 80 的 TCP SYN 报文段，并向 HTTP 服务器发送该报文段。</p>
+<p>  HTTP 服务器收到该报文段之后，生成 TCP SYN ACK 报文段，发回给主机。<br>  连接建立之后，浏览器生成 HTTP GET 报文，并交付给 HTTP 服务器。</p>
+<p>  HTTP 服务器从 TCP 套接字读取 HTTP GET 报文，生成一个 HTTP 响应报文，将 Web 页面内容放入报文主体中，发回给主机。<br>  浏览器收到 HTTP 响应报文后，抽取出 Web 页面内容，之后进行渲染，显示 Web 页面。</p>
+</li>
+</ul>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><hr>
+<h2 id="1-tcp、upd协议简介"><a href="#1-tcp、upd协议简介" class="headerlink" title="1. tcp、upd协议简介"></a>1. tcp、upd协议简介</h2><h2 id="2-tcp"><a href="#2-tcp" class="headerlink" title="2. tcp"></a>2. tcp</h2><h2 id="3-udp"><a href="#3-udp" class="headerlink" title="3. udp"></a>3. udp</h2><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><hr>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><hr>
+<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/166-Fraction-to-Recurring-Decimal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1219,428 +1734,6 @@ cache.get(4);       // returns 4</code></pre><h2 id="题意分析"><a href="#题
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/141-Linked-List-Cycle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/16/141-Linked-List-Cycle/" itemprop="url">141. Linked List Cycle</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T09:46:50+08:00">
-                2020-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a linked list, determine if it has a cycle in it.</p>
-<p>To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to. If pos is -1, then there is no cycle in the linked list.</p>
-<p>Example 1:</p>
-<pre><code>Input: head = [3,2,0,-4], pos = 1
-Output: true
-Explanation: There is a cycle in the linked list, where tail connects to the second node.</code></pre><p>Follow up:</p>
-<pre><code>Can you solve it using O(1) (i.e. constant) memory?</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个单向链表，判断是否有环。输入是一个数组，里头是节点的值，pos 是表示环开始的位置，如果没有环，则 pos = -1 .</p>
-<h2 id="求解思路"><a href="#求解思路" class="headerlink" title="求解思路"></a>求解思路</h2><hr>
-<ul>
-<li><p>判断一个节点是否重复访问。如果有环，肯定存在重复访问同一个节点的情况。我们可以用 set 保存每个节点，然后遍历链表。时间：$O(n)$, 空间： $O(n)$。</p>
-</li>
-<li><p>快慢指针法。上述方法在链表很长的情况下会占用很多空间（ set ）。在一个单项链表中，存在两个指针对改链表进行遍历，一个指针每次走一步，另一个指针每次走两步，如果存在环，则慢指针 会 和 快指针 重合。如果不存在环，则会走到链表结尾（ nullptr ）。时间：$O(n)$， 空间：$O(1)$。<code>这个指针的代码写得是真的很心累啊呜呜呜一定要小心</code></p>
-</li>
-<li><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycSet</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(cur) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                mset.insert(cur);</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycTwoP</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* low = head;</span><br><span class="line">        ListNode* fast = head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(low != <span class="literal">nullptr</span> &amp;&amp; fast != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(low == fast)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(fast == <span class="literal">nullptr</span> || fast-&gt;next == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            low = low-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是单向链表是否有环。</span></span><br><span class="line">        <span class="comment">//1 用set存储每个节点，如果出现访问两次的，则有环</span></span><br><span class="line">        <span class="comment">// return hasCycSet(head);</span></span><br><span class="line">        <span class="comment">//2 双指针（快慢）</span></span><br><span class="line">        <span class="keyword">return</span> hasCycTwoP(head);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/15/139-Word-Break-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/15/139-Word-Break-II/" itemprop="url">139. Word Break II</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-15T12:41:18+08:00">
-                2020-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences.</p>
-<p><code>Note</code>:</p>
-<p>The same word in the dictionary may be reused multiple times in the segmentation.<br>You may assume the dictionary does not contain duplicate words.</p>
-<p>Example 1:</p>
-<pre><code>Input:
-s = &quot;catsanddog&quot;
-wordDict = [&quot;cat&quot;, &quot;cats&quot;, &quot;and&quot;, &quot;sand&quot;, &quot;dog&quot;]
-Output:
-[
-&quot;cats and dog&quot;,
-&quot;cat sand dog&quot;
-]</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>是139题的延伸，题目给定一个非空字符串，和一个字符串数组，求 字符串根据数组内的小字符串进行分割 而得到的所有组合。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>求组合排列一般采用深搜（回溯）法。用 vector 保存每次切割的子字符串，对于字符串s，从i位置切割，如果 s(0-i) 在数组内，则 存入vector中，问题变成球子串 s(i-end) 的组合。存在多种组合，在对于下个位置的分割前，我们需要将上次 s(0-i) 的子串弹出，即从同一个起始位置开始 的 分割位置发生改变。<code>实现代码为wordDFS()函数</code>，遇到<br>“aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa”<br>[“a”,”aa”,”aaa”,”aaaa”,”aaaaa”,”aaaaaa”,”aaaaaaa”,”aaaaaaaa”,”aaaaaaaaa”,”aaaaaaaaaa”]<br>输入会超时。因为aaa—aaa存在太多种组合了，耗时。</li>
-<li>使用空间，记录当前位置i是否可以进行分割，避免重复计算以及大量不必要的递归。参考139题的动态规划方法，得到 dp[] 数组。然后在 DFS 函数中根据dp判断，则可ac，不过时间还是很慢QwQ.<code>实现代码为wordDFSDP()</code>。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; sent;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wordDFSDP</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; dp, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="built_in">string</span> str = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sent.<span class="built_in">size</span>() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">                str += (sent[i] + <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!sent.empty())&#123;</span><br><span class="line">                str += sent[sent.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(dp[i] &amp;&amp; mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                sent.push_back(tmp);</span><br><span class="line">                wordDFSDP(s, mset,dp, i);</span><br><span class="line">                sent.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wordDFS</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="built_in">string</span> str = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sent.<span class="built_in">size</span>() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">                str += (sent[i] + <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!sent.empty())&#123;</span><br><span class="line">                str += sent[sent.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                sent.push_back(tmp);</span><br><span class="line">                wordDFS(s, mset, i);</span><br><span class="line">                sent.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordDFSYes</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">const</span> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; mset, <span class="keyword">int</span> sidx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sidx == s.<span class="built_in">size</span>())&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = sidx+<span class="number">1</span>; i &lt;= s.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = s.substr(sidx, i-sidx);</span><br><span class="line">            <span class="keyword">if</span>(mset.<span class="built_in">find</span>(tmp) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                <span class="keyword">if</span>(wordDFSYes(s, mset, i))&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mset</span><span class="params">(wordDict.<span class="built_in">begin</span>(), wordDict.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        <span class="comment">//切割词，用递归的方法</span></span><br><span class="line">        <span class="comment">// if(wordDFSYes(s,mset,0))&#123;</span></span><br><span class="line">        <span class="comment">//     wordDFS(s, mset, 0);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// wordDFS(s,mset,0); //--------超时</span></span><br><span class="line">        <span class="comment">//先用dp判断是否能分割单词</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">dp</span><span class="params">(s.<span class="built_in">size</span>()+<span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; dp.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[j] &amp;&amp; mset.<span class="built_in">find</span>(s.substr(j, i-j)) != mset.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    dp[i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[s.<span class="built_in">size</span>()] == <span class="literal">true</span>)&#123;</span><br><span class="line">            wordDFSDP(s,mset,dp,<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/14/%E8%AE%A4%E5%90%8C%E8%87%AA%E5%B7%B1-%E9%98%85%E5%90%8E%E6%84%9F/" itemprop="url">认同自己-阅后感</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T23:01:05+08:00">
-                2020-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="20-4-14"><a href="#20-4-14" class="headerlink" title="20-4-14"></a>20-4-14</h1><hr>
-<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><ul>
-<li><p><code>似</code></p>
-<ul>
-<li>害怕自己弱小，妥协强者，不会拒绝，稳妥行事</li>
-</ul>
-</li>
-<li><p><code>改</code>：</p>
-<ul>
-<li>定下目标并努力实现。实现不了也没什么大不了。”跌倒并不可怕，可怕的是一蹶不振！“</li>
-<li>接受真实的自己</li>
-</ul>
-</li>
-</ul>
-<h2 id="意识到自我存在"><a href="#意识到自我存在" class="headerlink" title="意识到自我存在"></a>意识到自我存在</h2><h3 id="自我价值的需求感"><a href="#自我价值的需求感" class="headerlink" title="自我价值的需求感"></a>自我价值的需求感</h3><hr>
-<ul>
-<li>自尊心是什么<ul>
-<li>内心信念： 自我、价值与感受</li>
-<li>当一个人处在自己完全不信任的环境中时，人是感觉不到自己较低的自尊心的。能感受的是它的衍生物，首先就是<strong>恐惧感</strong>和<strong>羞耻心</strong>。表现的生理症状有：发麻、心跳加速、胃或胸腔发胀发闷、呼吸急促、战栗或下肢麻痹等。这些症状表明了我们当时不够信任环境，或者我们没有足够的价值感。</li>
-<li>内心的不完整，对否定的恐惧或者对丢脸的畏惧深入骨髓，我们不能通过简单的话语或好的建议消除（比如：“你可以”，“乐观点”）————道理我都懂，但我改变不了。这种状况可以归纳为 <strong>自尊心损害</strong>。</li>
-<li>拥有过低自尊心的人总夸大自己的感受，会<em>过高</em> 地估计了其他人的强项和弱点，<em>过低</em> 地估计了自己在别人眼中的强项和弱点。</li>
-<li><strong>自信的人接受自己的弱点</strong>，相反，不自信的人不接受自己的弱点，他 们把弱点看得很重，会掩盖自己的弱点，不让其他人知道。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1691,7 +1784,7 @@ Output:
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
