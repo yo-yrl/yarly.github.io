@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="题目 题意分析 解题思路 实现代码">
+<meta name="description" content="题目 Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right.  You can only see the k numbers in the window. Each time the sliding wind">
 <meta property="og:type" content="article">
 <meta property="og:title" content="239. Sliding Window Maximum">
 <meta property="og:url" content="http://yoursite.com/2020/05/06/239-Sliding-Window-Maximum/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 题意分析 解题思路 实现代码">
+<meta property="og:description" content="题目 Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right.  You can only see the k numbers in the window. Each time the sliding wind">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-06T03:28:40.000Z">
-<meta property="article:modified_time" content="2020-05-06T03:32:09.529Z">
+<meta property="article:modified_time" content="2020-05-06T04:46:38.620Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Hard">
@@ -304,9 +304,33 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. </p>
+<p>You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.</p>
+<p><code>Follow up</code>:</p>
+<p>Could you solve it in linear time?</p>
+<p>Example:</p>
+<pre><code>Input: nums = [1,3,-1,-3,5,3,6,7], and k = 3
+Output: [3,3,5,5,6,7] 
+Explanation: 
+
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+1 [3  -1  -3] 5  3  6  7       3
+1  3 [-1  -3  5] 3  6  7       5
+1  3  -1 [-3  5  3] 6  7       5
+1  3  -1  -3 [5  3  6] 7       6
+1  3  -1  -3  5 [3  6  7]      7</code></pre><p><code>Constraints</code>:</p>
+<pre><code>1 &lt;= nums.length &lt;= 10^5
+-10^4 &lt;= nums[i] &lt;= 10^4
+1 &lt;= k &lt;= nums.length</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个数组，和一个滑动窗口大小，求数组中，每个滑动窗口中的最大值。</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><pre><code class="c++"></code></pre>
+<ul>
+<li>暴力。维护滑动窗口的left_idx 和 right_idx ，每次对窗口内的值求最大值。O(n*k).</li>
+<li>利用数据结构存储这个窗口的最大值，避免每次都求最大值。先考虑，对于一个窗口内的 1 3 -1 值，在顺序访问时，用啥数据结构在线性时间内得到最大值。容易想到的是队列，队列中先存 1， 然后访问到3时，3比1大，则将1弹出，存入3； 访问-1，比3小，则存在3后头，此时队列为 3,-1； 队头就是这个窗口内的最大值。当窗口滑动时，继续这样比较，我们就可以很容易得到每个窗口的最大值了。<code>note1</code>： 存入位置大的较小值，比如-1 是 因为 当3不在窗口内时，-1可能是下个窗口的最大值，所以需要存入-1。<code>note2</code>：存入队列的应该是数值的下标，这是为了判断当前队头是否不在窗口内。</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxSlide_Stk</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; mq; <span class="comment">//存坐标</span></span><br><span class="line">        mq.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="comment">// 先存第一个窗口</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; k; ++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(mq.<span class="built_in">size</span>() &gt; <span class="number">0</span> &amp;&amp; nums[i] &gt; nums[mq.back()])&#123; mq.pop_back();&#125;</span><br><span class="line">            mq.push_back(i);<span class="comment">//后面的数可能是下个窗口的最大值，得保留</span></span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(nums[mq.front()]);</span><br><span class="line">        <span class="comment">// 对后头的窗口进行判断，每次前进一个数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = k; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="comment">//更新queue</span></span><br><span class="line">            <span class="keyword">while</span>(mq.<span class="built_in">size</span>() &gt; <span class="number">0</span> &amp;&amp; nums[i] &gt; nums[mq.back()])&#123; mq.pop_back();&#125;</span><br><span class="line">            mq.push_back(i);</span><br><span class="line">            <span class="comment">//判断队头</span></span><br><span class="line">            <span class="keyword">if</span>(i - mq.front() &gt;= k)&#123; mq.pop_front();&#125;</span><br><span class="line">            res.push_back(nums[mq.front()]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt; k)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="comment">//栈 O(n)一遍遍历</span></span><br><span class="line">        <span class="keyword">return</span> maxSlide_Stk(nums, k);</span><br><span class="line">        <span class="comment">//暴力破解，在每个窗口都来一波比较</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
