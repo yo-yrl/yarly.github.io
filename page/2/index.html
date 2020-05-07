@@ -229,6 +229,282 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/230-Kth-Smallest-Element-in-a-BST/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/03/230-Kth-Smallest-Element-in-a-BST/" itemprop="url">230. Kth Smallest Element in a BST</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T10:31:07+08:00">
+                2020-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.</p>
+<p>Note:<br>You may assume k is always valid, 1 ≤ k ≤ BST’s total elements.</p>
+<p>Example 1:</p>
+<pre><code>Input: root = [3,1,4,null,2], k = 1
+3
+/ \
+1   4
+\
+2
+Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个二叉搜索树，求第k个最小的值。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>二叉搜索树特性。左子节点 &lt; 父节点 &lt; 右子节点， 其中序遍历结果就是一个递增序列。</li>
+<li>得到中序遍历序列，返回第k小的值。</li>
+<li>利用中序遍历过程，对 k 进行操作。每遍历一个节点，则 –k ;当 k 等于 0 时，则返回当前节点的值。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Inorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span>;&#125;</span><br><span class="line">        Inorder(root-&gt;left, inorder);</span><br><span class="line">        inorder.push_back(root-&gt;val);</span><br><span class="line">        Inorder(root-&gt;right, inorder);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorder</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorder;</span><br><span class="line">        Inorder(root, inorder);</span><br><span class="line">        <span class="keyword">return</span> inorder[k<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorderk</span><span class="params">(TreeNode* root, <span class="keyword">int</span>&amp; k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">-1</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> val = kth_Inorderk(root-&gt;left, k);</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> val;&#125;</span><br><span class="line">        --k;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> root-&gt;val;&#125;</span><br><span class="line">        <span class="keyword">return</span> kth_Inorderk(root-&gt;right, k);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorderk_iter</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur = root;</span><br><span class="line">        <span class="keyword">while</span>(stk.<span class="built_in">size</span>() &gt; <span class="number">0</span> || cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">//遍历左子节点</span></span><br><span class="line">            <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                stk.push(cur);</span><br><span class="line">                cur = cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            TreeNode* tmp = stk.top(); stk.pop();</span><br><span class="line">            --k;</span><br><span class="line">            <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> tmp-&gt;val;&#125;</span><br><span class="line">            cur = tmp-&gt;right;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">// 1- 中序遍历，得到排序序列后返回值</span></span><br><span class="line">        <span class="comment">// return kth_Inorder(root, k);</span></span><br><span class="line">        <span class="comment">// 2- 中序遍历得到第k小的数, 每遍历一个节点，k减一？直到k为0则遍历到该点？[递归+迭代]</span></span><br><span class="line">        <span class="comment">// return kth_Inorderk(root, k);</span></span><br><span class="line">        <span class="keyword">return</span> kth_Inorderk_iter(root, k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/227-Basic-Calculator-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/03/227-Basic-Calculator-II/" itemprop="url">227. Basic Calculator II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T10:30:53+08:00">
+                2020-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Implement a basic calculator to evaluate a simple expression string.</p>
+<p>The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.</p>
+<p>Example 1:</p>
+<pre><code>Input: &quot;3+2*2&quot;
+Output: 7</code></pre><p>Example 2:</p>
+<pre><code>Input: &quot; 3/2 &quot;
+Output: 1</code></pre><p>Example 3:</p>
+<pre><code>Input: &quot; 3+5 / 2 &quot;
+Output: 5</code></pre><p><code>Note</code>:</p>
+<p>You may assume that the given expression is always valid.<br>Do not use the eval built-in library function.</p>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个字符串，是一个计算式子，包含数字和 加减乘除四种运算符号，以及空格。我们返回计算式子的最终值。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>一开始想到用栈来分别保存 数值 和 运算符。遍历字符串，遇到空格就略过；遇到数值就存储起来；对于运算符，乘法除法的优先级高于加法减法，我的思路是遇到乘除法就先进行计算，最后将式子变为只剩下加减法（平级）：如果遇到乘法除法，则取其前后两个数值进行计算再将 结果数值存储起来；遇到加法、减法符号就直接入栈。</li>
+<li>后来发现，用栈存储是不对的，因为加减法是平级的，我们需要从头往后计算，而不是先计算后头的。出错例子： “1-1+1”， 如果用栈存储，栈内数据分别为：1, 1, 1 和 -, +；先计算加法，栈内数据更新为： 1,2 和 -；然后最后结果是-1，出错。所以应该是从头开始计算。用vector容器存储就可以。</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNextNum</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span>&amp; idx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(idx &lt; s.<span class="built_in">size</span>() <span class="keyword">and</span> s[idx] == <span class="string">' '</span>)&#123; ++idx;&#125;</span><br><span class="line">        <span class="keyword">for</span>(; idx &lt; s.<span class="built_in">size</span>(); ++idx)&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = s[idx];</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">'0'</span> &lt;= ch <span class="keyword">and</span> ch &lt;= <span class="string">'9'</span>)&#123;</span><br><span class="line">                num = num*<span class="number">10</span>+(ch-<span class="string">'0'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个栈，用栈来存储数值，另一个栈存储加减法。遇到乘法或除法进行计算，加减法就入栈</span></span><br><span class="line">        <span class="comment">//不用栈，用vector！！！</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vals;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; opt;</span><br><span class="line">        <span class="keyword">int</span> curv = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>();)&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = s[i];</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">' '</span>)&#123; ++i; <span class="keyword">continue</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'+'</span> <span class="keyword">or</span> ch == <span class="string">'-'</span>)&#123;</span><br><span class="line">                opt.push_back(ch);</span><br><span class="line">                ++i;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'/'</span> <span class="keyword">or</span> ch == <span class="string">'*'</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> v1 = vals.back(); vals.pop_back();</span><br><span class="line">                <span class="keyword">int</span> v2 = getNextNum(s, ++i);<span class="comment">//获取值</span></span><br><span class="line">                <span class="keyword">int</span> newv = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(ch == <span class="string">'/'</span>)&#123;</span><br><span class="line">                    newv = v1/v2;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    newv = v1*v2;</span><br><span class="line">                &#125;</span><br><span class="line">                vals.push_back(newv);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                vals.push_back(getNextNum(s, i));<span class="comment">//获取值</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对栈进行操作</span></span><br><span class="line">        <span class="keyword">int</span> oidx = <span class="number">0</span>, vidx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> v1 = vals[vidx++];</span><br><span class="line">        <span class="keyword">while</span>(oidx &lt; opt.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = opt[oidx++];</span><br><span class="line">            <span class="keyword">int</span> v2 = vals[vidx++];</span><br><span class="line">            <span class="keyword">int</span> newv = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'-'</span>)&#123;</span><br><span class="line">                newv = v1-v2;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                newv = v1+v2;</span><br><span class="line">            &#125;</span><br><span class="line">            v1 = newv;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> v1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/217-Contains-Duplicate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1347,274 +1623,6 @@ Explanation:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/200-Number-of-Islands/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/27/200-Number-of-Islands/" itemprop="url">200. Number of Islands</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T20:02:11+08:00">
-                2020-04-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
-<p>Example 1:</p>
-<pre><code>Input:
-11110
-11010
-11000
-00000
-
-Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个由字符 ‘0’ 和 ‘1’组成的二维数组，0代表水，1代表陆地，求给定数组里头小岛有几个。小岛的定义是：四面被水包围的陆地，设边界处都是水。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li><code>深搜</code>思路。遍历数组，当遇到一块陆地（字符’1’）时，则将该小岛标记起来（遍历每一个相邻的’1’），表示已经访问过该小岛。然后再继续寻找下一个小岛。时间：$O(n)$<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> rows = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> cols = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">num_DFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid, <span class="keyword">int</span> r, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(r &lt; <span class="number">0</span> || c &lt; <span class="number">0</span> || r &gt;= rows || c &gt;= cols || grid[r][c] == <span class="string">'0'</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        grid[r][c] = <span class="string">'0'</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">            num_DFS(grid, r+dx[i], c+dy[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        rows = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(rows == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        cols = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//深搜</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'1'</span>)&#123;</span><br><span class="line">                    ++ count;</span><br><span class="line">                    num_DFS(grid, i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/198-House-Robber/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/26/198-House-Robber/" itemprop="url">198. House Robber</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-26T11:34:29+08:00">
-                2020-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
-<p>Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.</p>
-<p>Example 1:</p>
-<pre><code>Input: [1,2,3,1]
-Output: 4
-Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
-         Total amount you can rob = 1 + 3 = 4.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>有一个盗贼，想要入屋盗窃。现小区内有一排房子，房子都装有报警器，如果偷了两家相邻的房子，则会自动报警。假设小偷知道每家每户的可盗取金额，问小偷最多能偷多少钱。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>动态规划方法。 对于当前i房子，他可以选择偷或不偷，如果偷， 他不能偷 i-1家的，下一次得从i-2家投起；如果不偷，则可以再从i-1家偷起。所以可以退出一个递推式子： $dp[i] = max(dp[i-2]+money[i], dp[i-1])$.</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_2</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="built_in">size</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = nums[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i<span class="number">-1</span>; ++j)</span><br><span class="line">                dp[i] = <span class="built_in">max</span>(<span class="built_in">max</span>(nums[i]+dp[j], dp[i<span class="number">-1</span>]), dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">size</span><span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_1</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="built_in">size</span>+<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">1</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="built_in">size</span>+<span class="number">1</span>; ++i)&#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(nums[i<span class="number">-1</span>]+dp[i<span class="number">-2</span>], dp[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">size</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">robDP_11</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> pre1 = nums[<span class="number">0</span>], pre2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">size</span>; ++i)&#123;</span><br><span class="line">            tmp = <span class="built_in">max</span>(nums[i]+pre2, pre1);</span><br><span class="line">            pre2 = pre1;</span><br><span class="line">            pre1 = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123; <span class="keyword">return</span> nums[<span class="number">0</span>];&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">2</span>)&#123; <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);&#125;</span><br><span class="line">        <span class="comment">//动态规划--双重循环</span></span><br><span class="line">        <span class="comment">// return robDP_2(nums);</span></span><br><span class="line">        <span class="comment">// 单重循环</span></span><br><span class="line">        <span class="comment">// return robDP_1(nums);</span></span><br><span class="line">        <span class="comment">//减少空间</span></span><br><span class="line">        <span class="keyword">return</span> robDP_11(nums);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1665,7 +1673,7 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1678,7 +1686,7 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

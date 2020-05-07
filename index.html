@@ -229,6 +229,286 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/07/283-Move-Zeroes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/07/283-Move-Zeroes/" itemprop="url">283. Move Zeroes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-07T20:23:12+08:00">
+                2020-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.</p>
+<p>Example:</p>
+<pre><code>Input: [0,1,0,3,12]
+Output: [1,3,12,0,0]</code></pre><p><code>Note</code>:</p>
+<ul>
+<li>You must do this in-place without making a copy of the array.</li>
+<li>Minimize the total number of operations.</li>
+</ul>
+<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个数组，要求我们不能增加额外的空间，将数组中 的 0 值交换到数组最后，并且保持非0数组间的相对顺序（类似稳定排序的概念）。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li>两个指针。看到需要在原数组上对<strong>两类值</strong>进行交换位置，就考虑到了用双指针：一个指针a用于指向一类值的位置，另一个b指向另一类值的位置，由此交换两个位置的值，并且更新指针指向位置，循环致结束。</li>
+<li>保持相对顺序。一开始，就想着双指针分别从两头开始寻找对应位置，然后交换值。但是结果显示，这样做会破坏各个元素的相对位置。比如 0,1,0,3,12 的结果会是 12, 1, 3, 0, 0. 这样是不对的。所以，我们得注意替换过程中不能改变相对位置。最后，可以将连个指针都从 0 位置开始寻找，这样交换时，肯定能保存非0数值的相对位置： 比如，0,1,0,3,12, 第一次：1,0,0,3,12,第二次：1,3,0,0,12,第三次：1,3,12,0,0.</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move_2p</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt;= r &amp;&amp; nums[l] != <span class="number">0</span>)&#123; ++l;&#125;</span><br><span class="line">            <span class="keyword">while</span>(r &gt;=l &amp;&amp; nums[r] == <span class="number">0</span>)&#123; --r;&#125;</span><br><span class="line">            nums[l] = nums[r];</span><br><span class="line">            nums[r] = <span class="number">0</span>;</span><br><span class="line">            ++l;</span><br><span class="line">            --r;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move_2p_fix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="comment">//一个维护0的位置，一个寻找不是0的</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span> = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span>(l &lt; <span class="built_in">size</span> &amp;&amp; r &lt; <span class="built_in">size</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; <span class="built_in">size</span> &amp;&amp; nums[l] != <span class="number">0</span>)&#123; ++l;&#125;</span><br><span class="line">            r = l;</span><br><span class="line">            <span class="keyword">while</span>(r &lt; <span class="built_in">size</span> &amp;&amp; nums[r] == <span class="number">0</span>)&#123; ++r;&#125;</span><br><span class="line">            <span class="keyword">if</span>(r &gt;= <span class="built_in">size</span>) <span class="keyword">break</span>;</span><br><span class="line">            nums[l] = nums[r];</span><br><span class="line">            nums[r] = <span class="number">0</span>;</span><br><span class="line">            ++l;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//双指针？ 不维持相对位置，错误</span></span><br><span class="line">        <span class="comment">// move_2p(nums);</span></span><br><span class="line">        <span class="comment">// 修改过后</span></span><br><span class="line">        move_2p_fix(nums);</span><br><span class="line">        <span class="comment">//暴力挪？</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/07/279-Perfect-Squares/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/07/279-Perfect-Squares/" itemprop="url">279. Perfect Squares</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-07T20:22:30+08:00">
+                2020-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
+<p>Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, …) which sum to n.</p>
+<p>Example 1:</p>
+<pre><code>Input: n = 12
+Output: 3 
+Explanation: 12 = 4 + 4 + 4.</code></pre><p>Example 2:</p>
+<pre><code>Input: n = 13
+Output: 2
+Explanation: 13 = 4 + 9.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个数，求解其最少由几个平方数值组成。平方数值：1,4,9,16,…。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
+<ul>
+<li><p>啊，一开始真的摸不着头脑。只能看别人的blog汲取智慧。</p>
+</li>
+<li><p>最短路径（广搜）。</p>
+<p>举个例子，该题可以看做是n 到 0 的不同路径组成的图，求解其最短路径。源是 n， 终点是0， 中间的节点值有 1–n-1。每条路径上，假设当前点是n_i, 则下个点n_i+1则有是 n_i - (平方数值)，有k中可能。我们就是想找出源节点到目的节点的最短路径捏。</p>
+<p><em>最短路径</em> ：从源节点出发，遍历平方数值（广搜），得到下一个可以到达的节点，判断是否到达0。如果没有节点是0，则继续上一步骤，遍历下一波节点。每次向前走一步，我们就可以将步数+1，最后到达0节点是，返回步数。</p>
+</li>
+<li><p>动态规划。</p>
+<p>由BFS的陈述中，可以发现该题还可以用动态规划求解，其推导公式是：$dp[i] = min(dp[i], 1+ dp[nums[i]- squaresNum[j]])$.</p>
+</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; sq;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getSq</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i*i &lt;= n)&#123;</span><br><span class="line">                sq.push_back(i*i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSq_BFS</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; mq;</span><br><span class="line">        mq.push(n);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(mq.<span class="built_in">size</span>() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            ++ res;</span><br><span class="line">            <span class="keyword">int</span> s = mq.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = mq.front(); mq.pop();</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; sq.<span class="built_in">size</span>() &amp;&amp; sq[j] &lt;= tmp; ++j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(sq[j] == tmp)&#123; <span class="keyword">return</span> res;&#125;</span><br><span class="line">                    <span class="keyword">int</span> rem = tmp - sq[j];</span><br><span class="line">                    mq.push(rem);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSq_DP</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> count = n+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; sq.<span class="built_in">size</span>() &amp;&amp; sq[j] &lt;= i; ++j)&#123;</span><br><span class="line">                count = <span class="built_in">min</span>(count, <span class="number">1</span> + dp[i-sq[j]]);</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i] = count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        getSq(n);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//广搜思想</span></span><br><span class="line">        <span class="comment">// return numSq_BFS(n);</span></span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="keyword">return</span> numSq_DP(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/240-Search-a-2D-Matrix-II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1333,282 +1613,6 @@ Output: true</code></pre><p><code>Follow up</code>:</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/230-Kth-Smallest-Element-in-a-BST/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/03/230-Kth-Smallest-Element-in-a-BST/" itemprop="url">230. Kth Smallest Element in a BST</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T10:31:07+08:00">
-                2020-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.</p>
-<p>Note:<br>You may assume k is always valid, 1 ≤ k ≤ BST’s total elements.</p>
-<p>Example 1:</p>
-<pre><code>Input: root = [3,1,4,null,2], k = 1
-3
-/ \
-1   4
-\
-2
-Output: 1</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个二叉搜索树，求第k个最小的值。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>二叉搜索树特性。左子节点 &lt; 父节点 &lt; 右子节点， 其中序遍历结果就是一个递增序列。</li>
-<li>得到中序遍历序列，返回第k小的值。</li>
-<li>利用中序遍历过程，对 k 进行操作。每遍历一个节点，则 –k ;当 k 等于 0 时，则返回当前节点的值。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2></li>
-</ul>
-<hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Inorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span>;&#125;</span><br><span class="line">        Inorder(root-&gt;left, inorder);</span><br><span class="line">        inorder.push_back(root-&gt;val);</span><br><span class="line">        Inorder(root-&gt;right, inorder);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorder</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorder;</span><br><span class="line">        Inorder(root, inorder);</span><br><span class="line">        <span class="keyword">return</span> inorder[k<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorderk</span><span class="params">(TreeNode* root, <span class="keyword">int</span>&amp; k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">-1</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> val = kth_Inorderk(root-&gt;left, k);</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> val;&#125;</span><br><span class="line">        --k;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> root-&gt;val;&#125;</span><br><span class="line">        <span class="keyword">return</span> kth_Inorderk(root-&gt;right, k);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kth_Inorderk_iter</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur = root;</span><br><span class="line">        <span class="keyword">while</span>(stk.<span class="built_in">size</span>() &gt; <span class="number">0</span> || cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">//遍历左子节点</span></span><br><span class="line">            <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                stk.push(cur);</span><br><span class="line">                cur = cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            TreeNode* tmp = stk.top(); stk.pop();</span><br><span class="line">            --k;</span><br><span class="line">            <span class="keyword">if</span>(k == <span class="number">0</span>)&#123; <span class="keyword">return</span> tmp-&gt;val;&#125;</span><br><span class="line">            cur = tmp-&gt;right;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">// 1- 中序遍历，得到排序序列后返回值</span></span><br><span class="line">        <span class="comment">// return kth_Inorder(root, k);</span></span><br><span class="line">        <span class="comment">// 2- 中序遍历得到第k小的数, 每遍历一个节点，k减一？直到k为0则遍历到该点？[递归+迭代]</span></span><br><span class="line">        <span class="comment">// return kth_Inorderk(root, k);</span></span><br><span class="line">        <span class="keyword">return</span> kth_Inorderk_iter(root, k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/227-Basic-Calculator-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/03/227-Basic-Calculator-II/" itemprop="url">227. Basic Calculator II</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T10:30:53+08:00">
-                2020-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Implement a basic calculator to evaluate a simple expression string.</p>
-<p>The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.</p>
-<p>Example 1:</p>
-<pre><code>Input: &quot;3+2*2&quot;
-Output: 7</code></pre><p>Example 2:</p>
-<pre><code>Input: &quot; 3/2 &quot;
-Output: 1</code></pre><p>Example 3:</p>
-<pre><code>Input: &quot; 3+5 / 2 &quot;
-Output: 5</code></pre><p><code>Note</code>:</p>
-<p>You may assume that the given expression is always valid.<br>Do not use the eval built-in library function.</p>
-<h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>给定一个字符串，是一个计算式子，包含数字和 加减乘除四种运算符号，以及空格。我们返回计算式子的最终值。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<ul>
-<li>一开始想到用栈来分别保存 数值 和 运算符。遍历字符串，遇到空格就略过；遇到数值就存储起来；对于运算符，乘法除法的优先级高于加法减法，我的思路是遇到乘除法就先进行计算，最后将式子变为只剩下加减法（平级）：如果遇到乘法除法，则取其前后两个数值进行计算再将 结果数值存储起来；遇到加法、减法符号就直接入栈。</li>
-<li>后来发现，用栈存储是不对的，因为加减法是平级的，我们需要从头往后计算，而不是先计算后头的。出错例子： “1-1+1”， 如果用栈存储，栈内数据分别为：1, 1, 1 和 -, +；先计算加法，栈内数据更新为： 1,2 和 -；然后最后结果是-1，出错。所以应该是从头开始计算。用vector容器存储就可以。</li>
-</ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNextNum</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span>&amp; idx)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(idx &lt; s.<span class="built_in">size</span>() <span class="keyword">and</span> s[idx] == <span class="string">' '</span>)&#123; ++idx;&#125;</span><br><span class="line">        <span class="keyword">for</span>(; idx &lt; s.<span class="built_in">size</span>(); ++idx)&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = s[idx];</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">'0'</span> &lt;= ch <span class="keyword">and</span> ch &lt;= <span class="string">'9'</span>)&#123;</span><br><span class="line">                num = num*<span class="number">10</span>+(ch-<span class="string">'0'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//两个栈，用栈来存储数值，另一个栈存储加减法。遇到乘法或除法进行计算，加减法就入栈</span></span><br><span class="line">        <span class="comment">//不用栈，用vector！！！</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vals;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; opt;</span><br><span class="line">        <span class="keyword">int</span> curv = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>();)&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = s[i];</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">' '</span>)&#123; ++i; <span class="keyword">continue</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'+'</span> <span class="keyword">or</span> ch == <span class="string">'-'</span>)&#123;</span><br><span class="line">                opt.push_back(ch);</span><br><span class="line">                ++i;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'/'</span> <span class="keyword">or</span> ch == <span class="string">'*'</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> v1 = vals.back(); vals.pop_back();</span><br><span class="line">                <span class="keyword">int</span> v2 = getNextNum(s, ++i);<span class="comment">//获取值</span></span><br><span class="line">                <span class="keyword">int</span> newv = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(ch == <span class="string">'/'</span>)&#123;</span><br><span class="line">                    newv = v1/v2;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    newv = v1*v2;</span><br><span class="line">                &#125;</span><br><span class="line">                vals.push_back(newv);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                vals.push_back(getNextNum(s, i));<span class="comment">//获取值</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对栈进行操作</span></span><br><span class="line">        <span class="keyword">int</span> oidx = <span class="number">0</span>, vidx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> v1 = vals[vidx++];</span><br><span class="line">        <span class="keyword">while</span>(oidx &lt; opt.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = opt[oidx++];</span><br><span class="line">            <span class="keyword">int</span> v2 = vals[vidx++];</span><br><span class="line">            <span class="keyword">int</span> newv = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'-'</span>)&#123;</span><br><span class="line">                newv = v1-v2;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                newv = v1+v2;</span><br><span class="line">            &#125;</span><br><span class="line">            v1 = newv;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> v1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1659,7 +1663,7 @@ Output: 5</code></pre><p><code>Note</code>:</p>
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1672,7 +1676,7 @@ Output: 5</code></pre><p><code>Note</code>:</p>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
