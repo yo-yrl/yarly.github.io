@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="LeetCode,BiTree,Path,Hard,Bi_Travalsal," />
+  <meta name="keywords" content="LeetCode,Hard,Math," />
 
 
 
@@ -79,21 +79,19 @@
 
 
 
-<meta name="description" content="题目 Given a non-empty binary tree, find the maximum path sum. For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connect">
+<meta name="description" content="题目 You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i]. Example:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="124. Binary Tree Maximum Path Sum">
-<meta property="og:url" content="http://yoursite.com/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/index.html">
+<meta property="og:title" content="315. Count of Smaller Numbers After Self">
+<meta property="og:url" content="http://yoursite.com/2020/05/09/315-Count-of-Smaller-Numbers-After-Self/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目 Given a non-empty binary tree, find the maximum path sum. For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connect">
+<meta property="og:description" content="题目 You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i]. Example:">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-05T14:26:18.344Z">
-<meta property="article:modified_time" content="2020-04-06T01:21:03.039Z">
+<meta property="article:published_time" content="2020-05-09T07:29:01.000Z">
+<meta property="article:modified_time" content="2020-05-09T08:35:50.029Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="BiTree">
-<meta property="article:tag" content="Path">
 <meta property="article:tag" content="Hard">
-<meta property="article:tag" content="Bi_Travalsal">
+<meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/05/09/315-Count-of-Smaller-Numbers-After-Self/"/>
 
 
 
 
 
-  <title>124. Binary Tree Maximum Path Sum | Hexo</title>
+  <title>315. Count of Smaller Numbers After Self | Hexo</title>
   
 
 
@@ -237,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/05/124-Binary-Tree-Maximum-Path-Sum/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/09/315-Count-of-Smaller-Numbers-After-Self/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -254,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">124. Binary Tree Maximum Path Sum</h1>
+          <h1 class="post-title" itemprop="name headline">315. Count of Smaller Numbers After Self</h1>
         
 
         <div class="post-meta">
@@ -266,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-05T22:26:18+08:00">
-                2020-04-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-09T15:29:01+08:00">
+                2020-05-09
               </time>
             
 
@@ -305,22 +303,21 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><hr>
-<p>Given a non-empty binary tree, find the maximum path sum.</p>
-<p>For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.</p>
-<p>Example 1:</p>
-<pre><code>Input: [1,2,3]
-
-   1
-  / \
- 2   3
-
-Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
-<p>题目要求我们找出一条路径，从任意某个点开始到任意一个点结束的一条路径，使得这条路径上值的和最大。比如上述例子，是2-1-3这条路径（或者反过来）。</p>
+<p>You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].</p>
+<p>Example:</p>
+<pre><code>Input: [5,2,6,1]
+Output: [2,1,1,0] 
+Explanation:
+To the right of 5 there are 2 smaller elements (2 and 1).
+To the right of 2 there is only 1 smaller element (1).
+To the right of 6 there is 1 smaller element (1).
+To the right of 1 there is 0 smaller element.</code></pre><h2 id="题意分析"><a href="#题意分析" class="headerlink" title="题意分析"></a>题意分析</h2><hr>
+<p>给定一个数组，找出每一个数，在其之后比它小的数的个数。</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><hr>
-<p>一般遇到二叉树-求路径的题都会考虑遍历（递归形式），然后基于某种遍历方式，添加要额外的功能，比如该题的求一条路径的上的和。</p>
-<p>因为要求的是和最大的路径，则对于某个点(val)来说，他当前的最大路径和等于 val+left_val+right_val的值，他返回给上一层几点的值为val + max(left_val, right_val)。</p>
-<p>考虑后序遍历形式（从叶节点向上遍历，这样只需遍历一次就可以求得最大路径）。我们可以求得当前节点（val）的左右子树的路径最大值, 分别为left_val, right_val（如果为nullptr或值&lt;0，则为0）。然后更新路径最大和，res = max(res, val+left_val+right_val)，返回 val + max(left, right)——返回和最大的路径。</p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> res = INT_MIN;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTrav</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> val = root-&gt;val;</span><br><span class="line">        <span class="keyword">int</span> left = INT_MIN, right = INT_MIN;</span><br><span class="line">        left =  <span class="built_in">max</span>(<span class="number">0</span>, maxTrav(root-&gt;left));</span><br><span class="line">        right = <span class="built_in">max</span>(<span class="number">0</span>, maxTrav(root-&gt;right));</span><br><span class="line">        <span class="keyword">int</span> sum  = <span class="number">0</span>;</span><br><span class="line">        sum = val + left + right;</span><br><span class="line">        <span class="comment">// if(left &gt; 0)&#123; sum += left;&#125;</span></span><br><span class="line">        <span class="comment">// if(right &gt; 0)&#123; sum += right;&#125;</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, sum);</span><br><span class="line">        <span class="keyword">return</span> val+<span class="built_in">max</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">//遍历</span></span><br><span class="line">        maxTrav(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>暴力破解。对于每个数，都寻找一遍其后头的数一遍。</li>
+<li>插入排序算法。前提条件：题目没有限定不可以改变输入数组。我们想的是能尽快得到比这个数小的数值，可以利用一个有序性。而插入排序和这种想法很像，就是寻找这个数的位置，借此我们可以知道这个数在之前数组中的位置（这就相当于知道了它前头有多少个比它小的数！）这种思路，也是$O(n^2)$的时间复杂度。<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">count_insert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>)&#123; <span class="keyword">return</span> &#123;&#125;;&#125;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123; <span class="keyword">return</span> &#123;<span class="number">0</span>&#125;;&#125;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">size</span>= nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cpnums = nums;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        res.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="built_in">size</span><span class="number">-2</span>; i &gt;= <span class="number">0</span>; --i)&#123;</span><br><span class="line">            <span class="keyword">int</span> n = nums[i];</span><br><span class="line">            <span class="keyword">int</span> j = i+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; <span class="built_in">size</span> &amp;&amp; n &lt;= nums[j])&#123;</span><br><span class="line">                nums[j<span class="number">-1</span>] = nums[j];</span><br><span class="line">                ++j;</span><br><span class="line">            &#125;</span><br><span class="line">            nums[j<span class="number">-1</span>] = n;</span><br><span class="line">            res.push_back(<span class="built_in">size</span>-j);</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">countSmaller</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//插入排序</span></span><br><span class="line">        <span class="keyword">return</span> count_insert(nums);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -340,13 +337,9 @@ Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
           
             <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-            <a href="/tags/BiTree/" rel="tag"># BiTree</a>
-          
-            <a href="/tags/Path/" rel="tag"># Path</a>
-          
             <a href="/tags/Hard/" rel="tag"># Hard</a>
           
-            <a href="/tags/Bi-Travalsal/" rel="tag"># Bi_Travalsal</a>
+            <a href="/tags/Math/" rel="tag"># Math</a>
           
         </div>
       
@@ -359,8 +352,8 @@ Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/04/121-Best-Time-to-Buy-and-Sell-Stock/" rel="next" title="121. Best Time to Buy and Sell Stock">
-                <i class="fa fa-chevron-left"></i> 121. Best Time to Buy and Sell Stock
+              <a href="/2020/05/07/283-Move-Zeroes/" rel="next" title="283. Move Zeroes">
+                <i class="fa fa-chevron-left"></i> 283. Move Zeroes
               </a>
             
           </div>
@@ -369,8 +362,8 @@ Output: 6</code></pre><h2 id="题意分析"><a href="#题意分析" class="heade
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/06/125-Valid-Palindrome/" rel="prev" title="125. Valid Palindrome">
-                125. Valid Palindrome <i class="fa fa-chevron-right"></i>
+              <a href="/2020/05/09/300-Longest-Increasing-Subsequence/" rel="prev" title="300. Longest Increasing Subsequence">
+                300. Longest Increasing Subsequence <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
